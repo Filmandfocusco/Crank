@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0D0D0D" />
+  <meta name="description"
+    content="Professional frame rate, shutter angle, and ND filter calculator for Focus Pullers and DITs." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FPS Calc" />
+  <title>FPS Calc — Camera Department Tools</title>
+  <link rel="manifest"
+    href="data:application/manifest+json,%7B%22name%22%3A%22FPS+Calc%22%2C%22short_name%22%3A%22FPS%22%2C%22description%22%3A%22Professional+frame+rate+calculator+for+camera+departments%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D0D0D%22%2C%22theme_color%22%3A%22%230D0D0D%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+viewBox%3D%270+0+512+512%27%253E%253Crect+width%3D%27512%27+height%3D%27512%27+fill%3D%27%25230D0D0D%27%2F%253E%253Crect+x%3D%2764%27+y%3D%27112%27+width%3D%27384%27+height%3D%27288%27+rx%3D%2724%27+fill%3D%27none%27+stroke%3D%27%2523E8A020%27+stroke-width%3D%2724%27%2F%253E%253Ctext+x%3D%27256%27+y%3D%27280%27+font-family%3D%27monospace%27+font-size%3D%27120%27+fill%3D%27%2523E8A020%27+text-anchor%3D%27middle%27+dominant-baseline%3D%27middle%27%253EFPS%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any+maskable%22%7D%5D%7D" />
+  <link rel="apple-touch-icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230D0D0D'/><rect x='64' y='112' width='384' height='288' rx='24' fill='none' stroke='%23E8A020' stroke-width='24'/><text x='256' y='280' font-family='monospace' font-size='120' fill='%23E8A020' text-anchor='middle' dominant-baseline='middle'>FPS</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0D0D0D;
+      --surface: #1A1A1A;
+      --surface2: #111111;
+      --border: #2A2A2A;
+      --border-hover: #3A3A3A;
+      --accent: #E8A020;
+      --accent-dim: rgba(232, 160, 32, 0.12);
+      --accent-glow: rgba(232, 160, 32, 0.08);
+      --text-primary: #F0EDE8;
+      --text-muted: #888888;
+      --text-dim: #555555;
+      --warn: #C0392B;
+      --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+      --font-ui: 'DM Sans', system-ui, sans-serif;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --nav-h: 56px;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* ── App Header ── */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 12px;
+    }
+
+    .app-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .selector-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    /* ── Chips ── */
+    .chips-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0 -16px;
+      padding: 0 16px;
+    }
+
+    .chips-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chips-row {
+      display: flex;
+      gap: 6px;
+      width: max-content;
+      padding-bottom: 2px;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 4px;
+      padding: 3px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 3px);
+    }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .chip:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .chip.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── Main / Tabs ── */
+    .tab-panel {
+      display: none;
+      flex: 1;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .main {
+      padding: 20px 16px;
+      max-width: 640px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .section-gap {
+      margin-top: 28px;
+    }
+
+    /* ── Results Grid ── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width:340px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 14px;
+      cursor: pointer;
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      transition: border-color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .card:active {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .card.is-base {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .card.is-base::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-mult {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .card.is-base .card-mult {
+      color: var(--accent);
+    }
+
+    .card-copy-hint {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover .card-copy-hint {
+      opacity: 1;
+    }
+
+    .card-fps {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .card.is-base .card-fps {
+      color: var(--accent);
+    }
+
+    .card-unit {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-left: 4px;
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .card-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    .card-warn {
+      font-size: 9px;
+      color: var(--warn);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    /* ── Custom Input ── */
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .custom-input {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      width: 110px;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+
+    .custom-input:focus {
+      border-color: var(--accent);
+    }
+
+    .custom-input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .input-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── 180° badge ── */
+    .badge-180 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(232, 160, 32, 0.3);
+      border-radius: 100px;
+      padding: 3px 8px;
+      margin-top: 8px;
+    }
+
+    .badge-off180 {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    /* ── ND Stepper ── */
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 64px;
+    }
+
+    .stepper-btn {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      width: 64px;
+      height: 64px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .stepper-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .stepper-btn:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stepper-val {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .nd-result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-top: 12px;
+    }
+
+    .nd-primary {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .nd-secondary {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .nd-stack {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* ── Mode Tabs (within ND) ── */
+    .mode-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .mode-tab {
+      flex: 1;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      padding: 12px 8px;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      border-right: 1px solid var(--border);
+    }
+
+    .mode-tab:last-child {
+      border-right: none;
+    }
+
+    .mode-tab.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── ND Reference Table ── */
+    .nd-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .nd-table-header {
+      display: grid;
+      grid-template-columns: 48px 1fr 1fr 1fr;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nd-th {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .nd-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 1fr 1fr;
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(42, 42, 42, 0.5);
+      cursor: pointer;
+      transition: background 0.12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nd-row:last-child {
+      border-bottom: none;
+    }
+
+    .nd-row:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nd-row:active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nd-cell {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+
+    .nd-cell.stops {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ── FROM/TO selector layout ── */
+    .from-to-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .from-to-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      width: 36px;
+      flex-shrink: 0;
+    }
+
+    .from-to-scroll {
+      flex: 1;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .from-to-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ── Bottom Nav ── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 0;
+    }
+
+    .nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: var(--nav-h);
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s;
+      position: relative;
+    }
+
+    .nav-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .nav-btn.active {
+      color: var(--accent);
+    }
+
+    .nav-btn.active::after {
+      opacity: 1;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--accent);
+      color: #0D0D0D;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 100px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ HEADER (shared) ══ -->
+  <header class="app-header" id="app-header">
+    <p class="app-title" id="header-title">FPS Calc</p>
+    <div id="header-controls"></div>
+  </header>
+
+  <!-- ══ TAB: FPS ══ -->
+  <div class="tab-panel active" id="panel-fps">
+    <div class="main">
+      <p class="section-label">Frame Rate Multiples</p>
+      <div class="results-grid" id="fps-grid" role="list"></div>
+    </div>
+  </div>
+
+  <!-- ══ TAB: SHUTTER ══ -->
+  <div class="tab-panel" id="panel-shutter">
+    <div class="main">
+      <p class="section-label">Single Result</p>
+      <div class="results-grid" id="shutter-single-grid"></div>
+
+      <div class="section-gap">
+        <p class="section-label">Across All Multiples</p>
+        <div class="results-grid" id="shutter-multi-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB: ND ══ -->
+  <div class="tab-panel" id="panel-nd">
+    <div class="main">
+      <div class="mode-tabs" role="group" aria-label="ND Calculator Mode">
+        <button class="mode-tab active" id="nd-mode-fps" onclick="setNDMode('fps')">FPS Change</button>
+        <button class="mode-tab" id="nd-mode-stops" onclick="setNDMode('stops')">Manual Stops</button>
+        <button class="mode-tab" id="nd-mode-angle" onclick="setNDMode('angle')">Angle Change</button>
+      </div>
+
+      <!-- Mode A: FPS Change -->
+      <div id="nd-fps-mode">
+        <p class="selector-label">From FPS</p>
+        <div class="chips-scroll">
+          <div class="chips-row" id="nd-from-fps-chips"></div>
+        </div>
+        <div class="section-gap" style="margin-top:16px">
+          <p class="selector-label">To FPS</p>
+          <div class="chips-scroll">
+            <div class="chips-row" id="nd-to-fps-chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode B: Manual Stops -->
+      <div id="nd-stops-mode" style="display:none">
+        <p class="selector-label">Stops of ND</p>
+        <div class="stepper-row">
+          <button class="stepper-btn" id="nd-minus" onclick="changeStops(-1)" aria-label="Decrease stops">−</button>
+          <div class="stepper-val" id="nd-stops-val">3</div>
+          <button class="stepper-btn" id="nd-plus" onclick="changeStops(1)" aria-label="Increase stops">+</button>
+        </div>
+      </div>
+
+      <!-- Mode C: Angle Change -->
+      <div id="nd-angle-mode" style="display:none">
+        <p class="selector-label">From Angle</p>
+        <div class="chips-scroll">
+          <div class="chips-row" id="nd-from-angle-chips"></div>
+        </div>
+        <div class="section-gap" style="margin-top:16px">
+          <p class="selector-label">To Angle</p>
+          <div class="chips-scroll">
+            <div class="chips-row" id="nd-to-angle-chips"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ND Result -->
+      <div class="nd-result-card" id="nd-result-card">
+        <div class="nd-primary" id="nd-result-primary">—</div>
+        <div class="nd-secondary" id="nd-result-secondary"></div>
+        <div class="nd-stack" id="nd-result-stack"></div>
+      </div>
+
+      <!-- ND Reference Table -->
+      <div class="section-gap">
+        <p class="section-label">ND Filter Reference — Tap to Copy</p>
+        <div class="nd-table" id="nd-table">
+          <div class="nd-table-header">
+            <span class="nd-th">Stops</span>
+            <span class="nd-th">ND No.</span>
+            <span class="nd-th">Factor</span>
+            <span class="nd-th">Name</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BOTTOM NAV ══ -->
+  <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+    <button class="nav-btn active" id="nav-fps" onclick="switchTab('fps')">FPS</button>
+    <button class="nav-btn" id="nav-shutter" onclick="switchTab('shutter')">Shutter</button>
+    <button class="nav-btn" id="nav-nd" onclick="switchTab('nd')">ND</button>
+  </nav>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ══════════════════════════════════════════════════════
+    //  CONSTANTS
+    // ══════════════════════════════════════════════════════
+    const STANDARDS = [
+      { value: 23.976, group: 0 }, { value: 24, group: 0 },
+      { value: 25, group: 1 }, { value: 50, group: 1 },
+      { value: 29.97, group: 2 }, { value: 59.94, group: 2 },
+      { value: 48, group: 3 }, { value: 96, group: 3 },
+    ];
+
+    const MULTIPLES = [
+      { mult: 0.25, label: '¼ Speed', slowmo: '400% slow motion' },
+      { mult: 0.5, label: 'Half Speed', slowmo: '200% slow motion' },
+      { mult: 1, label: 'Project Std', slowmo: 'Base rate' },
+      { mult: 2, label: '2× Overcrank', slowmo: '50% slow motion' },
+      { mult: 3, label: '3× Overcrank', slowmo: '33% slow motion' },
+      { mult: 4, label: '4× Overcrank', slowmo: '25% slow motion' },
+      { mult: 6, label: '6× Overcrank', slowmo: '16.7% slow motion' },
+      { mult: 8, label: '8× Overcrank', slowmo: '12.5% slow motion' },
+    ];
+
+    const SHUTTER_ANGLES = [45, 90, 135, 172.8, 180, 270, 358];
+
+    const ND_TABLE_DATA = [
+      { stops: 1, nd: 'ND 0.3', factor: 'ND2', name: '' },
+      { stops: 2, nd: 'ND 0.6', factor: 'ND4', name: '' },
+      { stops: 3, nd: 'ND 0.9', factor: 'ND8', name: '"One stop ND"' },
+      { stops: 4, nd: 'ND 1.2', factor: 'ND16', name: '' },
+      { stops: 5, nd: 'ND 1.5', factor: 'ND32', name: '' },
+      { stops: 6, nd: 'ND 1.8', factor: 'ND64', name: '"IRND 1.8"' },
+      { stops: 7, nd: 'ND 2.1', factor: 'ND128', name: '' },
+      { stops: 8, nd: 'ND 2.4', factor: 'ND256', name: '' },
+      { stops: 9, nd: 'ND 2.7', factor: 'ND512', name: '' },
+      { stops: 10, nd: 'ND 3.0', factor: 'ND1024', name: '"ND 3.0"' },
+    ];
+
+    const STORAGE_KEY = 'fps-calc-standard';
+
+    // ══════════════════════════════════════════════════════
+    //  STATE
+    // ══════════════════════════════════════════════════════
+    let currentTab = 'fps';
+
+    // FPS tab
+    let fpsStandard = (() => {
+      const s = localStorage.getItem(STORAGE_KEY);
+      if (s) { const p = parseFloat(s); if (STANDARDS.some(x => x.value === p)) return p; }
+      return 23.976;
+    })();
+
+    // Shutter tab
+    let shutterFPS = 24;
+    let shutterAngle = 180;
+    let shutterCustomFPS = '';
+    let shutterCustomAngle = '';
+
+    // ND tab
+    let ndMode = 'fps';
+    let ndFromFPS = 24;
+    let ndToFPS = 48;
+    let ndFromAngle = 180;
+    let ndToAngle = 90;
+    let ndManualStops = 3;
+
+    // ══════════════════════════════════════════════════════
+    //  HELPERS
+    // ══════════════════════════════════════════════════════
+    function formatFPS(v) {
+      const r = Math.round(v * 1000) / 1000;
+      if (Number.isInteger(r)) return String(r);
+      return parseFloat(r.toFixed(3)).toString();
+    }
+
+    function getMultLabel(m) {
+      if (m === 0.25) return '¼×';
+      if (m === 0.5) return '½×';
+      return m + '×';
+    }
+
+    function copyText(text) {
+      if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) { } }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      } else { fallbackCopy(text); }
+      showToast('Copied ' + text);
+    }
+
+    function fallbackCopy(t) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = t;
+        ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (e) { }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 1500);
+    }
+
+    function makeChipGroups(values, activeVal, onClick, groupFn) {
+      const frag = document.createDocumentFragment();
+      if (groupFn) {
+        const groups = {};
+        values.forEach(v => {
+          const g = groupFn(v);
+          if (!groups[g]) groups[g] = [];
+          groups[g].push(v);
+        });
+        Object.values(groups).forEach(gv => {
+          const grp = document.createElement('div');
+          grp.className = 'chip-group';
+          gv.forEach(v => grp.appendChild(makeChip(v, activeVal, onClick)));
+          frag.appendChild(grp);
+        });
+      } else {
+        const grp = document.createElement('div');
+        grp.className = 'chip-group';
+        values.forEach(v => grp.appendChild(makeChip(v, activeVal, onClick)));
+        frag.appendChild(grp);
+      }
+      return frag;
+    }
+
+    function makeChip(val, activeVal, onClick) {
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (val === activeVal ? ' active' : '');
+      btn.textContent = val;
+      btn.setAttribute('aria-pressed', val === activeVal ? 'true' : 'false');
+      btn.addEventListener('click', () => onClick(val));
+      return btn;
+    }
+
+    function makeCard(opts) {
+      // opts: { topLabel, value, unit, bottomLabel, sub, isBase, warn, copyVal }
+      const card = document.createElement('div');
+      card.className = 'card' + (opts.isBase ? ' is-base' : '');
+      card.setAttribute('role', 'listitem');
+      card.setAttribute('tabindex', '0');
+      card.innerHTML = `
+    <div class="card-top">
+      <span class="card-mult">${opts.topLabel}</span>
+      <span class="card-copy-hint">Copy</span>
+    </div>
+    <div class="card-fps">${opts.value}<span class="card-unit">${opts.unit || ''}</span></div>
+    <div class="card-bottom">
+      <span class="card-label">${opts.bottomLabel || ''}</span>
+      <span class="card-sub">${opts.sub || ''}</span>
+    </div>
+    ${opts.warn ? `<div class="card-warn">${opts.warn}</div>` : ''}
+  `;
+      const copyVal = opts.copyVal !== undefined ? opts.copyVal : opts.value;
+      card.addEventListener('click', () => copyText(String(copyVal)));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(String(copyVal)); }
+      });
+      return card;
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  TAB SWITCHING
+    // ══════════════════════════════════════════════════════
+    function switchTab(tab) {
+      currentTab = tab;
+      ['fps', 'shutter', 'nd'].forEach(t => {
+        document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+        document.getElementById('nav-' + t).classList.toggle('active', t === tab);
+      });
+      renderHeader();
+      if (tab === 'fps') renderFPSTab();
+      if (tab === 'shutter') renderShutterTab();
+      if (tab === 'nd') renderNDTab();
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  HEADER
+    // ══════════════════════════════════════════════════════
+    function renderHeader() {
+      const ctrl = document.getElementById('header-controls');
+      ctrl.innerHTML = '';
+      if (currentTab === 'fps') {
+        const label = document.createElement('p');
+        label.className = 'selector-label';
+        label.textContent = 'Project Standard';
+        ctrl.appendChild(label);
+        const scroll = document.createElement('div');
+        scroll.className = 'chips-scroll';
+        const row = document.createElement('div');
+        row.className = 'chips-row';
+        row.id = 'fps-chips-row';
+        row.setAttribute('role', 'group');
+        row.setAttribute('aria-label', 'Select project frame rate');
+        scroll.appendChild(row);
+        ctrl.appendChild(scroll);
+        renderFPSChips();
+      } else if (currentTab === 'shutter') {
+        renderShutterHeader(ctrl);
+      }
+      // ND has no header controls (all in panel)
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  FPS TAB
+    // ══════════════════════════════════════════════════════
+    function renderFPSChips() {
+      const row = document.getElementById('fps-chips-row');
+      if (!row) return;
+      row.innerHTML = '';
+      const groups = {};
+      STANDARDS.forEach(s => {
+        if (!groups[s.group]) groups[s.group] = [];
+        groups[s.group].push(s.value);
+      });
+      Object.values(groups).forEach(gv => {
+        const grp = document.createElement('div');
+        grp.className = 'chip-group';
+        gv.forEach(v => {
+          const btn = makeChip(v, fpsStandard, val => {
+            fpsStandard = val;
+            localStorage.setItem(STORAGE_KEY, val);
+            renderFPSChips();
+            renderFPSTab();
+          });
+          grp.appendChild(btn);
+        });
+        row.appendChild(grp);
+      });
+    }
+
+    function renderFPSTab() {
+      const grid = document.getElementById('fps-grid');
+      grid.innerHTML = '';
+      MULTIPLES.forEach(({ mult, label, slowmo }) => {
+        const fps = fpsStandard * mult;
+        const fpsStr = formatFPS(fps);
+        const isBase = mult === 1;
+        const card = makeCard({
+          topLabel: getMultLabel(mult),
+          value: fpsStr,
+          unit: 'fps',
+          bottomLabel: label,
+          sub: isBase ? '' : slowmo,
+          isBase,
+          warn: fps > 1000 ? '⚠ Check camera limits' : '',
+          copyVal: fpsStr,
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  SHUTTER TAB
+    // ══════════════════════════════════════════════════════
+    function renderShutterHeader(ctrl) {
+      // FPS row
+      const fpsLabel = document.createElement('p');
+      fpsLabel.className = 'selector-label';
+      fpsLabel.textContent = 'Frame Rate';
+      ctrl.appendChild(fpsLabel);
+
+      const fpsScroll = document.createElement('div');
+      fpsScroll.className = 'chips-scroll';
+      const fpsRow = document.createElement('div');
+      fpsRow.className = 'chips-row';
+      fpsRow.id = 'shutter-fps-chips';
+      fpsScroll.appendChild(fpsRow);
+      ctrl.appendChild(fpsScroll);
+
+      // Custom FPS input
+      const fpsInputRow = document.createElement('div');
+      fpsInputRow.className = 'input-row';
+      const fpsInput = document.createElement('input');
+      fpsInput.type = 'number';
+      fpsInput.className = 'custom-input';
+      fpsInput.placeholder = 'Custom fps';
+      fpsInput.min = 1; fpsInput.max = 1000;
+      fpsInput.id = 'shutter-custom-fps';
+      if (shutterCustomFPS) fpsInput.value = shutterCustomFPS;
+      fpsInput.addEventListener('input', () => {
+        const v = parseFloat(fpsInput.value);
+        if (v >= 1 && v <= 1000) {
+          shutterCustomFPS = fpsInput.value;
+          shutterFPS = v;
+          // deactivate chip selection
+          document.querySelectorAll('#shutter-fps-chips .chip').forEach(c => c.classList.remove('active'));
+          renderShutterTab();
+        }
+      });
+      const fpsInputLabel = document.createElement('span');
+      fpsInputLabel.className = 'input-label';
+      fpsInputLabel.textContent = 'fps';
+      fpsInputRow.appendChild(fpsInput);
+      fpsInputRow.appendChild(fpsInputLabel);
+      ctrl.appendChild(fpsInputRow);
+
+      // Angle row
+      const angleLabel = document.createElement('p');
+      angleLabel.className = 'selector-label';
+      angleLabel.style.marginTop = '10px';
+      angleLabel.textContent = 'Shutter Angle';
+      ctrl.appendChild(angleLabel);
+
+      const angleScroll = document.createElement('div');
+      angleScroll.className = 'chips-scroll';
+      const angleRow = document.createElement('div');
+      angleRow.className = 'chips-row';
+      angleRow.id = 'shutter-angle-chips';
+      angleScroll.appendChild(angleRow);
+      ctrl.appendChild(angleScroll);
+
+      // Custom angle input
+      const angleInputRow = document.createElement('div');
+      angleInputRow.className = 'input-row';
+      const angleInput = document.createElement('input');
+      angleInput.type = 'number';
+      angleInput.className = 'custom-input';
+      angleInput.placeholder = 'Custom °';
+      angleInput.min = 1; angleInput.max = 358;
+      angleInput.id = 'shutter-custom-angle';
+      if (shutterCustomAngle) angleInput.value = shutterCustomAngle;
+      angleInput.addEventListener('input', () => {
+        const v = parseFloat(angleInput.value);
+        if (v >= 1 && v <= 358) {
+          shutterCustomAngle = angleInput.value;
+          shutterAngle = v;
+          document.querySelectorAll('#shutter-angle-chips .chip').forEach(c => c.classList.remove('active'));
+          renderShutterTab();
+        }
+      });
+      const angleInputLabel = document.createElement('span');
+      angleInputLabel.className = 'input-label';
+      angleInputLabel.textContent = '°';
+      angleInputRow.appendChild(angleInput);
+      angleInputRow.appendChild(angleInputLabel);
+      ctrl.appendChild(angleInputRow);
+
+      // 180° badge
+      const badgeEl = document.createElement('div');
+      badgeEl.id = 'shutter-180-badge';
+      ctrl.appendChild(badgeEl);
+
+      // Populate chips
+      populateShutterFPSChips();
+      populateShutterAngleChips();
+      update180Badge();
+    }
+
+    function populateShutterFPSChips() {
+      const row = document.getElementById('shutter-fps-chips');
+      if (!row) return;
+      row.innerHTML = '';
+      const groups = {};
+      STANDARDS.forEach(s => {
+        if (!groups[s.group]) groups[s.group] = [];
+        groups[s.group].push(s.value);
+      });
+      Object.values(groups).forEach(gv => {
+        const grp = document.createElement('div');
+        grp.className = 'chip-group';
+        gv.forEach(v => {
+          const btn = makeChip(v, shutterFPS, val => {
+            shutterFPS = val;
+            shutterCustomFPS = '';
+            const ci = document.getElementById('shutter-custom-fps');
+            if (ci) ci.value = '';
+            populateShutterFPSChips();
+            renderShutterTab();
+          });
+          grp.appendChild(btn);
+        });
+        row.appendChild(grp);
+      });
+    }
+
+    function populateShutterAngleChips() {
+      const row = document.getElementById('shutter-angle-chips');
+      if (!row) return;
+      row.innerHTML = '';
+      const grp = document.createElement('div');
+      grp.className = 'chip-group';
+      SHUTTER_ANGLES.forEach(v => {
+        const btn = makeChip(v, shutterAngle, val => {
+          shutterAngle = val;
+          shutterCustomAngle = '';
+          const ci = document.getElementById('shutter-custom-angle');
+          if (ci) ci.value = '';
+          populateShutterAngleChips();
+          update180Badge();
+          renderShutterTab();
+        });
+        btn.textContent = v + '°';
+        grp.appendChild(btn);
+      });
+      row.appendChild(grp);
+    }
+
+    function update180Badge() {
+      const el = document.getElementById('shutter-180-badge');
+      if (!el) return;
+      if (shutterAngle === 180) {
+        el.innerHTML = '<span class="badge-180">● 180° Rule</span>';
+      } else {
+        el.innerHTML = '<span class="badge-off180">△ Off 180° rule</span>';
+      }
+    }
+
+    function calcShutterSpeed(fps, angle) {
+      // Shutter Speed = angle / (360 × fps)
+      return angle / (360 * fps);
+    }
+
+    function formatShutterFraction(ss) {
+      // ss is in seconds, display as 1/N
+      const denom = Math.round(1 / ss);
+      return '1/' + denom;
+    }
+
+    function formatShutterMS(ss) {
+      return (ss * 1000).toFixed(2) + 'ms';
+    }
+
+    function renderShutterTab() {
+      // Single result
+      const singleGrid = document.getElementById('shutter-single-grid');
+      singleGrid.innerHTML = '';
+      const ss = calcShutterSpeed(shutterFPS, shutterAngle);
+      const frac = formatShutterFraction(ss);
+      const ms = formatShutterMS(ss);
+      const isWarn = ss < 1 / 8000;
+      const card = makeCard({
+        topLabel: shutterAngle + '° @ ' + formatFPS(shutterFPS) + 'fps',
+        value: frac,
+        unit: 's',
+        bottomLabel: 'Shutter Speed',
+        sub: ms,
+        isBase: true,
+        warn: isWarn ? '⚠ Check camera limits' : '',
+        copyVal: frac,
+      });
+      singleGrid.appendChild(card);
+
+      // Multi result (across all multiples)
+      const multiGrid = document.getElementById('shutter-multi-grid');
+      multiGrid.innerHTML = '';
+
+      // Find the base standard closest to shutterFPS for multiples
+      // Use shutterFPS as the base
+      MULTIPLES.forEach(({ mult, label }) => {
+        const fps = shutterFPS * mult;
+        const ss2 = calcShutterSpeed(fps, shutterAngle);
+        const frac2 = formatShutterFraction(ss2);
+        const ms2 = formatShutterMS(ss2);
+        const isBase2 = mult === 1;
+        const isWarn2 = ss2 < 1 / 8000;
+        const c = makeCard({
+          topLabel: getMultLabel(mult) + ' — ' + formatFPS(fps) + 'fps',
+          value: frac2,
+          unit: 's',
+          bottomLabel: label,
+          sub: ms2,
+          isBase: isBase2,
+          warn: isWarn2 ? '⚠ Check camera limits' : '',
+          copyVal: frac2,
+        });
+        multiGrid.appendChild(c);
+      });
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  ND TAB
+    // ══════════════════════════════════════════════════════
+    function setNDMode(mode) {
+      ndMode = mode;
+      ['fps', 'stops', 'angle'].forEach(m => {
+        document.getElementById('nd-' + m + '-mode').style.display = m === mode ? '' : 'none';
+        document.getElementById('nd-mode-' + m).classList.toggle('active', m === mode);
+      });
+      renderNDResult();
+    }
+
+    function changeStops(delta) {
+      ndManualStops = Math.max(-10, Math.min(10, ndManualStops + delta));
+      document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops;
+      renderNDResult();
+    }
+
+    function stopsToND(stops) {
+      const absStops = Math.abs(stops);
+      const ndNum = (absStops * 0.3).toFixed(1);
+      const ndFactor = Math.round(Math.pow(2, absStops));
+      return { ndNum: 'ND ' + ndNum, ndFactor: 'ND' + ndFactor };
+    }
+
+    function fpsToStops(from, to) {
+      if (from <= 0 || to <= 0) return 0;
+      return Math.log2(to / from);
+    }
+
+    function angleToStops(from, to) {
+      if (from <= 0 || to <= 0) return 0;
+      // halving angle = 1 stop more ND
+      return Math.log2(from / to);
+    }
+
+    function suggestStack(stops) {
+      const absStops = Math.abs(stops);
+      // Find two filters from ND_TABLE_DATA that sum closest
+      let best = null, bestDiff = Infinity;
+      for (let i = 0; i < ND_TABLE_DATA.length; i++) {
+        for (let j = i; j < ND_TABLE_DATA.length; j++) {
+          const sum = ND_TABLE_DATA[i].stops + ND_TABLE_DATA[j].stops;
+          const diff = Math.abs(sum - absStops);
+          if (diff < bestDiff) {
+            bestDiff = diff;
+            best = [ND_TABLE_DATA[i], ND_TABLE_DATA[j]];
+          }
+        }
+      }
+      return best;
+    }
+
+    function renderNDResult() {
+      let stops = 0;
+      if (ndMode === 'fps') {
+        stops = fpsToStops(ndFromFPS, ndToFPS);
+      } else if (ndMode === 'stops') {
+        stops = ndManualStops;
+      } else if (ndMode === 'angle') {
+        stops = angleToStops(ndFromAngle, ndToAngle);
+      }
+
+      const primary = document.getElementById('nd-result-primary');
+      const secondary = document.getElementById('nd-result-secondary');
+      const stack = document.getElementById('nd-result-stack');
+
+      if (stops === 0) {
+        primary.textContent = 'No change';
+        secondary.textContent = 'Same exposure';
+        stack.textContent = '';
+        return;
+      }
+
+      const dir = stops > 0 ? 'Add' : 'Remove';
+      const absStops = Math.abs(stops);
+      const stopsRounded = Math.round(absStops * 10) / 10;
+      const { ndNum, ndFactor } = stopsToND(absStops);
+
+      primary.textContent = dir + ' ' + stopsRounded.toFixed(1) + ' stop' + (stopsRounded !== 1 ? 's' : '');
+      secondary.textContent = ndNum + '  ·  ' + ndFactor;
+
+      // Check if it's a clean integer stop
+      const isClean = Number.isInteger(Math.round(absStops * 10) / 10) && Math.abs(absStops - Math.round(absStops)) < 0.05;
+      if (!isClean || absStops > 10) {
+        const s = suggestStack(absStops);
+        if (s && s[0] !== s[1]) {
+          stack.textContent = 'Stack: ' + s[0].nd + ' + ' + s[1].nd;
+        } else if (s) {
+          stack.textContent = 'Single: ' + s[0].nd;
+        }
+      } else {
+        stack.textContent = '';
+      }
+    }
+
+    function renderNDFPSChips() {
+      const fromRow = document.getElementById('nd-from-fps-chips');
+      const toRow = document.getElementById('nd-to-fps-chips');
+      if (!fromRow || !toRow) return;
+
+      fromRow.innerHTML = '';
+      toRow.innerHTML = '';
+
+      const groups = {};
+      STANDARDS.forEach(s => {
+        if (!groups[s.group]) groups[s.group] = [];
+        groups[s.group].push(s.value);
+      });
+
+      [fromRow, toRow].forEach((row, idx) => {
+        Object.values(groups).forEach(gv => {
+          const grp = document.createElement('div');
+          grp.className = 'chip-group';
+          gv.forEach(v => {
+            const active = idx === 0 ? ndFromFPS : ndToFPS;
+            const btn = makeChip(v, active, val => {
+              if (idx === 0) ndFromFPS = val; else ndToFPS = val;
+              renderNDFPSChips();
+              renderNDResult();
+            });
+            grp.appendChild(btn);
+          });
+          row.appendChild(grp);
+        });
+      });
+    }
+
+    function renderNDAngleChips() {
+      const fromRow = document.getElementById('nd-from-angle-chips');
+      const toRow = document.getElementById('nd-to-angle-chips');
+      if (!fromRow || !toRow) return;
+
+      [fromRow, toRow].forEach((row, idx) => {
+        row.innerHTML = '';
+        const grp = document.createElement('div');
+        grp.className = 'chip-group';
+        SHUTTER_ANGLES.forEach(v => {
+          const active = idx === 0 ? ndFromAngle : ndToAngle;
+          const btn = makeChip(v, active, val => {
+            if (idx === 0) ndFromAngle = val; else ndToAngle = val;
+            renderNDAngleChips();
+            renderNDResult();
+          });
+          btn.textContent = v + '°';
+          grp.appendChild(btn);
+        });
+        row.appendChild(grp);
+      });
+    }
+
+    function renderNDTable() {
+      const table = document.getElementById('nd-table');
+      // Remove existing rows (keep header)
+      const header = table.querySelector('.nd-table-header');
+      table.innerHTML = '';
+      table.appendChild(header);
+
+      ND_TABLE_DATA.forEach(row => {
+        const el = document.createElement('div');
+        el.className = 'nd-row';
+        el.setAttribute('role', 'row');
+        el.setAttribute('tabindex', '0');
+        el.innerHTML = `
+      <span class="nd-cell stops">${row.stops}</span>
+      <span class="nd-cell">${row.nd}</span>
+      <span class="nd-cell">${row.factor}</span>
+      <span class="nd-cell" style="font-size:10px;color:var(--text-dim)">${row.name}</span>
+    `;
+        el.addEventListener('click', () => copyText(row.nd));
+        el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(row.nd); }
+        });
+        table.appendChild(el);
+      });
+    }
+
+    function renderNDTab() {
+      renderNDFPSChips();
+      renderNDAngleChips();
+      renderNDTable();
+      renderNDResult();
+      // init stepper display
+      document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops;
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  SERVICE WORKER
+    // ══════════════════════════════════════════════════════
+    function initServiceWorker() {
+      if (!('serviceWorker' in navigator)) return;
+      const swCode = `
+    const CACHE='fps-calc-v2';
+    self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll([]).catch(()=>{})));self.skipWaiting();});
+    self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
+    self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(r=>{if(r&&r.status===200){const cl=r.clone();caches.open(CACHE).then(c=>c.put(e.request,cl));}return r;}).catch(()=>caches.match(e.request));}));});
+  `;
+      try {
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(blob), { scope: './' })
+          .then(r => console.log('[FPS Calc] SW registered', r.scope))
+          .catch(e => console.warn('[FPS Calc] SW failed:', e));
+      } catch (e) { console.warn('[FPS Calc] SW blob failed:', e); }
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  INIT
+    // ══════════════════════════════════════════════════════
+    renderHeader();
+    renderFPSTab();
+    initServiceWorker();
+  </script>
+</body>
+
+</html>
