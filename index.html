@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0D0D0D" />
   <meta name="description"
-    content="Professional frame rate, shutter angle, and ND filter calculator for Focus Pullers and DITs." />
+    content="Professional frame rate, shutter angle, ND filter, exposure and project calculator for camera departments." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="FPS Calc" />
@@ -41,7 +41,7 @@
       --text-primary: #F0EDE8;
       --text-muted: #888888;
       --text-dim: #555555;
-      --warn: #C0392B;
+      --warn: #E85020;
       --font-mono: 'JetBrains Mono', 'Courier New', monospace;
       --font-ui: 'DM Sans', system-ui, sans-serif;
       --radius: 8px;
@@ -65,7 +65,7 @@
       padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
     }
 
-    /* ── App Header ── */
+    /* Header */
     .app-header {
       position: sticky;
       top: 0;
@@ -79,7 +79,7 @@
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--text-dim);
       margin-bottom: 10px;
@@ -88,13 +88,13 @@
     .selector-label {
       font-size: 11px;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 8px;
     }
 
-    /* ── Chips ── */
+    /* Chips */
     .chips-scroll {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -134,7 +134,7 @@
       padding: 8px 12px;
       cursor: pointer;
       white-space: nowrap;
-      transition: color 0.15s, background 0.15s;
+      transition: color .15s, background .15s;
       -webkit-tap-highlight-color: transparent;
       min-height: 40px;
       display: flex;
@@ -143,7 +143,7 @@
 
     .chip:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, .05);
     }
 
     .chip.active {
@@ -151,7 +151,7 @@
       background: var(--accent-dim);
     }
 
-    /* ── Main / Tabs ── */
+    /* Tabs */
     .tab-panel {
       display: none;
       flex: 1;
@@ -171,7 +171,7 @@
     .section-label {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--text-dim);
       margin-bottom: 14px;
@@ -181,20 +181,20 @@
       margin-top: 28px;
     }
 
-    /* ── Results Grid ── */
+    /* Results Grid */
     .results-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
 
-    @media (max-width:340px) {
+    @media(max-width:340px) {
       .results-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    /* ── Cards ── */
+    /* Cards */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -206,7 +206,7 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 6px;
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color .15s, background .15s, opacity .2s;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       -webkit-user-select: none;
@@ -219,7 +219,7 @@
     }
 
     .card:active {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, .03);
     }
 
     .card.is-base {
@@ -237,6 +237,12 @@
       background: var(--accent);
     }
 
+    .card.is-dimmed {
+      opacity: .4;
+      border-style: dashed;
+      border-color: var(--warn);
+    }
+
     .card-top {
       display: flex;
       align-items: center;
@@ -247,7 +253,7 @@
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--text-dim);
     }
@@ -258,11 +264,11 @@
 
     .card-copy-hint {
       font-size: 9px;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--text-dim);
       opacity: 0;
-      transition: opacity 0.2s;
+      transition: opacity .2s;
     }
 
     .card:hover .card-copy-hint {
@@ -275,7 +281,7 @@
       font-weight: 700;
       color: var(--text-primary);
       line-height: 1;
-      letter-spacing: -0.02em;
+      letter-spacing: -.02em;
     }
 
     .card.is-base .card-fps {
@@ -313,11 +319,11 @@
       font-size: 9px;
       color: var(--warn);
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: .05em;
       margin-top: 2px;
     }
 
-    /* ── Custom Input ── */
+    /* Custom Input */
     .input-row {
       display: flex;
       align-items: center;
@@ -336,7 +342,7 @@
       padding: 8px 12px;
       width: 110px;
       outline: none;
-      transition: border-color 0.15s;
+      transition: border-color .15s;
       -webkit-appearance: none;
     }
 
@@ -351,20 +357,20 @@
     .input-label {
       font-size: 11px;
       color: var(--text-muted);
-      letter-spacing: 0.06em;
+      letter-spacing: .06em;
     }
 
-    /* ── 180° badge ── */
+    /* 180° badge */
     .badge-180 {
       display: inline-flex;
       align-items: center;
       gap: 4px;
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       color: var(--accent);
       background: var(--accent-dim);
-      border: 1px solid rgba(232, 160, 32, 0.3);
+      border: 1px solid rgba(232, 160, 32, .3);
       border-radius: 100px;
       padding: 3px 8px;
       margin-top: 8px;
@@ -379,7 +385,7 @@
       margin-top: 8px;
     }
 
-    /* ── ND Stepper ── */
+    /* ND Stepper */
     .stepper-row {
       display: flex;
       align-items: center;
@@ -404,18 +410,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.15s, background 0.15s;
+      transition: color .15s, background .15s;
       -webkit-tap-highlight-color: transparent;
       flex-shrink: 0;
     }
 
     .stepper-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, .05);
     }
 
     .stepper-btn:active {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, .08);
     }
 
     .stepper-val {
@@ -428,6 +434,7 @@
       line-height: 1;
     }
 
+    /* ND result */
     .nd-result-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -458,7 +465,7 @@
       font-style: italic;
     }
 
-    /* ── Mode Tabs (within ND) ── */
+    /* Mode Tabs (segmented control) */
     .mode-tabs {
       display: flex;
       gap: 0;
@@ -474,14 +481,14 @@
       font-family: var(--font-ui);
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: .06em;
       text-transform: uppercase;
       color: var(--text-muted);
       background: transparent;
       border: none;
       padding: 12px 8px;
       cursor: pointer;
-      transition: color 0.15s, background 0.15s;
+      transition: color .15s, background .15s;
       -webkit-tap-highlight-color: transparent;
       border-right: 1px solid var(--border);
     }
@@ -495,7 +502,7 @@
       background: var(--accent-dim);
     }
 
-    /* ── ND Reference Table ── */
+    /* ND Table */
     .nd-table {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -514,7 +521,7 @@
     .nd-th {
       font-size: 9px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--text-dim);
     }
@@ -523,9 +530,9 @@
       display: grid;
       grid-template-columns: 48px 1fr 1fr 1fr;
       padding: 11px 14px;
-      border-bottom: 1px solid rgba(42, 42, 42, 0.5);
+      border-bottom: 1px solid rgba(42, 42, 42, .5);
       cursor: pointer;
-      transition: background 0.12s;
+      transition: background .12s;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -534,11 +541,11 @@
     }
 
     .nd-row:hover {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, .03);
     }
 
     .nd-row:active {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, .05);
     }
 
     .nd-cell {
@@ -554,7 +561,7 @@
       font-weight: 600;
     }
 
-    /* ── FROM/TO selector layout ── */
+    /* from-to layout */
     .from-to-row {
       display: flex;
       align-items: center;
@@ -564,7 +571,7 @@
     .from-to-label {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--text-dim);
       width: 36px;
@@ -582,7 +589,7 @@
       display: none;
     }
 
-    /* ── Bottom Nav ── */
+    /* Bottom Nav — 6 tabs */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -605,29 +612,30 @@
       justify-content: center;
       height: var(--nav-h);
       font-family: var(--font-ui);
-      font-size: 11px;
+      font-size: 9px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--text-muted);
       background: transparent;
       border: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: color 0.15s;
+      transition: color .15s;
       position: relative;
+      padding: 0 2px;
     }
 
     .nav-btn::after {
       content: '';
       position: absolute;
       top: 0;
-      left: 20%;
-      right: 20%;
+      left: 10%;
+      right: 10%;
       height: 2px;
       background: var(--accent);
       opacity: 0;
-      transition: opacity 0.15s;
+      transition: opacity .15s;
     }
 
     .nav-btn.active {
@@ -638,7 +646,7 @@
       opacity: 1;
     }
 
-    /* ── Toast ── */
+    /* Toast */
     .toast {
       position: fixed;
       bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
@@ -649,13 +657,13 @@
       font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       padding: 10px 20px;
       border-radius: 100px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s, transform 0.2s;
+      transition: opacity .2s, transform .2s;
       z-index: 999;
       white-space: nowrap;
     }
@@ -664,31 +672,825 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ── CUSTOM TAB ── */
+    .result-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .result-card-full {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      cursor: pointer;
+      transition: border-color .15s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .result-card-full:hover {
+      border-color: var(--border-hover);
+    }
+
+    .result-card-full.accent-border {
+      border-color: var(--accent);
+    }
+
+    .result-card-full .rc-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .result-card-full.accent-border .rc-tag {
+      color: var(--accent);
+    }
+
+    .result-card-full .rc-main-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .result-card-full .rc-value {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .result-card-full .rc-fps {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .result-card-full .rc-detail {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .result-card-full .rc-delta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .rc-delta.exact {
+      color: var(--accent);
+    }
+
+    .rc-delta.negligible {
+      color: var(--text-primary);
+    }
+
+    .rc-delta.minor {
+      color: var(--text-muted);
+    }
+
+    .rc-delta.warn {
+      color: var(--warn);
+    }
+
+    .result-live-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-top: 4px;
+    }
+
+    .result-live-card .rlc-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .result-live-card .rlc-main {
+      font-family: var(--font-mono);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .result-live-card .rlc-sub {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .result-live-card .rlc-tertiary {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* ── EXPOSURE TAB ── */
+    .exp-base-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .exp-base-summary {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .exp-base-shutter {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    .exp-shutter-display {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .exp-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .exp-result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .exp-result-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .exp-result-card .erc-tag {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .exp-result-card .erc-keep {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .exp-result-card .erc-value {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .exp-result-card .erc-stops {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .exp-result-card .erc-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .exp-result-card .erc-warn {
+      font-size: 10px;
+      color: var(--warn);
+      margin-top: 4px;
+    }
+
+    .exp-stops-stepper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 6px;
+      margin-top: 8px;
+    }
+
+    .exp-stops-stepper .stepper-btn {
+      width: 56px;
+      height: 56px;
+      font-size: 26px;
+    }
+
+    .exp-stops-val {
+      flex: 1;
+      text-align: center;
+    }
+
+    .exp-stops-val .sv-num {
+      font-family: var(--font-mono);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .exp-stops-val .sv-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: .08em;
+    }
+
+    .t-stop-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .t-stop-stepper-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .t-step-btn {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      width: 28px;
+      height: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .t-step-btn:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── PROJECT TAB ── */
+    .proj-section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+
+    .proj-section-label:first-child {
+      margin-top: 0;
+    }
+
+    .camera-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .camera-card.active-camera {
+      border-color: var(--accent);
+    }
+
+    .camera-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+
+    .camera-name {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .camera-brand {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2px;
+    }
+
+    .camera-badge-custom {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(232, 160, 32, .3);
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-left: 8px;
+    }
+
+    .camera-chevron {
+      font-size: 18px;
+      color: var(--text-dim);
+      transition: transform .2s;
+    }
+
+    .camera-card.expanded .camera-chevron {
+      transform: rotate(90deg);
+    }
+
+    .camera-modes {
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .camera-card.expanded .camera-modes {
+      display: block;
+    }
+
+    .mode-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(42, 42, 42, .4);
+      -webkit-tap-highlight-color: transparent;
+      transition: background .12s;
+    }
+
+    .mode-row:last-child {
+      border-bottom: none;
+    }
+
+    .mode-row:hover {
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .mode-row.active-mode {
+      background: var(--accent-glow);
+    }
+
+    .mode-row.active-mode .mode-name {
+      color: var(--accent);
+    }
+
+    .mode-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .mode-max {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .mode-row.active-mode .mode-max {
+      color: var(--accent);
+    }
+
+    .add-camera-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color .15s, color .15s;
+      margin-bottom: 10px;
+    }
+
+    .add-camera-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    .add-camera-form {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .add-camera-form.visible {
+      display: block;
+    }
+
+    .form-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-input {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      width: 100%;
+      outline: none;
+      transition: border-color .15s;
+      -webkit-appearance: none;
+      margin-bottom: 12px;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+    }
+
+    .mode-builder-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .mode-builder-row .form-input {
+      margin-bottom: 0;
+      flex: 1;
+    }
+
+    .mode-builder-row .form-input.fps-in {
+      width: 80px;
+      flex: 0 0 80px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 36px;
+      height: 36px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
+    .icon-btn.danger:hover {
+      color: var(--warn);
+      border-color: var(--warn);
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius-lg);
+      color: #0D0D0D;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 4px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .save-btn:hover {
+      opacity: .9;
+    }
+
+    .delete-camera-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 14px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .delete-camera-btn:hover {
+      color: var(--warn);
+    }
+
+    /* Film table */
+    .film-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .film-table-header {
+      display: grid;
+      grid-template-columns: 56px 1fr 1fr;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .film-th {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .film-row {
+      display: grid;
+      grid-template-columns: 56px 1fr 1fr;
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(42, 42, 42, .5);
+      cursor: pointer;
+      transition: background .12s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .film-row:last-child {
+      border-bottom: none;
+    }
+
+    .film-row:hover {
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .film-row.is-base-row {
+      background: var(--accent-glow);
+    }
+
+    .film-cell {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+
+    .film-cell.base-cell {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Active camera status line */
+    .camera-status-line {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 4px;
+      letter-spacing: .04em;
+    }
+
+    .camera-status-dot {
+      color: var(--accent);
+      margin-right: 4px;
+    }
+
+    /* Sub-mode toggle (inline) */
+    .sub-toggle {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .sub-toggle-btn {
+      flex: 1;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      padding: 10px 4px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      border-right: 1px solid var(--border);
+      transition: color .15s, background .15s;
+    }
+
+    .sub-toggle-btn:last-child {
+      border-right: none;
+    }
+
+    .sub-toggle-btn.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* unit toggle */
+    .unit-toggle {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .unit-toggle-btn {
+      flex: 1;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      padding: 8px 10px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: color .15s, background .15s;
+    }
+
+    .unit-toggle-btn.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* reference link card */
+    .ref-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+
+    .ref-card-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .ref-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(42, 42, 42, .4);
+    }
+
+    .ref-item:last-child {
+      border-bottom: none;
+    }
+
+    .ref-item-brand {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
   </style>
 </head>
 
 <body>
-
-  <!-- ══ HEADER (shared) ══ -->
+  <!-- ══ HEADER ══ -->
   <header class="app-header" id="app-header">
     <p class="app-title" id="header-title">FPS Calc</p>
     <div id="header-controls"></div>
   </header>
 
-  <!-- ══ TAB: FPS ══ -->
+  <!-- ══ TAB 1: FPS ══ -->
   <div class="tab-panel active" id="panel-fps">
     <div class="main">
-      <p class="section-label">Frame Rate Multiples</p>
+      <p class="section-label" id="fps-section-label">Frame Rate Multiples</p>
+      <div id="fps-camera-status"></div>
       <div class="results-grid" id="fps-grid" role="list"></div>
     </div>
   </div>
 
-  <!-- ══ TAB: SHUTTER ══ -->
+  <!-- ══ TAB 2: CUSTOM ══ -->
+  <div class="tab-panel" id="panel-custom">
+    <div class="main">
+      <div class="mode-tabs" role="group">
+        <button class="mode-tab active" id="custom-mode-forward" onclick="setCustomMode('forward')">Forward: base × mult</button>
+        <button class="mode-tab" id="custom-mode-reverse" onclick="setCustomMode('reverse')">Reverse: target → mult</button>
+      </div>
+
+      <!-- Forward mode -->
+      <div id="custom-forward-section">
+        <p class="selector-label">Base FPS</p>
+        <div class="chips-scroll"><div class="chips-row" id="custom-base-chips"></div></div>
+        <div class="input-row">
+          <input type="number" class="custom-input" id="custom-base-input" placeholder="Custom fps" min="1" max="1000" step="any" />
+          <span class="input-label">fps</span>
+        </div>
+
+        <div class="section-gap" style="margin-top:20px">
+          <p class="selector-label">Multiplier</p>
+          <div class="chips-scroll"><div class="chips-row" id="custom-mult-chips"></div></div>
+          <div class="input-row">
+            <input type="number" class="custom-input" id="custom-mult-input" placeholder="e.g. 1.333" min="0.01" max="100" step="any" />
+            <span class="input-label">×</span>
+          </div>
+        </div>
+
+        <div class="section-gap" style="margin-top:20px">
+          <div class="result-live-card" id="custom-forward-result">
+            <div class="rlc-tag">Result</div>
+            <div class="rlc-main" id="cfr-main">—</div>
+            <div class="rlc-sub" id="cfr-sub"></div>
+            <div class="rlc-tertiary" id="cfr-tertiary"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reverse mode -->
+      <div id="custom-reverse-section" style="display:none">
+        <p class="selector-label">Base FPS</p>
+        <div class="chips-scroll"><div class="chips-row" id="custom-rev-base-chips"></div></div>
+        <div class="input-row">
+          <input type="number" class="custom-input" id="custom-rev-base-input" placeholder="Custom fps" min="1" max="1000" step="any" />
+          <span class="input-label">fps base</span>
+        </div>
+
+        <div class="section-gap" style="margin-top:20px">
+          <p class="selector-label">Target FPS</p>
+          <div class="input-row" style="margin-top:0">
+            <input type="number" class="custom-input" id="custom-target-input" placeholder="e.g. 33" min="1" max="1000" step="any" />
+            <span class="input-label">fps target</span>
+          </div>
+        </div>
+
+        <div class="section-gap result-stack" style="margin-top:20px" id="custom-reverse-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB 3: SHUTTER ══ -->
   <div class="tab-panel" id="panel-shutter">
     <div class="main">
       <p class="section-label">Single Result</p>
       <div class="results-grid" id="shutter-single-grid"></div>
-
       <div class="section-gap">
         <p class="section-label">Across All Multiples</p>
         <div class="results-grid" id="shutter-multi-grid"></div>
@@ -696,7 +1498,7 @@
     </div>
   </div>
 
-  <!-- ══ TAB: ND ══ -->
+  <!-- ══ TAB 4: ND ══ -->
   <div class="tab-panel" id="panel-nd">
     <div class="main">
       <div class="mode-tabs" role="group" aria-label="ND Calculator Mode">
@@ -704,22 +1506,14 @@
         <button class="mode-tab" id="nd-mode-stops" onclick="setNDMode('stops')">Manual Stops</button>
         <button class="mode-tab" id="nd-mode-angle" onclick="setNDMode('angle')">Angle Change</button>
       </div>
-
-      <!-- Mode A: FPS Change -->
       <div id="nd-fps-mode">
         <p class="selector-label">From FPS</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="nd-from-fps-chips"></div>
-        </div>
+        <div class="chips-scroll"><div class="chips-row" id="nd-from-fps-chips"></div></div>
         <div class="section-gap" style="margin-top:16px">
           <p class="selector-label">To FPS</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="nd-to-fps-chips"></div>
-          </div>
+          <div class="chips-scroll"><div class="chips-row" id="nd-to-fps-chips"></div></div>
         </div>
       </div>
-
-      <!-- Mode B: Manual Stops -->
       <div id="nd-stops-mode" style="display:none">
         <p class="selector-label">Stops of ND</p>
         <div class="stepper-row">
@@ -728,29 +1522,19 @@
           <button class="stepper-btn" id="nd-plus" onclick="changeStops(1)" aria-label="Increase stops">+</button>
         </div>
       </div>
-
-      <!-- Mode C: Angle Change -->
       <div id="nd-angle-mode" style="display:none">
         <p class="selector-label">From Angle</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="nd-from-angle-chips"></div>
-        </div>
+        <div class="chips-scroll"><div class="chips-row" id="nd-from-angle-chips"></div></div>
         <div class="section-gap" style="margin-top:16px">
           <p class="selector-label">To Angle</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="nd-to-angle-chips"></div>
-          </div>
+          <div class="chips-scroll"><div class="chips-row" id="nd-to-angle-chips"></div></div>
         </div>
       </div>
-
-      <!-- ND Result -->
       <div class="nd-result-card" id="nd-result-card">
         <div class="nd-primary" id="nd-result-primary">—</div>
         <div class="nd-secondary" id="nd-result-secondary"></div>
         <div class="nd-stack" id="nd-result-stack"></div>
       </div>
-
-      <!-- ND Reference Table -->
       <div class="section-gap">
         <p class="section-label">ND Filter Reference — Tap to Copy</p>
         <div class="nd-table" id="nd-table">
@@ -765,705 +1549,1075 @@
     </div>
   </div>
 
+  <!-- ══ TAB 5: EXPOSURE ══ -->
+  <div class="tab-panel" id="panel-exposure">
+    <div class="main">
+      <!-- Base Exposure Setup -->
+      <p class="section-label">Base Exposure</p>
+      <div class="exp-base-card">
+        <p class="selector-label" style="margin-bottom:6px">Base FPS</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-fps-chips"></div></div>
+
+        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">Shutter Angle</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-angle-chips"></div></div>
+
+        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">ISO</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-iso-chips"></div></div>
+        <div class="input-row">
+          <input type="number" class="custom-input" id="exp-iso-input" placeholder="Custom ISO" min="50" max="409600" step="1" />
+          <span class="input-label">ISO</span>
+        </div>
+
+        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">T-Stop</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-tstop-chips"></div></div>
+        <div class="t-stop-input-row" style="margin-top:8px">
+          <input type="number" class="custom-input" id="exp-tstop-input" placeholder="T2.8" min="0.7" max="22" step="0.1" style="width:90px" />
+          <span class="input-label">T-stop</span>
+          <div class="t-stop-stepper-mini">
+            <button class="t-step-btn" onclick="adjustTStop(1)">▲</button>
+            <button class="t-step-btn" onclick="adjustTStop(-1)">▼</button>
+          </div>
+        </div>
+
+        <div id="exp-base-summary" class="exp-base-summary"></div>
+        <div id="exp-base-shutter" class="exp-base-shutter"></div>
+      </div>
+
+      <!-- Mode selector -->
+      <div class="mode-tabs" role="group">
+        <button class="mode-tab active" id="exp-mode-fps-btn" onclick="setExpMode('fps')">FPS</button>
+        <button class="mode-tab" id="exp-mode-angle-btn" onclick="setExpMode('angle')">Angle</button>
+        <button class="mode-tab" id="exp-mode-manual-btn" onclick="setExpMode('manual')">Manual</button>
+      </div>
+
+      <!-- Mode A: FPS Priority -->
+      <div id="exp-fps-section">
+        <p class="selector-label">New Target FPS</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-target-fps-chips"></div></div>
+        <div class="input-row">
+          <input type="number" class="custom-input" id="exp-target-fps-input" placeholder="Custom fps" min="1" max="1000" step="any" />
+          <span class="input-label">fps</span>
+        </div>
+        <div id="exp-new-shutter-display" class="exp-shutter-display"></div>
+        <div class="exp-dual-grid" id="exp-fps-result-grid"></div>
+      </div>
+
+      <!-- Mode B: Angle Priority -->
+      <div id="exp-angle-section" style="display:none">
+        <p class="selector-label">New Shutter Angle</p>
+        <div class="chips-scroll"><div class="chips-row" id="exp-target-angle-chips"></div></div>
+        <div id="exp-angle-shutter-display" class="exp-shutter-display"></div>
+        <div class="exp-dual-grid" id="exp-angle-result-grid"></div>
+      </div>
+
+      <!-- Mode C: Manual Stops -->
+      <div id="exp-manual-section" style="display:none">
+        <p class="selector-label">Stop Offset</p>
+        <div class="exp-stops-stepper">
+          <button class="stepper-btn" onclick="changeExpStops(-0.5)">−</button>
+          <div class="exp-stops-val">
+            <div class="sv-num" id="exp-manual-stops-val">0</div>
+            <div class="sv-label">stops</div>
+          </div>
+          <button class="stepper-btn" onclick="changeExpStops(0.5)">+</button>
+        </div>
+        <div class="exp-dual-grid" id="exp-manual-result-grid" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB 6: PROJECT ══ -->
+  <div class="tab-panel" id="panel-project">
+    <div class="main">
+      <p class="proj-section-label">Camera</p>
+      <div id="proj-camera-list"></div>
+      <button class="add-camera-btn" onclick="toggleAddCameraForm()">+ Add custom camera</button>
+
+      <!-- Add custom camera form -->
+      <div class="add-camera-form" id="add-camera-form">
+        <label class="form-label">Camera Name</label>
+        <input type="text" class="form-input" id="new-camera-name" placeholder="e.g. My Cinema Camera" />
+        <label class="form-label">Sensor Modes</label>
+        <div id="new-camera-modes-list"></div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <button class="icon-btn" onclick="addModeRow()" title="Add mode">+</button>
+        </div>
+        <button class="save-btn" onclick="saveCustomCamera()">Save Camera</button>
+      </div>
+
+      <!-- Media section -->
+      <p class="proj-section-label">Recording Media / Magazine Runtime</p>
+      <div class="sub-toggle">
+        <button class="sub-toggle-btn active" id="media-digital-btn" onclick="setMediaMode('digital')">Digital Media</button>
+        <button class="sub-toggle-btn" id="media-film-btn" onclick="setMediaMode('film')">Film Magazine</button>
+      </div>
+
+      <!-- Digital -->
+      <div id="media-digital-section">
+        <div class="input-row" style="margin-top:0">
+          <input type="number" class="custom-input" id="media-capacity-input" placeholder="512" min="1" step="any" />
+          <div class="unit-toggle">
+            <button class="unit-toggle-btn active" id="media-unit-gb" onclick="setMediaUnit('GB')">GB</button>
+            <button class="unit-toggle-btn" id="media-unit-tb" onclick="setMediaUnit('TB')">TB</button>
+          </div>
+        </div>
+        <div class="ref-card" style="margin-top:12px">
+          <div class="ref-card-title">Data Rate Calculators (codec-dependent)</div>
+          <div class="ref-item"><span class="ref-item-brand">ARRI: </span>arri.com/en/learn-help/tools/arri-format-data-rate-calculator</div>
+          <div class="ref-item"><span class="ref-item-brand">Sony: </span>sonycine.com/en/tools/calculator</div>
+          <div class="ref-item"><span class="ref-item-brand">RED: </span>red.com/recording-time</div>
+          <div class="ref-item"><span class="ref-item-brand">Blackmagic: </span>blackmagicdesign.com/products/blackmagicursacine/recorder</div>
+        </div>
+      </div>
+
+      <!-- Film -->
+      <div id="media-film-section" style="display:none">
+        <div class="sub-toggle" style="margin-bottom:12px">
+          <button class="sub-toggle-btn active" id="film-format-4p" onclick="setFilmFormat('4perf')">35mm 4-perf</button>
+          <button class="sub-toggle-btn" id="film-format-3p" onclick="setFilmFormat('3perf')">35mm 3-perf</button>
+          <button class="sub-toggle-btn" id="film-format-2p" onclick="setFilmFormat('2perf')">35mm 2-perf</button>
+          <button class="sub-toggle-btn" id="film-format-16" onclick="setFilmFormat('16mm')">16mm</button>
+        </div>
+        <p class="selector-label">Magazine Size</p>
+        <div class="chips-scroll"><div class="chips-row" id="film-mag-chips"></div></div>
+        <div class="input-row">
+          <input type="number" class="custom-input" id="film-custom-feet" placeholder="Custom ft" min="1" step="1" />
+          <span class="input-label">feet</span>
+        </div>
+        <div id="film-runtime-table-wrap"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ BOTTOM NAV ══ -->
   <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
     <button class="nav-btn active" id="nav-fps" onclick="switchTab('fps')">FPS</button>
+    <button class="nav-btn" id="nav-custom" onclick="switchTab('custom')">Custom</button>
     <button class="nav-btn" id="nav-shutter" onclick="switchTab('shutter')">Shutter</button>
     <button class="nav-btn" id="nav-nd" onclick="switchTab('nd')">ND</button>
+    <button class="nav-btn" id="nav-exposure" onclick="switchTab('exposure')">Exposure</button>
+    <button class="nav-btn" id="nav-project" onclick="switchTab('project')">Project</button>
   </nav>
 
   <!-- Toast -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // ══════════════════════════════════════════════════════
-    //  CONSTANTS
-    // ══════════════════════════════════════════════════════
-    const STANDARDS = [
-      { value: 23.976, group: 0 }, { value: 24, group: 0 },
-      { value: 25, group: 1 }, { value: 50, group: 1 },
-      { value: 29.97, group: 2 }, { value: 59.94, group: 2 },
-      { value: 48, group: 3 }, { value: 96, group: 3 },
-    ];
+  // ══════════════════════════════════════════════════════
+  //  CONSTANTS
+  // ══════════════════════════════════════════════════════
+  const STANDARDS=[
+    {value:23.976,group:0},{value:24,group:0},
+    {value:25,group:1},{value:50,group:1},
+    {value:29.97,group:2},{value:59.94,group:2},
+    {value:48,group:3},{value:96,group:3},
+  ];
+  const MULTIPLES=[
+    {mult:0.25,label:'¼ Speed',slowmo:'400% slow motion'},
+    {mult:0.5,label:'Half Speed',slowmo:'200% slow motion'},
+    {mult:1,label:'Project Std',slowmo:'Base rate'},
+    {mult:2,label:'2× Overcrank',slowmo:'50% slow motion'},
+    {mult:3,label:'3× Overcrank',slowmo:'33% slow motion'},
+    {mult:4,label:'4× Overcrank',slowmo:'25% slow motion'},
+    {mult:6,label:'6× Overcrank',slowmo:'16.7% slow motion'},
+    {mult:8,label:'8× Overcrank',slowmo:'12.5% slow motion'},
+  ];
+  const SHUTTER_ANGLES=[45,90,135,172.8,180,270,358];
+  const ND_TABLE_DATA=[
+    {stops:1,nd:'ND 0.3',factor:'ND2',name:''},
+    {stops:2,nd:'ND 0.6',factor:'ND4',name:''},
+    {stops:3,nd:'ND 0.9',factor:'ND8',name:'"One stop ND"'},
+    {stops:4,nd:'ND 1.2',factor:'ND16',name:''},
+    {stops:5,nd:'ND 1.5',factor:'ND32',name:''},
+    {stops:6,nd:'ND 1.8',factor:'ND64',name:'"IRND 1.8"'},
+    {stops:7,nd:'ND 2.1',factor:'ND128',name:''},
+    {stops:8,nd:'ND 2.4',factor:'ND256',name:''},
+    {stops:9,nd:'ND 2.7',factor:'ND512',name:''},
+    {stops:10,nd:'ND 3.0',factor:'ND1024',name:'"ND 3.0"'},
+  ];
+  const ISO_VALUES=[200,400,800,1600,3200,6400];
+  const TSTOP_VALUES=[1.4,2,2.8,4,5.6,8];
+  const TSTOP_SEQUENCE=[0.7,0.8,0.9,1.0,1.1,1.2,1.4,1.6,1.8,2.0,2.2,2.5,2.8,3.2,3.5,4.0,4.5,5.0,5.6,6.3,7.1,8.0,9.0,10,11,13,16,18,22];
+  const MAG_SIZES=[200,400,1000];
+  const FILM_PITCH={
+    '4perf':(4*0.1427)/12,
+    '3perf':(3*0.1427)/12,
+    '2perf':(2*0.1427)/12,
+    '16mm':0.300/12,
+  };
 
-    const MULTIPLES = [
-      { mult: 0.25, label: '¼ Speed', slowmo: '400% slow motion' },
-      { mult: 0.5, label: 'Half Speed', slowmo: '200% slow motion' },
-      { mult: 1, label: 'Project Std', slowmo: 'Base rate' },
-      { mult: 2, label: '2× Overcrank', slowmo: '50% slow motion' },
-      { mult: 3, label: '3× Overcrank', slowmo: '33% slow motion' },
-      { mult: 4, label: '4× Overcrank', slowmo: '25% slow motion' },
-      { mult: 6, label: '6× Overcrank', slowmo: '16.7% slow motion' },
-      { mult: 8, label: '8× Overcrank', slowmo: '12.5% slow motion' },
-    ];
+  // Camera database
+  const CAMERA_DB=[
+    {brand:'ARRI',name:'ALEXA 35',modes:[
+      {name:'4.6K Open Gate (4608×3164)',maxFps:60},
+      {name:'4K 16:9 (4096×2304)',maxFps:120},
+      {name:'4K 2.39:1 (4096×1716)',maxFps:120},
+      {name:'3.8K 16:9 (3840×2160)',maxFps:120},
+      {name:'3K 1:1 Anamorphic (3072×3072)',maxFps:60},
+      {name:'2K 16:9 (2048×1152)',maxFps:120},
+    ]},
+    {brand:'ARRI',name:'ALEXA Mini LF',modes:[
+      {name:'LF Open Gate (4448×3096)',maxFps:40},
+      {name:'LF 16:9 (4448×2520)',maxFps:60},
+      {name:'LF 2.39:1 (4448×1856)',maxFps:90},
+      {name:'Super35 4K 16:9 (3840×2160)',maxFps:60},
+    ]},
+    {brand:'SONY',name:'VENICE 2 (8.6K sensor)',modes:[
+      {name:'Full Frame 8.6K 3:2 (8640×5760)',maxFps:30},
+      {name:'Full Frame 8.2K 17:9 (8192×4320)',maxFps:60},
+      {name:'Super35 5.8K 16:9 (5792×3240)',maxFps:90},
+      {name:'Super35 5.4K 16:9 (5400×3040)',maxFps:90},
+    ]},
+    {brand:'SONY',name:'VENICE 2 (6K sensor)',modes:[
+      {name:'Full Frame 6K 3:2 (6048×4032)',maxFps:60},
+      {name:'Full Frame 6K 17:9 (6048×3384)',maxFps:72},
+      {name:'Anamorphic 4K 4:3 (4096×3024)',maxFps:75},
+      {name:'Super35 3.8K 16:9 (3840×2160)',maxFps:120},
+    ]},
+    {brand:'RED',name:'V-RAPTOR [X] 8K VV',modes:[
+      {name:'8K VV 17:9 (8192×4320)',maxFps:120},
+      {name:'7K VV 17:9 (7168×3780)',maxFps:140},
+      {name:'6K VV 17:9 (6144×3240)',maxFps:160},
+      {name:'5K VV 17:9 (5120×2700)',maxFps:192},
+      {name:'4K VV 17:9 (4096×2160)',maxFps:240},
+      {name:'2K VV 17:9 (2048×1080)',maxFps:480},
+    ]},
+    {brand:'RED',name:'KOMODO-X 6K',modes:[
+      {name:'6K S35 17:9 (6144×3240)',maxFps:80},
+      {name:'5K S35 17:9 (5120×2700)',maxFps:96},
+      {name:'4K S35 17:9 (4096×2160)',maxFps:120},
+      {name:'2K S35 17:9 (2048×1080)',maxFps:240},
+    ]},
+    {brand:'BLACKMAGIC',name:'URSA Cine 12K LF',modes:[
+      {name:'12K 17:9 (12288×6480)',maxFps:100},
+      {name:'12K 2.4:1 (12288×5112)',maxFps:120},
+      {name:'8K 3:2 (8192×5360)',maxFps:144},
+      {name:'8K 2.4:1 (8192×3408)',maxFps:224},
+      {name:'4K 17:9 (4096×2160)',maxFps:240},
+    ]},
+    {brand:'BLACKMAGIC',name:'URSA Mini Pro 12K',modes:[
+      {name:'12K 17:9 (12288×6480)',maxFps:60},
+      {name:'12K 2.4:1 (12288×5112)',maxFps:75},
+      {name:'8K DCI (8192×4320)',maxFps:120},
+      {name:'4K Super 16 (4096×2160)',maxFps:240},
+    ]},
+  ];
 
-    const SHUTTER_ANGLES = [45, 90, 135, 172.8, 180, 270, 358];
+  // ══════════════════════════════════════════════════════
+  //  STATE
+  // ══════════════════════════════════════════════════════
+  const STORAGE_KEY='fps-calc-standard';
+  const STORAGE_TAB='fps-calc-tab';
+  const STORAGE_CAMERAS='fps-calc-custom-cameras';
+  const STORAGE_ACTIVE_CAMERA='fps-calc-active-camera';
+  const STORAGE_EXPOSURE='fps-calc-exposure';
 
-    const ND_TABLE_DATA = [
-      { stops: 1, nd: 'ND 0.3', factor: 'ND2', name: '' },
-      { stops: 2, nd: 'ND 0.6', factor: 'ND4', name: '' },
-      { stops: 3, nd: 'ND 0.9', factor: 'ND8', name: '"One stop ND"' },
-      { stops: 4, nd: 'ND 1.2', factor: 'ND16', name: '' },
-      { stops: 5, nd: 'ND 1.5', factor: 'ND32', name: '' },
-      { stops: 6, nd: 'ND 1.8', factor: 'ND64', name: '"IRND 1.8"' },
-      { stops: 7, nd: 'ND 2.1', factor: 'ND128', name: '' },
-      { stops: 8, nd: 'ND 2.4', factor: 'ND256', name: '' },
-      { stops: 9, nd: 'ND 2.7', factor: 'ND512', name: '' },
-      { stops: 10, nd: 'ND 3.0', factor: 'ND1024', name: '"ND 3.0"' },
-    ];
+  let currentTab=(()=>{const t=localStorage.getItem(STORAGE_TAB);return ['fps','custom','shutter','nd','exposure','project'].includes(t)?t:'fps';})();
 
-    const STORAGE_KEY = 'fps-calc-standard';
+  let fpsStandard=(()=>{
+    const s=localStorage.getItem(STORAGE_KEY);
+    if(s){const p=parseFloat(s);if(STANDARDS.some(x=>x.value===p))return p;}
+    return 23.976;
+  })();
 
-    // ══════════════════════════════════════════════════════
-    //  STATE
-    // ══════════════════════════════════════════════════════
-    let currentTab = 'fps';
+  // Shutter tab
+  let shutterFPS=24,shutterAngle=180,shutterCustomFPS='',shutterCustomAngle='';
 
-    // FPS tab
-    let fpsStandard = (() => {
-      const s = localStorage.getItem(STORAGE_KEY);
-      if (s) { const p = parseFloat(s); if (STANDARDS.some(x => x.value === p)) return p; }
-      return 23.976;
-    })();
+  // ND tab
+  let ndMode='fps',ndFromFPS=24,ndToFPS=48,ndFromAngle=180,ndToAngle=90,ndManualStops=3;
 
-    // Shutter tab
-    let shutterFPS = 24;
-    let shutterAngle = 180;
-    let shutterCustomFPS = '';
-    let shutterCustomAngle = '';
+  // Custom tab
+  let customMode='forward';
+  let customBaseFPS=fpsStandard,customMult=1.5;
+  let customRevBaseFPS=fpsStandard,customTargetFPS=48;
 
-    // ND tab
-    let ndMode = 'fps';
-    let ndFromFPS = 24;
-    let ndToFPS = 48;
-    let ndFromAngle = 180;
-    let ndToAngle = 90;
-    let ndManualStops = 3;
+  // Exposure tab
+  const expDefaults=(()=>{
+    try{const s=localStorage.getItem(STORAGE_EXPOSURE);if(s)return JSON.parse(s);}catch(e){}
+    return {fps:24,angle:180,iso:800,tstop:2.8};
+  })();
+  let expBaseFPS=expDefaults.fps,expBaseAngle=expDefaults.angle;
+  let expBaseISO=expDefaults.iso,expBaseTStop=expDefaults.tstop;
+  let expMode='fps';
+  let expTargetFPS=48,expTargetAngle=90,expManualStops=0;
 
-    // ══════════════════════════════════════════════════════
-    //  HELPERS
-    // ══════════════════════════════════════════════════════
-    function formatFPS(v) {
-      const r = Math.round(v * 1000) / 1000;
-      if (Number.isInteger(r)) return String(r);
-      return parseFloat(r.toFixed(3)).toString();
-    }
+  // Project tab
+  let customCameras=(()=>{
+    try{const s=localStorage.getItem(STORAGE_CAMERAS);if(s)return JSON.parse(s);}catch(e){}
+    return [];
+  })();
+  let activeCameraState=(()=>{
+    try{const s=localStorage.getItem(STORAGE_ACTIVE_CAMERA);if(s)return JSON.parse(s);}catch(e){}
+    return {cameraName:null,modeIndex:null};
+  })();
+  let expandedCamera=null;
+  let mediaMode='digital',mediaUnit='GB',filmFormat='4perf',filmFeet=400;
+  let newCameraModes=[{name:'',maxFps:''}];
 
-    function getMultLabel(m) {
-      if (m === 0.25) return '¼×';
-      if (m === 0.5) return '½×';
-      return m + '×';
-    }
-
-    function copyText(text) {
-      if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) { } }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-      } else { fallbackCopy(text); }
-      showToast('Copied ' + text);
-    }
-
-    function fallbackCopy(t) {
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = t;
-        ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      } catch (e) { }
-    }
-
-    let toastTimer = null;
-    function showToast(msg) {
-      const el = document.getElementById('toast');
-      el.textContent = msg;
-      el.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.classList.remove('show'), 1500);
-    }
-
-    function makeChipGroups(values, activeVal, onClick, groupFn) {
-      const frag = document.createDocumentFragment();
-      if (groupFn) {
-        const groups = {};
-        values.forEach(v => {
-          const g = groupFn(v);
-          if (!groups[g]) groups[g] = [];
-          groups[g].push(v);
-        });
-        Object.values(groups).forEach(gv => {
-          const grp = document.createElement('div');
-          grp.className = 'chip-group';
-          gv.forEach(v => grp.appendChild(makeChip(v, activeVal, onClick)));
-          frag.appendChild(grp);
-        });
-      } else {
-        const grp = document.createElement('div');
-        grp.className = 'chip-group';
-        values.forEach(v => grp.appendChild(makeChip(v, activeVal, onClick)));
-        frag.appendChild(grp);
-      }
-      return frag;
-    }
-
-    function makeChip(val, activeVal, onClick) {
-      const btn = document.createElement('button');
-      btn.className = 'chip' + (val === activeVal ? ' active' : '');
-      btn.textContent = val;
-      btn.setAttribute('aria-pressed', val === activeVal ? 'true' : 'false');
-      btn.addEventListener('click', () => onClick(val));
-      return btn;
-    }
-
-    function makeCard(opts) {
-      // opts: { topLabel, value, unit, bottomLabel, sub, isBase, warn, copyVal }
-      const card = document.createElement('div');
-      card.className = 'card' + (opts.isBase ? ' is-base' : '');
-      card.setAttribute('role', 'listitem');
-      card.setAttribute('tabindex', '0');
-      card.innerHTML = `
+  // ══════════════════════════════════════════════════════
+  //  HELPERS
+  // ══════════════════════════════════════════════════════
+  function formatFPS(v){
+    const r=Math.round(v*1000)/1000;
+    if(Number.isInteger(r))return String(r);
+    return parseFloat(r.toFixed(3)).toString();
+  }
+  function getMultLabel(m){
+    if(m===0.25)return '¼×';
+    if(m===0.5)return '½×';
+    return m+'×';
+  }
+  function copyText(text){
+    if(navigator.vibrate){try{navigator.vibrate(40);}catch(e){}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text));
+    }else{fallbackCopy(text);}
+    showToast('Copied '+text);
+  }
+  function fallbackCopy(t){
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=t;ta.style.cssText='position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    }catch(e){}
+  }
+  let toastTimer=null;
+  function showToast(msg){
+    const el=document.getElementById('toast');
+    el.textContent=msg;el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>el.classList.remove('show'),1500);
+  }
+  function makeChip(val,activeVal,onClick,label){
+    const btn=document.createElement('button');
+    btn.className='chip'+(val===activeVal?' active':'');
+    btn.textContent=label!==undefined?label:val;
+    btn.setAttribute('aria-pressed',val===activeVal?'true':'false');
+    btn.addEventListener('click',()=>onClick(val));
+    return btn;
+  }
+  function makeCard(opts){
+    const card=document.createElement('div');
+    let cls='card'+(opts.isBase?' is-base':'')+(opts.dimmed?' is-dimmed':'');
+    card.className=cls;
+    card.setAttribute('role','listitem');
+    card.setAttribute('tabindex','0');
+    card.innerHTML=`
     <div class="card-top">
       <span class="card-mult">${opts.topLabel}</span>
       <span class="card-copy-hint">Copy</span>
     </div>
-    <div class="card-fps">${opts.value}<span class="card-unit">${opts.unit || ''}</span></div>
+    <div class="card-fps">${opts.value}<span class="card-unit">${opts.unit||''}</span></div>
     <div class="card-bottom">
-      <span class="card-label">${opts.bottomLabel || ''}</span>
-      <span class="card-sub">${opts.sub || ''}</span>
+      <span class="card-label">${opts.bottomLabel||''}</span>
+      <span class="card-sub">${opts.sub||''}</span>
     </div>
-    ${opts.warn ? `<div class="card-warn">${opts.warn}</div>` : ''}
-  `;
-      const copyVal = opts.copyVal !== undefined ? opts.copyVal : opts.value;
-      card.addEventListener('click', () => copyText(String(copyVal)));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(String(copyVal)); }
-      });
-      return card;
-    }
+    ${opts.warn?`<div class="card-warn">${opts.warn}</div>`:''}`;
+    const copyVal=opts.copyVal!==undefined?opts.copyVal:opts.value;
+    card.addEventListener('click',()=>copyText(String(copyVal)));
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();copyText(String(copyVal));}});
+    return card;
+  }
 
-    // ══════════════════════════════════════════════════════
-    //  TAB SWITCHING
-    // ══════════════════════════════════════════════════════
-    function switchTab(tab) {
-      currentTab = tab;
-      ['fps', 'shutter', 'nd'].forEach(t => {
-        document.getElementById('panel-' + t).classList.toggle('active', t === tab);
-        document.getElementById('nav-' + t).classList.toggle('active', t === tab);
-      });
-      renderHeader();
-      if (tab === 'fps') renderFPSTab();
-      if (tab === 'shutter') renderShutterTab();
-      if (tab === 'nd') renderNDTab();
-    }
+  // ══════════════════════════════════════════════════════
+  //  ACTIVE CAMERA HELPERS
+  // ══════════════════════════════════════════════════════
+  function getActiveCamera(){
+    if(!activeCameraState.cameraName)return null;
+    const all=[...customCameras,...CAMERA_DB];
+    const cam=all.find(c=>c.name===activeCameraState.cameraName);
+    if(!cam)return null;
+    const modeIdx=activeCameraState.modeIndex;
+    if(modeIdx===null||modeIdx===undefined||!cam.modes[modeIdx])return null;
+    return {camera:cam,mode:cam.modes[modeIdx]};
+  }
+  function saveActiveCameraState(){
+    localStorage.setItem(STORAGE_ACTIVE_CAMERA,JSON.stringify(activeCameraState));
+  }
 
-    // ══════════════════════════════════════════════════════
-    //  HEADER
-    // ══════════════════════════════════════════════════════
-    function renderHeader() {
-      const ctrl = document.getElementById('header-controls');
-      ctrl.innerHTML = '';
-      if (currentTab === 'fps') {
-        const label = document.createElement('p');
-        label.className = 'selector-label';
-        label.textContent = 'Project Standard';
-        ctrl.appendChild(label);
-        const scroll = document.createElement('div');
-        scroll.className = 'chips-scroll';
-        const row = document.createElement('div');
-        row.className = 'chips-row';
-        row.id = 'fps-chips-row';
-        row.setAttribute('role', 'group');
-        row.setAttribute('aria-label', 'Select project frame rate');
-        scroll.appendChild(row);
-        ctrl.appendChild(scroll);
-        renderFPSChips();
-      } else if (currentTab === 'shutter') {
-        renderShutterHeader(ctrl);
-      }
-      // ND has no header controls (all in panel)
-    }
+  // ══════════════════════════════════════════════════════
+  //  TAB SWITCHING
+  // ══════════════════════════════════════════════════════
+  const ALL_TABS=['fps','custom','shutter','nd','exposure','project'];
+  function switchTab(tab){
+    currentTab=tab;
+    localStorage.setItem(STORAGE_TAB,tab);
+    ALL_TABS.forEach(t=>{
+      document.getElementById('panel-'+t).classList.toggle('active',t===tab);
+      document.getElementById('nav-'+t).classList.toggle('active',t===tab);
+    });
+    renderHeader();
+    if(tab==='fps')renderFPSTab();
+    if(tab==='custom')renderCustomTab();
+    if(tab==='shutter')renderShutterTab();
+    if(tab==='nd')renderNDTab();
+    if(tab==='exposure')renderExposureTab();
+    if(tab==='project')renderProjectTab();
+  }
 
-    // ══════════════════════════════════════════════════════
-    //  FPS TAB
-    // ══════════════════════════════════════════════════════
-    function renderFPSChips() {
-      const row = document.getElementById('fps-chips-row');
-      if (!row) return;
-      row.innerHTML = '';
-      const groups = {};
-      STANDARDS.forEach(s => {
-        if (!groups[s.group]) groups[s.group] = [];
-        groups[s.group].push(s.value);
-      });
-      Object.values(groups).forEach(gv => {
-        const grp = document.createElement('div');
-        grp.className = 'chip-group';
-        gv.forEach(v => {
-          const btn = makeChip(v, fpsStandard, val => {
-            fpsStandard = val;
-            localStorage.setItem(STORAGE_KEY, val);
-            renderFPSChips();
-            renderFPSTab();
-          });
-          grp.appendChild(btn);
+  // ══════════════════════════════════════════════════════
+  //  HEADER
+  // ══════════════════════════════════════════════════════
+  function renderHeader(){
+    const ctrl=document.getElementById('header-controls');
+    ctrl.innerHTML='';
+    if(currentTab==='fps'){
+      const label=document.createElement('p');label.className='selector-label';label.textContent='Project Standard';ctrl.appendChild(label);
+      const scroll=document.createElement('div');scroll.className='chips-scroll';
+      const row=document.createElement('div');row.className='chips-row';row.id='fps-chips-row';row.setAttribute('role','group');
+      scroll.appendChild(row);ctrl.appendChild(scroll);
+      renderFPSChips();
+    }else if(currentTab==='shutter'){
+      renderShutterHeader(ctrl);
+    }
+  }
+
+  // ══════════════════════════════════════════════════════
+  //  FPS TAB
+  // ══════════════════════════════════════════════════════
+  function renderFPSChips(){
+    const row=document.getElementById('fps-chips-row');if(!row)return;
+    row.innerHTML='';
+    const groups={};
+    STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    Object.values(groups).forEach(gv=>{
+      const grp=document.createElement('div');grp.className='chip-group';
+      gv.forEach(v=>{
+        const btn=makeChip(v,fpsStandard,val=>{
+          fpsStandard=val;localStorage.setItem(STORAGE_KEY,val);
+          renderFPSChips();renderFPSTab();
         });
-        row.appendChild(grp);
-      });
-    }
-
-    function renderFPSTab() {
-      const grid = document.getElementById('fps-grid');
-      grid.innerHTML = '';
-      MULTIPLES.forEach(({ mult, label, slowmo }) => {
-        const fps = fpsStandard * mult;
-        const fpsStr = formatFPS(fps);
-        const isBase = mult === 1;
-        const card = makeCard({
-          topLabel: getMultLabel(mult),
-          value: fpsStr,
-          unit: 'fps',
-          bottomLabel: label,
-          sub: isBase ? '' : slowmo,
-          isBase,
-          warn: fps > 1000 ? '⚠ Check camera limits' : '',
-          copyVal: fpsStr,
-        });
-        grid.appendChild(card);
-      });
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  SHUTTER TAB
-    // ══════════════════════════════════════════════════════
-    function renderShutterHeader(ctrl) {
-      // FPS row
-      const fpsLabel = document.createElement('p');
-      fpsLabel.className = 'selector-label';
-      fpsLabel.textContent = 'Frame Rate';
-      ctrl.appendChild(fpsLabel);
-
-      const fpsScroll = document.createElement('div');
-      fpsScroll.className = 'chips-scroll';
-      const fpsRow = document.createElement('div');
-      fpsRow.className = 'chips-row';
-      fpsRow.id = 'shutter-fps-chips';
-      fpsScroll.appendChild(fpsRow);
-      ctrl.appendChild(fpsScroll);
-
-      // Custom FPS input
-      const fpsInputRow = document.createElement('div');
-      fpsInputRow.className = 'input-row';
-      const fpsInput = document.createElement('input');
-      fpsInput.type = 'number';
-      fpsInput.className = 'custom-input';
-      fpsInput.placeholder = 'Custom fps';
-      fpsInput.min = 1; fpsInput.max = 1000;
-      fpsInput.id = 'shutter-custom-fps';
-      if (shutterCustomFPS) fpsInput.value = shutterCustomFPS;
-      fpsInput.addEventListener('input', () => {
-        const v = parseFloat(fpsInput.value);
-        if (v >= 1 && v <= 1000) {
-          shutterCustomFPS = fpsInput.value;
-          shutterFPS = v;
-          // deactivate chip selection
-          document.querySelectorAll('#shutter-fps-chips .chip').forEach(c => c.classList.remove('active'));
-          renderShutterTab();
-        }
-      });
-      const fpsInputLabel = document.createElement('span');
-      fpsInputLabel.className = 'input-label';
-      fpsInputLabel.textContent = 'fps';
-      fpsInputRow.appendChild(fpsInput);
-      fpsInputRow.appendChild(fpsInputLabel);
-      ctrl.appendChild(fpsInputRow);
-
-      // Angle row
-      const angleLabel = document.createElement('p');
-      angleLabel.className = 'selector-label';
-      angleLabel.style.marginTop = '10px';
-      angleLabel.textContent = 'Shutter Angle';
-      ctrl.appendChild(angleLabel);
-
-      const angleScroll = document.createElement('div');
-      angleScroll.className = 'chips-scroll';
-      const angleRow = document.createElement('div');
-      angleRow.className = 'chips-row';
-      angleRow.id = 'shutter-angle-chips';
-      angleScroll.appendChild(angleRow);
-      ctrl.appendChild(angleScroll);
-
-      // Custom angle input
-      const angleInputRow = document.createElement('div');
-      angleInputRow.className = 'input-row';
-      const angleInput = document.createElement('input');
-      angleInput.type = 'number';
-      angleInput.className = 'custom-input';
-      angleInput.placeholder = 'Custom °';
-      angleInput.min = 1; angleInput.max = 358;
-      angleInput.id = 'shutter-custom-angle';
-      if (shutterCustomAngle) angleInput.value = shutterCustomAngle;
-      angleInput.addEventListener('input', () => {
-        const v = parseFloat(angleInput.value);
-        if (v >= 1 && v <= 358) {
-          shutterCustomAngle = angleInput.value;
-          shutterAngle = v;
-          document.querySelectorAll('#shutter-angle-chips .chip').forEach(c => c.classList.remove('active'));
-          renderShutterTab();
-        }
-      });
-      const angleInputLabel = document.createElement('span');
-      angleInputLabel.className = 'input-label';
-      angleInputLabel.textContent = '°';
-      angleInputRow.appendChild(angleInput);
-      angleInputRow.appendChild(angleInputLabel);
-      ctrl.appendChild(angleInputRow);
-
-      // 180° badge
-      const badgeEl = document.createElement('div');
-      badgeEl.id = 'shutter-180-badge';
-      ctrl.appendChild(badgeEl);
-
-      // Populate chips
-      populateShutterFPSChips();
-      populateShutterAngleChips();
-      update180Badge();
-    }
-
-    function populateShutterFPSChips() {
-      const row = document.getElementById('shutter-fps-chips');
-      if (!row) return;
-      row.innerHTML = '';
-      const groups = {};
-      STANDARDS.forEach(s => {
-        if (!groups[s.group]) groups[s.group] = [];
-        groups[s.group].push(s.value);
-      });
-      Object.values(groups).forEach(gv => {
-        const grp = document.createElement('div');
-        grp.className = 'chip-group';
-        gv.forEach(v => {
-          const btn = makeChip(v, shutterFPS, val => {
-            shutterFPS = val;
-            shutterCustomFPS = '';
-            const ci = document.getElementById('shutter-custom-fps');
-            if (ci) ci.value = '';
-            populateShutterFPSChips();
-            renderShutterTab();
-          });
-          grp.appendChild(btn);
-        });
-        row.appendChild(grp);
-      });
-    }
-
-    function populateShutterAngleChips() {
-      const row = document.getElementById('shutter-angle-chips');
-      if (!row) return;
-      row.innerHTML = '';
-      const grp = document.createElement('div');
-      grp.className = 'chip-group';
-      SHUTTER_ANGLES.forEach(v => {
-        const btn = makeChip(v, shutterAngle, val => {
-          shutterAngle = val;
-          shutterCustomAngle = '';
-          const ci = document.getElementById('shutter-custom-angle');
-          if (ci) ci.value = '';
-          populateShutterAngleChips();
-          update180Badge();
-          renderShutterTab();
-        });
-        btn.textContent = v + '°';
         grp.appendChild(btn);
       });
       row.appendChild(grp);
+    });
+  }
+  function renderFPSTab(){
+    const grid=document.getElementById('fps-grid');grid.innerHTML='';
+    const activeCamera=getActiveCamera();
+    // Status line
+    const statusEl=document.getElementById('fps-camera-status');
+    if(activeCamera){
+      statusEl.innerHTML=`<p class="camera-status-line"><span class="camera-status-dot">●</span>${activeCamera.camera.name} · ${activeCamera.mode.name} · max ${activeCamera.mode.maxFps}fps</p>`;
+      statusEl.style.marginBottom='12px';
+    }else{
+      statusEl.innerHTML='';statusEl.style.marginBottom='0';
     }
+    MULTIPLES.forEach(({mult,label,slowmo})=>{
+      const fps=fpsStandard*mult;
+      const fpsStr=formatFPS(fps);
+      const isBase=mult===1;
+      const exceeds=activeCamera&&fps>activeCamera.mode.maxFps;
+      const warnText=exceeds?`⚠ Exceeds ${activeCamera.camera.name} limit (${activeCamera.mode.maxFps}fps)`:(fps>1000?'⚠ Check camera limits':'');
+      const card=makeCard({
+        topLabel:getMultLabel(mult),value:fpsStr,unit:'fps',
+        bottomLabel:label,sub:isBase?'':slowmo,isBase,
+        warn:warnText,copyVal:fpsStr,dimmed:exceeds,
+      });
+      grid.appendChild(card);
+    });
+  }
 
-    function update180Badge() {
-      const el = document.getElementById('shutter-180-badge');
-      if (!el) return;
-      if (shutterAngle === 180) {
-        el.innerHTML = '<span class="badge-180">● 180° Rule</span>';
-      } else {
-        el.innerHTML = '<span class="badge-off180">△ Off 180° rule</span>';
+  // ══════════════════════════════════════════════════════
+  //  CUSTOM TAB
+  // ══════════════════════════════════════════════════════
+  const COMMON_MULTS=[1.2,1.25,1.33,1.5,1.75,2,2.5,3];
+  function setCustomMode(mode){
+    customMode=mode;
+    document.getElementById('custom-mode-forward').classList.toggle('active',mode==='forward');
+    document.getElementById('custom-mode-reverse').classList.toggle('active',mode==='reverse');
+    document.getElementById('custom-forward-section').style.display=mode==='forward'?'':'none';
+    document.getElementById('custom-reverse-section').style.display=mode==='reverse'?'':'none';
+    if(mode==='forward')renderCustomForward();
+    else renderCustomReverse();
+  }
+  function renderCustomTab(){
+    renderCustomBaseChips();
+    renderCustomMultChips();
+    renderCustomRevBaseChips();
+    renderCustomForward();
+    // wire inputs
+    const bi=document.getElementById('custom-base-input');
+    bi.oninput=()=>{const v=parseFloat(bi.value);if(v>0){customBaseFPS=v;document.querySelectorAll('#custom-base-chips .chip').forEach(c=>c.classList.remove('active'));renderCustomForward();}};
+    const mi=document.getElementById('custom-mult-input');
+    mi.oninput=()=>{const v=parseFloat(mi.value);if(v>0){customMult=v;document.querySelectorAll('#custom-mult-chips .chip').forEach(c=>c.classList.remove('active'));renderCustomForward();}};
+    const rbi=document.getElementById('custom-rev-base-input');
+    rbi.oninput=()=>{const v=parseFloat(rbi.value);if(v>0){customRevBaseFPS=v;document.querySelectorAll('#custom-rev-base-chips .chip').forEach(c=>c.classList.remove('active'));renderCustomReverse();}};
+    const ti=document.getElementById('custom-target-input');
+    ti.oninput=()=>{const v=parseFloat(ti.value);if(v>0){customTargetFPS=v;renderCustomReverse();}};
+  }
+  function renderCustomBaseChips(){
+    const row=document.getElementById('custom-base-chips');if(!row)return;row.innerHTML='';
+    const groups={};
+    STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    Object.values(groups).forEach(gv=>{
+      const grp=document.createElement('div');grp.className='chip-group';
+      gv.forEach(v=>{
+        grp.appendChild(makeChip(v,customBaseFPS,val=>{
+          customBaseFPS=val;const bi=document.getElementById('custom-base-input');if(bi)bi.value='';
+          renderCustomBaseChips();renderCustomForward();
+        }));
+      });
+      row.appendChild(grp);
+    });
+  }
+  function renderCustomRevBaseChips(){
+    const row=document.getElementById('custom-rev-base-chips');if(!row)return;row.innerHTML='';
+    const groups={};
+    STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    Object.values(groups).forEach(gv=>{
+      const grp=document.createElement('div');grp.className='chip-group';
+      gv.forEach(v=>{
+        grp.appendChild(makeChip(v,customRevBaseFPS,val=>{
+          customRevBaseFPS=val;const bi=document.getElementById('custom-rev-base-input');if(bi)bi.value='';
+          renderCustomRevBaseChips();renderCustomReverse();
+        }));
+      });
+      row.appendChild(grp);
+    });
+  }
+  function renderCustomMultChips(){
+    const row=document.getElementById('custom-mult-chips');if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    COMMON_MULTS.forEach(v=>{
+      grp.appendChild(makeChip(v,customMult,val=>{
+        customMult=val;const mi=document.getElementById('custom-mult-input');if(mi)mi.value='';
+        renderCustomMultChips();renderCustomForward();
+      },v+'×'));
+    });
+    row.appendChild(grp);
+  }
+  function renderCustomForward(){
+    const base=customBaseFPS,mult=customMult;
+    const result=base*mult;
+    const main=document.getElementById('cfr-main');
+    const sub=document.getElementById('cfr-sub');
+    const tert=document.getElementById('cfr-tertiary');
+    if(!main)return;
+    main.textContent=formatFPS(result)+' fps';
+    sub.textContent=`Base ${formatFPS(base)} × ${mult} = ${formatFPS(result)}`;
+    if(mult>1){
+      tert.textContent=`Plays at ${+(100/mult).toFixed(1)}% speed (overcrank)`;
+    }else if(mult<1){
+      tert.textContent=`Plays at ${+(mult*100).toFixed(1)}% speed (undercrank)`;
+    }else{tert.textContent='Plays at real-time speed';}
+  }
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){let t=b;b=a%b;a=t;}return a;}
+  function findCleanFractions(base,target){
+    const candidates=[];
+    for(let n=1;n<=16;n++){
+      for(let d=1;d<=16;d++){
+        const g=gcd(n,d);
+        if(g===n&&g===d&&n!==d)continue; // skip if not reduced? Actually keep all
+        const resultFps=base*(n/d);
+        const delta=resultFps-target;
+        candidates.push({n,d,mult:n/d,resultFps,delta,absDelta:Math.abs(delta)});
       }
     }
-
-    function calcShutterSpeed(fps, angle) {
-      // Shutter Speed = angle / (360 × fps)
-      return angle / (360 * fps);
+    // deduplicate by reduced fraction
+    const seen=new Set();
+    const deduped=[];
+    for(const c of candidates){
+      const g=gcd(c.n,c.d);
+      const key=`${c.n/g}/${c.d/g}`;
+      if(!seen.has(key)){seen.add(key);deduped.push({...c,rn:c.n/g,rd:c.d/g});}
     }
+    deduped.sort((a,b)=>a.absDelta-b.absDelta);
+    return deduped;
+  }
+  function deltaClass(absDelta){
+    if(absDelta===0)return 'exact';
+    if(absDelta<0.1)return 'negligible';
+    if(absDelta<=0.5)return 'minor';
+    return 'warn';
+  }
+  function deltaText(delta,absDelta){
+    if(absDelta<0.001)return '✓ Exact match';
+    const sign=delta>0?'+':'−';
+    return `Delta: ${sign}${absDelta.toFixed(3)} fps`;
+  }
+  function renderCustomReverse(){
+    const base=customRevBaseFPS,target=customTargetFPS;
+    const container=document.getElementById('custom-reverse-results');container.innerHTML='';
+    if(!base||!target)return;
+    const exactMult=target/base;
+    // Card 1: exact
+    const c1=document.createElement('div');c1.className='result-card-full';
+    c1.innerHTML=`<div class="rc-tag">Exact multiple</div>
+    <div class="rc-main-row"><span class="rc-value">${exactMult.toFixed(4)}×</span><span class="rc-fps">${formatFPS(target)} fps</span></div>
+    <div class="rc-detail">${formatFPS(base)} × ${exactMult.toFixed(4)} = ${formatFPS(target)}</div>`;
+    c1.addEventListener('click',()=>copyText(exactMult.toFixed(4)+'×'));
+    container.appendChild(c1);
+    // Find fractions
+    const fracs=findCleanFractions(base,target);
+    if(fracs.length===0)return;
+    const best=fracs[0];
+    // Card 2: nearest clean fraction (amber)
+    const c2=document.createElement('div');c2.className='result-card-full accent-border';
+    const dCls=deltaClass(best.absDelta);
+    c2.innerHTML=`<div class="rc-tag">Nearest clean multiple</div>
+    <div class="rc-main-row"><span class="rc-value">${best.mult.toFixed(4)}× (${best.rn}/${best.rd})</span><span class="rc-fps">${formatFPS(best.resultFps)} fps</span></div>
+    <div class="rc-detail">${formatFPS(base)} × ${best.rn}/${best.rd} = ${formatFPS(best.resultFps)}</div>
+    <div class="rc-delta ${dCls}">${deltaText(best.delta,best.absDelta)}</div>
+    <div class="rc-detail" style="margin-top:4px;font-size:10px">Closest clean fraction to ${formatFPS(target)}fps</div>`;
+    c2.addEventListener('click',()=>copyText(best.mult.toFixed(4)+'×'));
+    container.appendChild(c2);
+    // Card 3: nearest standard multiple
+    const stdExact=COMMON_MULTS.map(m=>({m,resultFps:base*m,absDelta:Math.abs(base*m-target)}));
+    stdExact.sort((a,b)=>a.absDelta-b.absDelta);
+    const nearest=stdExact[0];
+    const nFrac=fracs.find(f=>Math.abs(f.mult-nearest.m)<0.0001)||null;
+    const fracStr=nFrac?` (${nFrac.rn}/${nFrac.rd})`:'';
+    const nDelta=nearest.resultFps-target;
+    const nCls=deltaClass(nearest.absDelta);
+    const c3=document.createElement('div');c3.className='result-card-full';
+    c3.innerHTML=`<div class="rc-tag">Nearest standard multiple</div>
+    <div class="rc-main-row"><span class="rc-value">${nearest.m}×${fracStr}</span><span class="rc-fps">${formatFPS(nearest.resultFps)} fps</span></div>
+    <div class="rc-detail">${formatFPS(base)} × ${nearest.m} = ${formatFPS(nearest.resultFps)}</div>
+    <div class="rc-delta ${nCls}">${deltaText(nDelta,nearest.absDelta)}</div>`;
+    c3.addEventListener('click',()=>copyText(nearest.m+'×'));
+    container.appendChild(c3);
+  }
 
-    function formatShutterFraction(ss) {
-      // ss is in seconds, display as 1/N
-      const denom = Math.round(1 / ss);
-      return '1/' + denom;
-    }
+  // ══════════════════════════════════════════════════════
+  //  SHUTTER TAB
+  // ══════════════════════════════════════════════════════
+  function renderShutterHeader(ctrl){
+    const fpsLabel=document.createElement('p');fpsLabel.className='selector-label';fpsLabel.textContent='Frame Rate';ctrl.appendChild(fpsLabel);
+    const fpsScroll=document.createElement('div');fpsScroll.className='chips-scroll';
+    const fpsRow=document.createElement('div');fpsRow.className='chips-row';fpsRow.id='shutter-fps-chips';
+    fpsScroll.appendChild(fpsRow);ctrl.appendChild(fpsScroll);
+    const fpsInputRow=document.createElement('div');fpsInputRow.className='input-row';
+    const fpsInput=document.createElement('input');fpsInput.type='number';fpsInput.className='custom-input';fpsInput.placeholder='Custom fps';fpsInput.min=1;fpsInput.max=1000;fpsInput.id='shutter-custom-fps';
+    if(shutterCustomFPS)fpsInput.value=shutterCustomFPS;
+    fpsInput.addEventListener('input',()=>{const v=parseFloat(fpsInput.value);if(v>=1&&v<=1000){shutterCustomFPS=fpsInput.value;shutterFPS=v;document.querySelectorAll('#shutter-fps-chips .chip').forEach(c=>c.classList.remove('active'));renderShutterTab();}});
+    const fpsInputLabel=document.createElement('span');fpsInputLabel.className='input-label';fpsInputLabel.textContent='fps';
+    fpsInputRow.appendChild(fpsInput);fpsInputRow.appendChild(fpsInputLabel);ctrl.appendChild(fpsInputRow);
+    const angleLabel=document.createElement('p');angleLabel.className='selector-label';angleLabel.style.marginTop='10px';angleLabel.textContent='Shutter Angle';ctrl.appendChild(angleLabel);
+    const angleScroll=document.createElement('div');angleScroll.className='chips-scroll';
+    const angleRow=document.createElement('div');angleRow.className='chips-row';angleRow.id='shutter-angle-chips';
+    angleScroll.appendChild(angleRow);ctrl.appendChild(angleScroll);
+    const angleInputRow=document.createElement('div');angleInputRow.className='input-row';
+    const angleInput=document.createElement('input');angleInput.type='number';angleInput.className='custom-input';angleInput.placeholder='Custom °';angleInput.min=1;angleInput.max=358;angleInput.id='shutter-custom-angle';
+    if(shutterCustomAngle)angleInput.value=shutterCustomAngle;
+    angleInput.addEventListener('input',()=>{const v=parseFloat(angleInput.value);if(v>=1&&v<=358){shutterCustomAngle=angleInput.value;shutterAngle=v;document.querySelectorAll('#shutter-angle-chips .chip').forEach(c=>c.classList.remove('active'));renderShutterTab();}});
+    const angleInputLabel=document.createElement('span');angleInputLabel.className='input-label';angleInputLabel.textContent='°';
+    angleInputRow.appendChild(angleInput);angleInputRow.appendChild(angleInputLabel);ctrl.appendChild(angleInputRow);
+    const badgeEl=document.createElement('div');badgeEl.id='shutter-180-badge';ctrl.appendChild(badgeEl);
+    populateShutterFPSChips();populateShutterAngleChips();update180Badge();
+  }
+  function populateShutterFPSChips(){
+    const row=document.getElementById('shutter-fps-chips');if(!row)return;row.innerHTML='';
+    const groups={};STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    Object.values(groups).forEach(gv=>{
+      const grp=document.createElement('div');grp.className='chip-group';
+      gv.forEach(v=>{grp.appendChild(makeChip(v,shutterFPS,val=>{shutterFPS=val;shutterCustomFPS='';const ci=document.getElementById('shutter-custom-fps');if(ci)ci.value='';populateShutterFPSChips();renderShutterTab();}));});
+      row.appendChild(grp);
+    });
+  }
+  function populateShutterAngleChips(){
+    const row=document.getElementById('shutter-angle-chips');if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    SHUTTER_ANGLES.forEach(v=>{
+      const btn=makeChip(v,shutterAngle,val=>{shutterAngle=val;shutterCustomAngle='';const ci=document.getElementById('shutter-custom-angle');if(ci)ci.value='';populateShutterAngleChips();update180Badge();renderShutterTab();});
+      btn.textContent=v+'°';grp.appendChild(btn);
+    });
+    row.appendChild(grp);
+  }
+  function update180Badge(){
+    const el=document.getElementById('shutter-180-badge');if(!el)return;
+    el.innerHTML=shutterAngle===180?'<span class="badge-180">● 180° Rule</span>':'<span class="badge-off180">△ Off 180° rule</span>';
+  }
+  function calcShutterSpeed(fps,angle){return angle/(360*fps);}
+  function formatShutterFraction(ss){return '1/'+Math.round(1/ss);}
+  function formatShutterMS(ss){return (ss*1000).toFixed(2)+'ms';}
+  function renderShutterTab(){
+    const singleGrid=document.getElementById('shutter-single-grid');singleGrid.innerHTML='';
+    const ss=calcShutterSpeed(shutterFPS,shutterAngle);
+    singleGrid.appendChild(makeCard({topLabel:shutterAngle+'° @ '+formatFPS(shutterFPS)+'fps',value:formatShutterFraction(ss),unit:'s',bottomLabel:'Shutter Speed',sub:formatShutterMS(ss),isBase:true,warn:ss<1/8000?'⚠ Check camera limits':'',copyVal:formatShutterFraction(ss)}));
+    const multiGrid=document.getElementById('shutter-multi-grid');multiGrid.innerHTML='';
+    MULTIPLES.forEach(({mult,label})=>{
+      const fps=shutterFPS*mult;const ss2=calcShutterSpeed(fps,shutterAngle);
+      multiGrid.appendChild(makeCard({topLabel:getMultLabel(mult)+' — '+formatFPS(fps)+'fps',value:formatShutterFraction(ss2),unit:'s',bottomLabel:label,sub:formatShutterMS(ss2),isBase:mult===1,warn:ss2<1/8000?'⚠ Check camera limits':'',copyVal:formatShutterFraction(ss2)}));
+    });
+  }
 
-    function formatShutterMS(ss) {
-      return (ss * 1000).toFixed(2) + 'ms';
-    }
-
-    function renderShutterTab() {
-      // Single result
-      const singleGrid = document.getElementById('shutter-single-grid');
-      singleGrid.innerHTML = '';
-      const ss = calcShutterSpeed(shutterFPS, shutterAngle);
-      const frac = formatShutterFraction(ss);
-      const ms = formatShutterMS(ss);
-      const isWarn = ss < 1 / 8000;
-      const card = makeCard({
-        topLabel: shutterAngle + '° @ ' + formatFPS(shutterFPS) + 'fps',
-        value: frac,
-        unit: 's',
-        bottomLabel: 'Shutter Speed',
-        sub: ms,
-        isBase: true,
-        warn: isWarn ? '⚠ Check camera limits' : '',
-        copyVal: frac,
-      });
-      singleGrid.appendChild(card);
-
-      // Multi result (across all multiples)
-      const multiGrid = document.getElementById('shutter-multi-grid');
-      multiGrid.innerHTML = '';
-
-      // Find the base standard closest to shutterFPS for multiples
-      // Use shutterFPS as the base
-      MULTIPLES.forEach(({ mult, label }) => {
-        const fps = shutterFPS * mult;
-        const ss2 = calcShutterSpeed(fps, shutterAngle);
-        const frac2 = formatShutterFraction(ss2);
-        const ms2 = formatShutterMS(ss2);
-        const isBase2 = mult === 1;
-        const isWarn2 = ss2 < 1 / 8000;
-        const c = makeCard({
-          topLabel: getMultLabel(mult) + ' — ' + formatFPS(fps) + 'fps',
-          value: frac2,
-          unit: 's',
-          bottomLabel: label,
-          sub: ms2,
-          isBase: isBase2,
-          warn: isWarn2 ? '⚠ Check camera limits' : '',
-          copyVal: frac2,
-        });
-        multiGrid.appendChild(c);
-      });
-    }
-
-    // ══════════════════════════════════════════════════════
-    //  ND TAB
-    // ══════════════════════════════════════════════════════
-    function setNDMode(mode) {
-      ndMode = mode;
-      ['fps', 'stops', 'angle'].forEach(m => {
-        document.getElementById('nd-' + m + '-mode').style.display = m === mode ? '' : 'none';
-        document.getElementById('nd-mode-' + m).classList.toggle('active', m === mode);
-      });
-      renderNDResult();
-    }
-
-    function changeStops(delta) {
-      ndManualStops = Math.max(-10, Math.min(10, ndManualStops + delta));
-      document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops;
-      renderNDResult();
-    }
-
-    function stopsToND(stops) {
-      const absStops = Math.abs(stops);
-      const ndNum = (absStops * 0.3).toFixed(1);
-      const ndFactor = Math.round(Math.pow(2, absStops));
-      return { ndNum: 'ND ' + ndNum, ndFactor: 'ND' + ndFactor };
-    }
-
-    function fpsToStops(from, to) {
-      if (from <= 0 || to <= 0) return 0;
-      return Math.log2(to / from);
-    }
-
-    function angleToStops(from, to) {
-      if (from <= 0 || to <= 0) return 0;
-      // halving angle = 1 stop more ND
-      return Math.log2(from / to);
-    }
-
-    function suggestStack(stops) {
-      const absStops = Math.abs(stops);
-      // Find two filters from ND_TABLE_DATA that sum closest
-      let best = null, bestDiff = Infinity;
-      for (let i = 0; i < ND_TABLE_DATA.length; i++) {
-        for (let j = i; j < ND_TABLE_DATA.length; j++) {
-          const sum = ND_TABLE_DATA[i].stops + ND_TABLE_DATA[j].stops;
-          const diff = Math.abs(sum - absStops);
-          if (diff < bestDiff) {
-            bestDiff = diff;
-            best = [ND_TABLE_DATA[i], ND_TABLE_DATA[j]];
-          }
-        }
-      }
-      return best;
-    }
-
-    function renderNDResult() {
-      let stops = 0;
-      if (ndMode === 'fps') {
-        stops = fpsToStops(ndFromFPS, ndToFPS);
-      } else if (ndMode === 'stops') {
-        stops = ndManualStops;
-      } else if (ndMode === 'angle') {
-        stops = angleToStops(ndFromAngle, ndToAngle);
-      }
-
-      const primary = document.getElementById('nd-result-primary');
-      const secondary = document.getElementById('nd-result-secondary');
-      const stack = document.getElementById('nd-result-stack');
-
-      if (stops === 0) {
-        primary.textContent = 'No change';
-        secondary.textContent = 'Same exposure';
-        stack.textContent = '';
-        return;
-      }
-
-      const dir = stops > 0 ? 'Add' : 'Remove';
-      const absStops = Math.abs(stops);
-      const stopsRounded = Math.round(absStops * 10) / 10;
-      const { ndNum, ndFactor } = stopsToND(absStops);
-
-      primary.textContent = dir + ' ' + stopsRounded.toFixed(1) + ' stop' + (stopsRounded !== 1 ? 's' : '');
-      secondary.textContent = ndNum + '  ·  ' + ndFactor;
-
-      // Check if it's a clean integer stop
-      const isClean = Number.isInteger(Math.round(absStops * 10) / 10) && Math.abs(absStops - Math.round(absStops)) < 0.05;
-      if (!isClean || absStops > 10) {
-        const s = suggestStack(absStops);
-        if (s && s[0] !== s[1]) {
-          stack.textContent = 'Stack: ' + s[0].nd + ' + ' + s[1].nd;
-        } else if (s) {
-          stack.textContent = 'Single: ' + s[0].nd;
-        }
-      } else {
-        stack.textContent = '';
-      }
-    }
-
-    function renderNDFPSChips() {
-      const fromRow = document.getElementById('nd-from-fps-chips');
-      const toRow = document.getElementById('nd-to-fps-chips');
-      if (!fromRow || !toRow) return;
-
-      fromRow.innerHTML = '';
-      toRow.innerHTML = '';
-
-      const groups = {};
-      STANDARDS.forEach(s => {
-        if (!groups[s.group]) groups[s.group] = [];
-        groups[s.group].push(s.value);
-      });
-
-      [fromRow, toRow].forEach((row, idx) => {
-        Object.values(groups).forEach(gv => {
-          const grp = document.createElement('div');
-          grp.className = 'chip-group';
-          gv.forEach(v => {
-            const active = idx === 0 ? ndFromFPS : ndToFPS;
-            const btn = makeChip(v, active, val => {
-              if (idx === 0) ndFromFPS = val; else ndToFPS = val;
-              renderNDFPSChips();
-              renderNDResult();
-            });
-            grp.appendChild(btn);
-          });
-          row.appendChild(grp);
-        });
-      });
-    }
-
-    function renderNDAngleChips() {
-      const fromRow = document.getElementById('nd-from-angle-chips');
-      const toRow = document.getElementById('nd-to-angle-chips');
-      if (!fromRow || !toRow) return;
-
-      [fromRow, toRow].forEach((row, idx) => {
-        row.innerHTML = '';
-        const grp = document.createElement('div');
-        grp.className = 'chip-group';
-        SHUTTER_ANGLES.forEach(v => {
-          const active = idx === 0 ? ndFromAngle : ndToAngle;
-          const btn = makeChip(v, active, val => {
-            if (idx === 0) ndFromAngle = val; else ndToAngle = val;
-            renderNDAngleChips();
-            renderNDResult();
-          });
-          btn.textContent = v + '°';
-          grp.appendChild(btn);
-        });
+  // ══════════════════════════════════════════════════════
+  //  ND TAB
+  // ══════════════════════════════════════════════════════
+  function setNDMode(mode){
+    ndMode=mode;
+    ['fps','stops','angle'].forEach(m=>{document.getElementById('nd-'+m+'-mode').style.display=m===mode?'':'none';document.getElementById('nd-mode-'+m).classList.toggle('active',m===mode);});
+    renderNDResult();
+  }
+  function changeStops(delta){ndManualStops=Math.max(-10,Math.min(10,ndManualStops+delta));document.getElementById('nd-stops-val').textContent=ndManualStops>0?'+'+ndManualStops:ndManualStops;renderNDResult();}
+  function stopsToND(stops){const a=Math.abs(stops);return{ndNum:'ND '+(a*0.3).toFixed(1),ndFactor:'ND'+Math.round(Math.pow(2,a))};}
+  function fpsToStops(from,to){if(from<=0||to<=0)return 0;return Math.log2(to/from);}
+  function angleToStops(from,to){if(from<=0||to<=0)return 0;return Math.log2(from/to);}
+  function suggestStack(stops){
+    const a=Math.abs(stops);let best=null,bestDiff=Infinity;
+    for(let i=0;i<ND_TABLE_DATA.length;i++)for(let j=i;j<ND_TABLE_DATA.length;j++){const sum=ND_TABLE_DATA[i].stops+ND_TABLE_DATA[j].stops;const diff=Math.abs(sum-a);if(diff<bestDiff){bestDiff=diff;best=[ND_TABLE_DATA[i],ND_TABLE_DATA[j]];}}
+    return best;
+  }
+  function renderNDResult(){
+    let stops=0;
+    if(ndMode==='fps')stops=fpsToStops(ndFromFPS,ndToFPS);
+    else if(ndMode==='stops')stops=ndManualStops;
+    else if(ndMode==='angle')stops=angleToStops(ndFromAngle,ndToAngle);
+    const primary=document.getElementById('nd-result-primary');
+    const secondary=document.getElementById('nd-result-secondary');
+    const stack=document.getElementById('nd-result-stack');
+    if(stops===0){primary.textContent='No change';secondary.textContent='Same exposure';stack.textContent='';return;}
+    const dir=stops>0?'Add':'Remove';const a=Math.abs(stops);const r=Math.round(a*10)/10;
+    const{ndNum,ndFactor}=stopsToND(a);
+    primary.textContent=dir+' '+r.toFixed(1)+' stop'+(r!==1?'s':'');
+    secondary.textContent=ndNum+'  ·  '+ndFactor;
+    const isClean=Number.isInteger(Math.round(a*10)/10)&&Math.abs(a-Math.round(a))<0.05;
+    if(!isClean||a>10){const s=suggestStack(a);if(s&&s[0]!==s[1])stack.textContent='Stack: '+s[0].nd+' + '+s[1].nd;else if(s)stack.textContent='Single: '+s[0].nd;}
+    else stack.textContent='';
+  }
+  function renderNDFPSChips(){
+    const fromRow=document.getElementById('nd-from-fps-chips');const toRow=document.getElementById('nd-to-fps-chips');if(!fromRow||!toRow)return;
+    const groups={};STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    [fromRow,toRow].forEach((row,idx)=>{
+      row.innerHTML='';
+      Object.values(groups).forEach(gv=>{
+        const grp=document.createElement('div');grp.className='chip-group';
+        gv.forEach(v=>{grp.appendChild(makeChip(v,idx===0?ndFromFPS:ndToFPS,val=>{if(idx===0)ndFromFPS=val;else ndToFPS=val;renderNDFPSChips();renderNDResult();}));});
         row.appendChild(grp);
       });
-    }
+    });
+  }
+  function renderNDAngleChips(){
+    const fromRow=document.getElementById('nd-from-angle-chips');const toRow=document.getElementById('nd-to-angle-chips');if(!fromRow||!toRow)return;
+    [fromRow,toRow].forEach((row,idx)=>{
+      row.innerHTML='';const grp=document.createElement('div');grp.className='chip-group';
+      SHUTTER_ANGLES.forEach(v=>{const btn=makeChip(v,idx===0?ndFromAngle:ndToAngle,val=>{if(idx===0)ndFromAngle=val;else ndToAngle=val;renderNDAngleChips();renderNDResult();});btn.textContent=v+'°';grp.appendChild(btn);});
+      row.appendChild(grp);
+    });
+  }
+  function renderNDTable(){
+    const table=document.getElementById('nd-table');const header=table.querySelector('.nd-table-header');table.innerHTML='';table.appendChild(header);
+    ND_TABLE_DATA.forEach(row=>{
+      const el=document.createElement('div');el.className='nd-row';el.setAttribute('role','row');el.setAttribute('tabindex','0');
+      el.innerHTML=`<span class="nd-cell stops">${row.stops}</span><span class="nd-cell">${row.nd}</span><span class="nd-cell">${row.factor}</span><span class="nd-cell" style="font-size:10px;color:var(--text-dim)">${row.name}</span>`;
+      el.addEventListener('click',()=>copyText(row.nd));el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();copyText(row.nd);}});
+      table.appendChild(el);
+    });
+  }
+  function renderNDTab(){renderNDFPSChips();renderNDAngleChips();renderNDTable();renderNDResult();document.getElementById('nd-stops-val').textContent=ndManualStops>0?'+'+ndManualStops:ndManualStops;}
 
-    function renderNDTable() {
-      const table = document.getElementById('nd-table');
-      // Remove existing rows (keep header)
-      const header = table.querySelector('.nd-table-header');
-      table.innerHTML = '';
-      table.appendChild(header);
-
-      ND_TABLE_DATA.forEach(row => {
-        const el = document.createElement('div');
-        el.className = 'nd-row';
-        el.setAttribute('role', 'row');
-        el.setAttribute('tabindex', '0');
-        el.innerHTML = `
-      <span class="nd-cell stops">${row.stops}</span>
-      <span class="nd-cell">${row.nd}</span>
-      <span class="nd-cell">${row.factor}</span>
-      <span class="nd-cell" style="font-size:10px;color:var(--text-dim)">${row.name}</span>
-    `;
-        el.addEventListener('click', () => copyText(row.nd));
-        el.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(row.nd); }
-        });
-        table.appendChild(el);
+  // ══════════════════════════════════════════════════════
+  //  EXPOSURE TAB
+  // ══════════════════════════════════════════════════════
+  function saveExpState(){localStorage.setItem(STORAGE_EXPOSURE,JSON.stringify({fps:expBaseFPS,angle:expBaseAngle,iso:expBaseISO,tstop:expBaseTStop}));}
+  function setExpMode(mode){
+    expMode=mode;
+    ['fps','angle','manual'].forEach(m=>{
+      document.getElementById('exp-'+m+'-section').style.display=m===mode?'':'none';
+      document.getElementById('exp-mode-'+m+'-btn').classList.toggle('active',m===mode);
+    });
+    renderExpResults();
+  }
+  function renderExpBaseChips(){
+    // FPS chips
+    const fpsRow=document.getElementById('exp-fps-chips');fpsRow.innerHTML='';
+    const groups={};STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
+    Object.values(groups).forEach(gv=>{const grp=document.createElement('div');grp.className='chip-group';gv.forEach(v=>{grp.appendChild(makeChip(v,expBaseFPS,val=>{expBaseFPS=val;saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();}));});fpsRow.appendChild(grp);});
+    // Angle chips
+    const angleRow=document.getElementById('exp-angle-chips');angleRow.innerHTML='';
+    const agrp=document.createElement('div');agrp.className='chip-group';
+    SHUTTER_ANGLES.forEach(v=>{const btn=makeChip(v,expBaseAngle,val=>{expBaseAngle=val;saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();});btn.textContent=v+'°';agrp.appendChild(btn);});
+    angleRow.appendChild(agrp);
+    // ISO chips
+    const isoRow=document.getElementById('exp-iso-chips');isoRow.innerHTML='';
+    const igrp=document.createElement('div');igrp.className='chip-group';
+    ISO_VALUES.forEach(v=>{igrp.appendChild(makeChip(v,expBaseISO,val=>{expBaseISO=val;const inp=document.getElementById('exp-iso-input');if(inp)inp.value='';saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();},'ISO '+v));});
+    isoRow.appendChild(igrp);
+    // T-Stop chips
+    const tRow=document.getElementById('exp-tstop-chips');tRow.innerHTML='';
+    const tgrp=document.createElement('div');tgrp.className='chip-group';
+    TSTOP_VALUES.forEach(v=>{tgrp.appendChild(makeChip(v,expBaseTStop,val=>{expBaseTStop=val;const inp=document.getElementById('exp-tstop-input');if(inp)inp.value='';saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();},'T'+v));});
+    tRow.appendChild(tgrp);
+    // Target FPS chips (mode A)
+    const targetRow=document.getElementById('exp-target-fps-chips');if(targetRow){targetRow.innerHTML='';
+      MULTIPLES.filter(m=>m.mult!==1).forEach(({mult})=>{
+        const fps=Math.round(expBaseFPS*mult*1000)/1000;
+        const btn=makeChip(fps,expTargetFPS,val=>{expTargetFPS=val;const inp=document.getElementById('exp-target-fps-input');if(inp)inp.value='';renderExpResults();},formatFPS(fps)+'fps');
+        targetRow.appendChild(btn);
       });
     }
-
-    function renderNDTab() {
-      renderNDFPSChips();
-      renderNDAngleChips();
-      renderNDTable();
-      renderNDResult();
-      // init stepper display
-      document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops;
+    // Target angle chips (mode B)
+    const targetAngleRow=document.getElementById('exp-target-angle-chips');if(targetAngleRow){targetAngleRow.innerHTML='';
+      const tagrp=document.createElement('div');tagrp.className='chip-group';
+      SHUTTER_ANGLES.forEach(v=>{const btn=makeChip(v,expTargetAngle,val=>{expTargetAngle=val;renderExpResults();});btn.textContent=v+'°';tagrp.appendChild(btn);});
+      targetAngleRow.appendChild(tagrp);
     }
+  }
+  function renderExpSummary(){
+    const ss=calcShutterSpeed(expBaseFPS,expBaseAngle);
+    const sumEl=document.getElementById('exp-base-summary');
+    if(sumEl)sumEl.textContent=`Base: ${formatFPS(expBaseFPS)}fps · ${expBaseAngle}° · ISO ${expBaseISO} · T${expBaseTStop}`;
+    const ssEl=document.getElementById('exp-base-shutter');
+    if(ssEl)ssEl.textContent=`${formatShutterFraction(ss)} · ${formatShutterMS(ss)}`;
+  }
+  function adjustTStop(dir){
+    const idx=TSTOP_SEQUENCE.findIndex(v=>Math.abs(v-expBaseTStop)<0.05);
+    const ni=Math.max(0,Math.min(TSTOP_SEQUENCE.length-1,(idx<0?TSTOP_SEQUENCE.length/2:idx)+dir));
+    expBaseTStop=TSTOP_SEQUENCE[ni];
+    const inp=document.getElementById('exp-tstop-input');if(inp)inp.value='';
+    saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();
+  }
+  function expDualCards(deltaStops,containerId,newShutterEl,shutFpsLabel,shutAngleLabel){
+    // New T-stop (opening = negative stops, so T decreases)
+    const newTStop=expBaseTStop*Math.pow(Math.sqrt(2),deltaStops);
+    // New ISO (negative delta = lower ISO)
+    const newISO=expBaseISO*Math.pow(2,-deltaStops);
+    const absStops=Math.abs(deltaStops);
+    const stopSign=deltaStops<0?'−':'+';
+    const stopLabel=deltaStops<0?'open':deltaStops>0?'close':'no change';
+    const isoLabel=deltaStops<0?'raise ISO':deltaStops>0?'lower ISO':'no change';
+    function stopsText(s){if(Math.abs(s)<0.01)return 'no change';const a=Math.abs(s);const frac=Math.abs(a-Math.round(a*2)/2)<0.01?((Math.round(a*2)/2===0.5?'½':(Math.round(a*2)/2===1.0?'1':(Math.round(a*2)/2===1.5?'1½':(Math.round(a*2)/2===2.0?'2':''+Math.round(a*2)/2))))):a.toFixed(2);return (s<0?'open ':'close ')+frac+' stop'+(Math.abs(a-1)>0.1?'s':'');}
+    function isoText(d){if(Math.abs(d)<0.01)return 'no change';return d<0?'halve ISO':d>0?'double ISO':'no change';}
+    const tWarn=newTStop>22||newTStop<0.7;const isoWarn=newISO>51200||newISO<25;
+    const grid=document.getElementById(containerId);if(!grid)return;grid.innerHTML='';
+    // Aperture priority card
+    const c1=document.createElement('div');c1.className='exp-result-card';
+    c1.innerHTML=`<div class="erc-tag">Aperture Priority</div>
+    <div class="erc-keep">Keep ISO ${expBaseISO}</div>
+    <div class="erc-value">T${newTStop.toFixed(1)}</div>
+    <div class="erc-stops">${stopSign} ${absStops.toFixed(1)} stops</div>
+    <div class="erc-desc">${stopsText(deltaStops)}</div>
+    ${tWarn?'<div class="erc-warn">⚠ Outside typical range</div>':''}`;
+    c1.addEventListener('click',()=>copyText('T'+newTStop.toFixed(1)));grid.appendChild(c1);
+    // ISO priority card
+    const c2=document.createElement('div');c2.className='exp-result-card';
+    c2.innerHTML=`<div class="erc-tag">ISO Priority</div>
+    <div class="erc-keep">Keep T${expBaseTStop}</div>
+    <div class="erc-value">ISO ${Math.round(newISO)}</div>
+    <div class="erc-stops">${stopSign} ${absStops.toFixed(1)} stops</div>
+    <div class="erc-desc">${isoText(-deltaStops)}</div>
+    ${isoWarn?'<div class="erc-warn">⚠ Outside typical range</div>':''}`;
+    c2.addEventListener('click',()=>copyText('ISO '+Math.round(newISO)));grid.appendChild(c2);
+  }
+  function renderExpResults(){
+    renderExpSummary();
+    if(expMode==='fps'){
+      const deltaStops=Math.log2(expTargetFPS/expBaseFPS);
+      const newSS=calcShutterSpeed(expTargetFPS,expBaseAngle);
+      const disp=document.getElementById('exp-new-shutter-display');
+      if(disp)disp.textContent=`At ${formatFPS(expTargetFPS)}fps + ${expBaseAngle}°  →  ${formatShutterFraction(newSS)} · ${formatShutterMS(newSS)}`;
+      expDualCards(deltaStops,'exp-fps-result-grid');
+    }else if(expMode==='angle'){
+      const deltaStops=Math.log2(expBaseAngle/expTargetAngle);
+      const newSS=calcShutterSpeed(expBaseFPS,expTargetAngle);
+      const disp=document.getElementById('exp-angle-shutter-display');
+      if(disp)disp.textContent=`At ${formatFPS(expBaseFPS)}fps + ${expTargetAngle}°  →  ${formatShutterFraction(newSS)} · ${formatShutterMS(newSS)}`;
+      expDualCards(deltaStops,'exp-angle-result-grid');
+    }else if(expMode==='manual'){
+      expDualCards(expManualStops,'exp-manual-result-grid');
+    }
+  }
+  function changeExpStops(delta){
+    expManualStops=Math.max(-5,Math.min(5,Math.round((expManualStops+delta)*2)/2));
+    const v=document.getElementById('exp-manual-stops-val');
+    if(v)v.textContent=(expManualStops>=0?'+':'')+expManualStops;
+    renderExpResults();
+  }
+  function renderExposureTab(){
+    renderExpBaseChips();
+    renderExpSummary();
+    renderExpResults();
+    // wire custom inputs
+    const isoInp=document.getElementById('exp-iso-input');
+    if(isoInp)isoInp.oninput=()=>{const v=parseInt(isoInp.value);if(v>=25&&v<=409600){expBaseISO=v;document.querySelectorAll('#exp-iso-chips .chip').forEach(c=>c.classList.remove('active'));saveExpState();renderExpSummary();renderExpResults();}};
+    const tstopInp=document.getElementById('exp-tstop-input');
+    if(tstopInp)tstopInp.oninput=()=>{const v=parseFloat(tstopInp.value);if(v>=0.7&&v<=22){expBaseTStop=v;document.querySelectorAll('#exp-tstop-chips .chip').forEach(c=>c.classList.remove('active'));saveExpState();renderExpSummary();renderExpResults();}};
+    const targetFpsInp=document.getElementById('exp-target-fps-input');
+    if(targetFpsInp)targetFpsInp.oninput=()=>{const v=parseFloat(targetFpsInp.value);if(v>0){expTargetFPS=v;renderExpResults();}};
+  }
 
-    // ══════════════════════════════════════════════════════
-    //  SERVICE WORKER
-    // ══════════════════════════════════════════════════════
-    function initServiceWorker() {
-      if (!('serviceWorker' in navigator)) return;
-      const swCode = `
-    const CACHE='fps-calc-v2';
+  // ══════════════════════════════════════════════════════
+  //  PROJECT TAB
+  // ══════════════════════════════════════════════════════
+  function getAllCameras(){return[...customCameras,...CAMERA_DB];}
+  function saveCustomCameras(){localStorage.setItem(STORAGE_CAMERAS,JSON.stringify(customCameras));}
+  function toggleAddCameraForm(){
+    const f=document.getElementById('add-camera-form');
+    f.classList.toggle('visible');
+    if(f.classList.contains('visible')){newCameraModes=[{name:'',maxFps:''}];renderModeBuilder();}
+  }
+  function addModeRow(){newCameraModes.push({name:'',maxFps:''});renderModeBuilder();}
+  function removeModeRow(i){if(newCameraModes.length>1){newCameraModes.splice(i,1);renderModeBuilder();}}
+  function renderModeBuilder(){
+    const list=document.getElementById('new-camera-modes-list');if(!list)return;list.innerHTML='';
+    newCameraModes.forEach((m,i)=>{
+      const row=document.createElement('div');row.className='mode-builder-row';
+      const nameInp=document.createElement('input');nameInp.type='text';nameInp.className='form-input';nameInp.placeholder='Mode name';nameInp.value=m.name;
+      nameInp.oninput=()=>{newCameraModes[i].name=nameInp.value;};
+      const fpsInp=document.createElement('input');fpsInp.type='number';fpsInp.className='form-input fps-in';fpsInp.placeholder='Max fps';fpsInp.value=m.maxFps;
+      fpsInp.oninput=()=>{newCameraModes[i].maxFps=fpsInp.value;};
+      const delBtn=document.createElement('button');delBtn.className='icon-btn danger';delBtn.textContent='×';delBtn.title='Remove';delBtn.onclick=()=>removeModeRow(i);
+      row.appendChild(nameInp);row.appendChild(fpsInp);row.appendChild(delBtn);list.appendChild(row);
+    });
+  }
+  function saveCustomCamera(){
+    const nameInp=document.getElementById('new-camera-name');
+    const name=nameInp?nameInp.value.trim():'';
+    if(!name){showToast('Enter camera name');return;}
+    const modes=newCameraModes.filter(m=>m.name.trim()&&parseFloat(m.maxFps)>0).map(m=>({name:m.name.trim(),maxFps:parseFloat(m.maxFps)}));
+    if(!modes.length){showToast('Add at least one mode');return;}
+    customCameras.unshift({brand:'Custom',name,modes,isCustom:true});
+    saveCustomCameras();
+    if(nameInp)nameInp.value='';
+    newCameraModes=[{name:'',maxFps:''}];
+    document.getElementById('add-camera-form').classList.remove('visible');
+    renderProjectTab();showToast('Camera saved');
+  }
+  function deleteCustomCamera(name){
+    if(!confirm('Delete "'+name+'"?'))return;
+    customCameras=customCameras.filter(c=>c.name!==name);
+    saveCustomCameras();
+    if(activeCameraState.cameraName===name){activeCameraState={cameraName:null,modeIndex:null};saveActiveCameraState();}
+    renderProjectTab();renderFPSTab();
+  }
+  function selectCamera(cameraName){
+    expandedCamera=expandedCamera===cameraName?null:cameraName;
+    renderCameraList();
+  }
+  function selectMode(cameraName,modeIndex){
+    if(activeCameraState.cameraName===cameraName&&activeCameraState.modeIndex===modeIndex){
+      activeCameraState={cameraName:null,modeIndex:null};
+    }else{
+      activeCameraState={cameraName,modeIndex};
+    }
+    saveActiveCameraState();
+    renderCameraList();
+    if(currentTab==='fps')renderFPSTab();
+  }
+  function renderCameraList(){
+    const list=document.getElementById('proj-camera-list');if(!list)return;list.innerHTML='';
+    getAllCameras().forEach(cam=>{
+      const isActive=activeCameraState.cameraName===cam.name;
+      const isExpanded=expandedCamera===cam.name;
+      const card=document.createElement('div');
+      card.className='camera-card'+(isActive?' active-camera':'')+(isExpanded?' expanded':'');
+      const header=document.createElement('div');header.className='camera-header';header.setAttribute('role','button');header.setAttribute('tabindex','0');
+      const left=document.createElement('div');
+      const brand=document.createElement('div');brand.className='camera-brand';brand.textContent=cam.brand;
+      const nameEl=document.createElement('div');nameEl.style.display='flex';nameEl.style.alignItems='center';
+      const nameText=document.createElement('span');nameText.className='camera-name';nameText.textContent=cam.name;
+      nameEl.appendChild(nameText);
+      if(cam.isCustom){const badge=document.createElement('span');badge.className='camera-badge-custom';badge.textContent='Custom';nameEl.appendChild(badge);}
+      left.appendChild(brand);left.appendChild(nameEl);
+      const right=document.createElement('div');right.style.display='flex';right.style.alignItems='center';right.style.gap='4px';
+      if(cam.isCustom){const delBtn=document.createElement('button');delBtn.className='delete-camera-btn';delBtn.textContent='��';delBtn.title='Delete';delBtn.onclick=(e)=>{e.stopPropagation();deleteCustomCamera(cam.name);};right.appendChild(delBtn);}
+      const chevron=document.createElement('span');chevron.className='camera-chevron';chevron.textContent='›';right.appendChild(chevron);
+      header.appendChild(left);header.appendChild(right);
+      header.onclick=()=>selectCamera(cam.name);
+      header.onkeydown=(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectCamera(cam.name);}};
+      const modes=document.createElement('div');modes.className='camera-modes';
+      cam.modes.forEach((mode,idx)=>{
+        const modeEl=document.createElement('div');
+        const isActiveMode=isActive&&activeCameraState.modeIndex===idx;
+        modeEl.className='mode-row'+(isActiveMode?' active-mode':'');
+        modeEl.innerHTML=`<span class="mode-name">${mode.name}</span><span class="mode-max">max ${mode.maxFps}fps</span>`;
+        modeEl.addEventListener('click',()=>selectMode(cam.name,idx));
+        modes.appendChild(modeEl);
+      });
+      card.appendChild(header);card.appendChild(modes);list.appendChild(card);
+    });
+  }
+  function setMediaMode(mode){
+    mediaMode=mode;
+    document.getElementById('media-digital-btn').classList.toggle('active',mode==='digital');
+    document.getElementById('media-film-btn').classList.toggle('active',mode==='film');
+    document.getElementById('media-digital-section').style.display=mode==='digital'?'':'none';
+    document.getElementById('media-film-section').style.display=mode==='film'?'':'none';
+  }
+  function setMediaUnit(unit){
+    mediaUnit=unit;
+    document.getElementById('media-unit-gb').classList.toggle('active',unit==='GB');
+    document.getElementById('media-unit-tb').classList.toggle('active',unit==='TB');
+  }
+  function setFilmFormat(fmt){
+    filmFormat=fmt;
+    ['4perf','3perf','2perf','16mm'].forEach(f=>{
+      const id='film-format-'+f.replace('perf','p').replace('mm','');
+      const el=document.getElementById('film-format-'+f.replace('35mm ','').replace('mm','').replace('perf','p'));
+      // match button ids set in HTML
+    });
+    document.getElementById('film-format-4p').classList.toggle('active',fmt==='4perf');
+    document.getElementById('film-format-3p').classList.toggle('active',fmt==='3perf');
+    document.getElementById('film-format-2p').classList.toggle('active',fmt==='2perf');
+    document.getElementById('film-format-16').classList.toggle('active',fmt==='16mm');
+    renderFilmTable();
+  }
+  function renderFilmMagChips(){
+    const row=document.getElementById('film-mag-chips');if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    MAG_SIZES.forEach(v=>{
+      grp.appendChild(makeChip(v,filmFeet,val=>{filmFeet=val;const ci=document.getElementById('film-custom-feet');if(ci)ci.value='';renderFilmTable();},''+v+'ft'));
+    });
+    row.appendChild(grp);
+  }
+  function filmRuntime(feet,fps,fmt){
+    const pitch=FILM_PITCH[fmt];
+    if(!pitch||!fps)return'—';
+    const secs=feet/fps/pitch;
+    const m=Math.floor(secs/60);const s=Math.floor(secs%60);
+    return m+'m '+String(s).padStart(2,'0')+'s';
+  }
+  function renderFilmTable(){
+    const wrap=document.getElementById('film-runtime-table-wrap');if(!wrap)return;wrap.innerHTML='';
+    const base=fpsStandard;
+    const table=document.createElement('div');table.className='film-table';
+    const header=document.createElement('div');header.className='film-table-header';
+    header.innerHTML='<span class="film-th">Multiple</span><span class="film-th">FPS</span><span class="film-th">Runtime</span>';
+    table.appendChild(header);
+    MULTIPLES.forEach(({mult,label})=>{
+      const fps=base*mult;const isBase=mult===1;
+      const runtime=filmRuntime(filmFeet,fps,filmFormat);
+      const row=document.createElement('div');row.className='film-row'+(isBase?' is-base-row':'');
+      row.innerHTML=`<span class="film-cell ${isBase?'base-cell':''}">${getMultLabel(mult)}${isBase?' ●':''}</span><span class="film-cell ${isBase?'base-cell':''}">${formatFPS(fps)} fps</span><span class="film-cell ${isBase?'base-cell':''}">${runtime}</span>`;
+      row.addEventListener('click',()=>copyText(runtime));
+      table.appendChild(row);
+    });
+    wrap.appendChild(table);
+  }
+  function renderProjectTab(){
+    renderCameraList();
+    renderModeBuilder();
+    renderFilmMagChips();
+    renderFilmTable();
+    const fi=document.getElementById('film-custom-feet');
+    if(fi)fi.oninput=()=>{const v=parseInt(fi.value);if(v>0){filmFeet=v;document.querySelectorAll('#film-mag-chips .chip').forEach(c=>c.classList.remove('active'));renderFilmTable();}};
+  }
+
+  // ══════════════════════════════════════════════════════
+  //  SERVICE WORKER
+  // ══════════════════════════════════════════════════════
+  function initServiceWorker(){
+    if(!('serviceWorker' in navigator))return;
+    const swCode=`
+    const CACHE='fps-calc-v3';
     self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll([]).catch(()=>{})));self.skipWaiting();});
     self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
     self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(r=>{if(r&&r.status===200){const cl=r.clone();caches.open(CACHE).then(c=>c.put(e.request,cl));}return r;}).catch(()=>caches.match(e.request));}));});
-  `;
-      try {
-        const blob = new Blob([swCode], { type: 'application/javascript' });
-        navigator.serviceWorker.register(URL.createObjectURL(blob), { scope: './' })
-          .then(r => console.log('[FPS Calc] SW registered', r.scope))
-          .catch(e => console.warn('[FPS Calc] SW failed:', e));
-      } catch (e) { console.warn('[FPS Calc] SW blob failed:', e); }
-    }
+    `;
+    try{
+      const blob=new Blob([swCode],{type:'application/javascript'});
+      navigator.serviceWorker.register(URL.createObjectURL(blob),{scope:'./'})
+        .then(r=>console.log('[FPS Calc] SW registered',r.scope))
+        .catch(e=>console.warn('[FPS Calc] SW failed:',e));
+    }catch(e){console.warn('[FPS Calc] SW blob failed:',e);}
+  }
 
-    // ══════════════════════════════════════════════════════
-    //  INIT
-    // ══════════════════════════════════════════════════════
-    renderHeader();
-    renderFPSTab();
-    initServiceWorker();
+  // ══════════════════════════════════════════════════════
+  //  INIT
+  // ══════════════════════════════════════════════════════
+  switchTab(currentTab);
+  initServiceWorker();
   </script>
 </body>
-
 </html>
