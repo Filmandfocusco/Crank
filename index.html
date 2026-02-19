@@ -803,171 +803,133 @@
     }
 
     /* ── EXPOSURE TAB ── */
-    .exp-base-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-bottom: 20px;
+    .exp-section { margin-bottom: 20px; }
+    .exp-section-label {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 8px;
     }
-
-    .exp-base-summary {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 10px;
+    .exp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 16px;
     }
-
-    .exp-base-shutter {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 4px;
+    .exp-param-label {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-muted); margin: 0 0 6px;
     }
-
-    .exp-shutter-display {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px 14px;
-      margin-top: 10px;
-      text-align: center;
+    .exp-param-label.optional { color: var(--text-dim); }
+    .exp-param-label.optional span {
+      font-size: 10px; font-weight: 400; text-transform: none;
+      letter-spacing: 0; opacity: 0.7;
     }
-
-    .exp-dual-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
+    .exp-param-row { margin-bottom: 14px; }
+    .exp-param-row:last-child { margin-bottom: 0; }
+    .exp-select {
+      width: 100%; padding: 10px 12px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text-primary);
+      font-family: var(--font-mono); font-size: 15px;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      cursor: pointer; min-height: 44px;
     }
-
-    .exp-result-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      cursor: pointer;
+    .exp-select:focus { outline: none; border-color: var(--accent); }
+    .exp-custom-input-row {
+      display: flex; align-items: center; gap: 8px; margin-top: 8px;
+    }
+    .exp-custom-input {
+      flex: 1; padding: 8px 12px; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--text-primary); font-family: var(--font-mono);
+      font-size: 14px; min-height: 40px;
+    }
+    .exp-custom-input:focus { outline: none; border-color: var(--accent); }
+    .exp-custom-input-label {
+      font-family: var(--font-mono); font-size: 13px;
+      color: var(--text-muted); white-space: nowrap;
+    }
+    .exp-tstop-row {
+      display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap;
+    }
+    .exp-tstop-stepper { display: flex; align-items: center; gap: 4px; }
+    .exp-tstep-btn {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      background: var(--surface2); border-radius: var(--radius);
+      color: var(--text-primary); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .exp-tstep-btn:active { background: var(--surface); }
+    .exp-tstop-clear {
+      font-family: var(--font-ui); font-size: 11px;
+      color: var(--text-dim); background: none; border: none;
+      cursor: pointer; text-decoration: underline; padding: 4px;
+      min-height: 36px;
+    }
+    .exp-tstop-section { display: none; }
+    .exp-tstop-section.visible { display: block; }
+    .exp-tstop-enable-row {
+      display: flex; align-items: center; gap: 8px; margin-top: 8px;
+    }
+    .exp-tstop-enable-btn {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; background: var(--surface2);
+      border: 1px dashed var(--border); border-radius: var(--radius);
+      color: var(--text-dim); cursor: pointer; padding: 6px 14px;
+      min-height: 36px;
+    }
+    .exp-tstop-enable-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .exp-summary-line {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--text-muted); margin-top: 14px;
+      padding-top: 10px; border-top: 1px solid var(--border);
+    }
+    .exp-summary-shutter {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--text-dim); margin-top: 3px;
+    }
+    .exp-overcrank-label {
+      font-family: var(--font-ui); font-size: 9px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-dim); margin: 10px 0 4px;
+    }
+    /* Output card */
+    .exp-output-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 20px 22px;
+      text-align: center; cursor: pointer;
       -webkit-tap-highlight-color: transparent;
+      transition: border-color .15s;
+    }
+    .exp-output-card:hover { border-color: var(--border-hover); }
+    .exp-output-fraction {
+      font-family: var(--font-mono); font-size: 72px; font-weight: 700;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .exp-output-fraction.neg { color: var(--accent); }
+    .exp-output-fraction.pos { color: #4CAF50; }
+    .exp-output-fraction.zero { color: var(--text-primary); }
+    .exp-output-unit {
+      font-family: var(--font-ui); font-size: 13px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 16px;
+    }
+    .exp-output-breakdown {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--text-dim); line-height: 1.7;
+    }
+    .exp-output-warn {
+      font-family: var(--font-ui); font-size: 11px;
+      color: var(--warn); margin-top: 10px;
+    }
+    .exp-copy-hint {
+      font-family: var(--font-ui); font-size: 10px;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text-dim); margin-top: 14px; opacity: .5;
     }
 
-    .exp-result-card:hover {
-      border-color: var(--border-hover);
-    }
-
-    .exp-result-card .erc-tag {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
-
-    .exp-result-card .erc-keep {
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-
-    .exp-result-card .erc-value {
-      font-family: var(--font-mono);
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1;
-    }
-
-    .exp-result-card .erc-stops {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--accent);
-      margin-top: 4px;
-    }
-
-    .exp-result-card .erc-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    .exp-result-card .erc-warn {
-      font-size: 10px;
-      color: var(--warn);
-      margin-top: 4px;
-    }
-
-    .exp-stops-stepper {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 6px;
-      margin-top: 8px;
-    }
-
-    .exp-stops-stepper .stepper-btn {
-      width: 56px;
-      height: 56px;
-      font-size: 26px;
-    }
-
-    .exp-stops-val {
-      flex: 1;
-      text-align: center;
-    }
-
-    .exp-stops-val .sv-num {
-      font-family: var(--font-mono);
-      font-size: 30px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .exp-stops-val .sv-label {
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: .08em;
-    }
-
-    .t-stop-input-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .t-stop-stepper-mini {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .t-step-btn {
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: var(--text-muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      width: 28px;
-      height: 22px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .t-step-btn:hover {
-      color: var(--text-primary);
-    }
-
-    /* ── PROJECT TAB ── */
+        /* ── PROJECT TAB ── */
     .proj-section-label {
       font-size: 10px;
       font-weight: 600;
@@ -1552,77 +1514,152 @@
   <!-- ══ TAB 5: EXPOSURE ══ -->
   <div class="tab-panel" id="panel-exposure">
     <div class="main">
-      <!-- Base Exposure Setup -->
-      <p class="section-label">Base Exposure</p>
-      <div class="exp-base-card">
-        <p class="selector-label" style="margin-bottom:6px">Base FPS</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-fps-chips"></div></div>
 
-        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">Shutter Angle</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-angle-chips"></div></div>
+      <!-- SECTION 1: PROJECT SETTINGS / BASE -->
+      <div class="exp-section">
+        <p class="exp-section-label">Project Settings / Base</p>
+        <div class="exp-card">
 
-        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">ISO</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-iso-chips"></div></div>
-        <div class="input-row">
-          <input type="number" class="custom-input" id="exp-iso-input" placeholder="Custom ISO" min="50" max="409600" step="1" />
-          <span class="input-label">ISO</span>
-        </div>
-
-        <p class="selector-label" style="margin-top:14px;margin-bottom:6px">T-Stop</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-tstop-chips"></div></div>
-        <div class="t-stop-input-row" style="margin-top:8px">
-          <input type="number" class="custom-input" id="exp-tstop-input" placeholder="T2.8" min="0.7" max="22" step="0.1" style="width:90px" />
-          <span class="input-label">T-stop</span>
-          <div class="t-stop-stepper-mini">
-            <button class="t-step-btn" onclick="adjustTStop(1)">▲</button>
-            <button class="t-step-btn" onclick="adjustTStop(-1)">▼</button>
+          <!-- FPS -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">FPS</p>
+            <select class="exp-select" id="exp-base-fps-select" onchange="onBaseFPSSelect(this.value)">
+              <option value="23.976">23.976</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="29.97">29.97</option>
+              <option value="48">48</option>
+              <option value="50">50</option>
+              <option value="59.94">59.94</option>
+              <option value="96">96</option>
+              <option value="custom">Custom…</option>
+            </select>
+            <div class="exp-custom-input-row" id="exp-base-fps-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-base-fps-custom" min="1" max="1000" step="any" placeholder="e.g. 72" oninput="onBaseFPSCustom(this.value)" />
+              <span class="exp-custom-input-label">fps</span>
+            </div>
           </div>
-        </div>
 
-        <div id="exp-base-summary" class="exp-base-summary"></div>
-        <div id="exp-base-shutter" class="exp-base-shutter"></div>
-      </div>
-
-      <!-- Mode selector -->
-      <div class="mode-tabs" role="group">
-        <button class="mode-tab active" id="exp-mode-fps-btn" onclick="setExpMode('fps')">FPS</button>
-        <button class="mode-tab" id="exp-mode-angle-btn" onclick="setExpMode('angle')">Angle</button>
-        <button class="mode-tab" id="exp-mode-manual-btn" onclick="setExpMode('manual')">Manual</button>
-      </div>
-
-      <!-- Mode A: FPS Priority -->
-      <div id="exp-fps-section">
-        <p class="selector-label">New Target FPS</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-target-fps-chips"></div></div>
-        <div class="input-row">
-          <input type="number" class="custom-input" id="exp-target-fps-input" placeholder="Custom fps" min="1" max="1000" step="any" />
-          <span class="input-label">fps</span>
-        </div>
-        <div id="exp-new-shutter-display" class="exp-shutter-display"></div>
-        <div class="exp-dual-grid" id="exp-fps-result-grid"></div>
-      </div>
-
-      <!-- Mode B: Angle Priority -->
-      <div id="exp-angle-section" style="display:none">
-        <p class="selector-label">New Shutter Angle</p>
-        <div class="chips-scroll"><div class="chips-row" id="exp-target-angle-chips"></div></div>
-        <div id="exp-angle-shutter-display" class="exp-shutter-display"></div>
-        <div class="exp-dual-grid" id="exp-angle-result-grid"></div>
-      </div>
-
-      <!-- Mode C: Manual Stops -->
-      <div id="exp-manual-section" style="display:none">
-        <p class="selector-label">Stop Offset</p>
-        <div class="exp-stops-stepper">
-          <button class="stepper-btn" onclick="changeExpStops(-0.5)">−</button>
-          <div class="exp-stops-val">
-            <div class="sv-num" id="exp-manual-stops-val">0</div>
-            <div class="sv-label">stops</div>
+          <!-- ISO -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">ISO</p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-base-iso-chips"></div></div>
+            <div class="exp-custom-input-row" id="exp-base-iso-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-base-iso-custom" min="25" max="409600" step="1" placeholder="e.g. 1250" oninput="onBaseISOCustom(this.value)" />
+              <span class="exp-custom-input-label">ISO</span>
+            </div>
           </div>
-          <button class="stepper-btn" onclick="changeExpStops(0.5)">+</button>
+
+          <!-- T-STOP (optional) -->
+          <div class="exp-param-row" id="exp-base-tstop-row">
+            <p class="exp-param-label optional">T-STOP <span>(optional)</span></p>
+            <div class="exp-tstop-section" id="exp-base-tstop-section">
+              <div class="chips-scroll"><div class="chips-row" id="exp-base-tstop-chips"></div></div>
+              <div class="exp-tstop-row">
+                <div class="exp-tstop-stepper">
+                  <button class="exp-tstep-btn" onclick="adjustBaseTStop(-1)">−</button>
+                  <span id="exp-base-tstop-val" style="font-family:var(--font-mono);font-size:15px;min-width:40px;text-align:center;color:var(--text-primary)"></span>
+                  <button class="exp-tstep-btn" onclick="adjustBaseTStop(1)">+</button>
+                </div>
+                <button class="exp-tstop-clear" onclick="clearTStop()">Clear T-stop</button>
+              </div>
+            </div>
+            <div class="exp-tstop-enable-row" id="exp-tstop-enable-row">
+              <button class="exp-tstop-enable-btn" onclick="enableTStop()">+ Add T-stop</button>
+            </div>
+          </div>
+
+          <!-- SHUTTER ANGLE -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">Shutter Angle</p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-base-angle-chips"></div></div>
+            <div class="exp-custom-input-row" id="exp-base-angle-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-base-angle-custom" min="1" max="358" step="any" placeholder="e.g. 144" oninput="onBaseAngleCustom(this.value)" />
+              <span class="exp-custom-input-label">°</span>
+            </div>
+          </div>
+
+          <div class="exp-summary-line" id="exp-base-summary"></div>
+          <div class="exp-summary-shutter" id="exp-base-shutter"></div>
         </div>
-        <div class="exp-dual-grid" id="exp-manual-result-grid" style="margin-top:12px"></div>
       </div>
+
+      <!-- SECTION 2: INPUT / AIM -->
+      <div class="exp-section">
+        <p class="exp-section-label">Input / Aim</p>
+        <div class="exp-card">
+
+          <!-- FPS -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">FPS</p>
+            <select class="exp-select" id="exp-aim-fps-select" onchange="onAimFPSSelect(this.value)">
+              <option value="23.976">23.976</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="29.97">29.97</option>
+              <option value="48">48</option>
+              <option value="50">50</option>
+              <option value="59.94">59.94</option>
+              <option value="96">96</option>
+              <option value="custom">Custom…</option>
+            </select>
+            <div class="exp-custom-input-row" id="exp-aim-fps-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-aim-fps-custom" min="1" max="1000" step="any" placeholder="e.g. 72" oninput="onAimFPSCustom(this.value)" />
+              <span class="exp-custom-input-label">fps</span>
+            </div>
+            <p class="exp-overcrank-label">Overcrank shortcuts</p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-aim-overcrank-chips"></div></div>
+          </div>
+
+          <!-- ISO -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">ISO</p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-aim-iso-chips"></div></div>
+            <div class="exp-custom-input-row" id="exp-aim-iso-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-aim-iso-custom" min="25" max="409600" step="1" placeholder="e.g. 1250" oninput="onAimISOCustom(this.value)" />
+              <span class="exp-custom-input-label">ISO</span>
+            </div>
+          </div>
+
+          <!-- T-STOP (aim) – hidden if T-stop unset in base -->
+          <div class="exp-param-row exp-tstop-section" id="exp-aim-tstop-row">
+            <p class="exp-param-label optional">T-STOP <span>(optional)</span></p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-aim-tstop-chips"></div></div>
+            <div class="exp-tstop-row">
+              <div class="exp-tstop-stepper">
+                <button class="exp-tstep-btn" onclick="adjustAimTStop(-1)">−</button>
+                <span id="exp-aim-tstop-val" style="font-family:var(--font-mono);font-size:15px;min-width:40px;text-align:center;color:var(--text-primary)"></span>
+                <button class="exp-tstep-btn" onclick="adjustAimTStop(1)">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SHUTTER ANGLE -->
+          <div class="exp-param-row">
+            <p class="exp-param-label">Shutter Angle</p>
+            <div class="chips-scroll"><div class="chips-row" id="exp-aim-angle-chips"></div></div>
+            <div class="exp-custom-input-row" id="exp-aim-angle-custom-row" style="display:none">
+              <input class="exp-custom-input" type="number" id="exp-aim-angle-custom" min="1" max="358" step="any" placeholder="e.g. 144" oninput="onAimAngleCustom(this.value)" />
+              <span class="exp-custom-input-label">°</span>
+            </div>
+          </div>
+
+          <div class="exp-summary-line" id="exp-aim-summary"></div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: OUTPUT / ANSWER -->
+      <div class="exp-section">
+        <p class="exp-section-label">Output / Answer</p>
+        <div class="exp-output-card" id="exp-output-card" role="button" tabindex="0" aria-label="Tap to copy result">
+          <div class="exp-output-fraction" id="exp-output-fraction">—</div>
+          <div class="exp-output-unit" id="exp-output-unit">stop</div>
+          <div class="exp-output-breakdown" id="exp-output-breakdown"></div>
+          <div class="exp-output-warn" id="exp-output-warn" style="display:none"></div>
+          <div class="exp-copy-hint">Tap to copy</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1839,7 +1876,10 @@
   let expBaseFPS=expDefaults.fps,expBaseAngle=expDefaults.angle;
   let expBaseISO=expDefaults.iso,expBaseTStop=expDefaults.tstop;
   let expMode='fps';
-  let expTargetFPS=48,expTargetAngle=90,expManualStops=0;
+  // Exposure aim state (NOT persisted — resets to base on load)
+  let expAimFPS=expBaseFPS,expAimISO=expBaseISO;
+  let expAimAngle=expBaseAngle,expAimTStop=expBaseTStop;
+  let expTStopEnabled=!!(expDefaults.tstopEnabled);
 
   // Project tab
   let customCameras=(()=>{
@@ -2308,133 +2348,320 @@
   function renderNDTab(){renderNDFPSChips();renderNDAngleChips();renderNDTable();renderNDResult();document.getElementById('nd-stops-val').textContent=ndManualStops>0?'+'+ndManualStops:ndManualStops;}
 
   // ══════════════════════════════════════════════════════
-  //  EXPOSURE TAB
+  //  EXPOSURE TAB (redesign)
   // ══════════════════════════════════════════════════════
-  function saveExpState(){localStorage.setItem(STORAGE_EXPOSURE,JSON.stringify({fps:expBaseFPS,angle:expBaseAngle,iso:expBaseISO,tstop:expBaseTStop}));}
-  function setExpMode(mode){
-    expMode=mode;
-    ['fps','angle','manual'].forEach(m=>{
-      document.getElementById('exp-'+m+'-section').style.display=m===mode?'':'none';
-      document.getElementById('exp-mode-'+m+'-btn').classList.toggle('active',m===mode);
+
+  // ─ persistence ─────────────────────────────────────
+  function saveExpState(){
+    localStorage.setItem(STORAGE_EXPOSURE,JSON.stringify({
+      fps:expBaseFPS,angle:expBaseAngle,iso:expBaseISO,
+      tstop:expBaseTStop,tstopEnabled:expTStopEnabled
+    }));
+  }
+
+  // ─ stop fraction formatter ──────────────────────────
+  // Returns string like "−1⅓", "+⅔", "0" for any decimal stop value
+  function stopsToFraction(s){
+    if(Math.abs(s)<0.001)return'0';
+    const sign=s<0?'−':'+';
+    const abs=Math.abs(s);
+    // Round to nearest 1/3
+    const thirds=Math.round(abs*3);
+    const whole=Math.floor(thirds/3);
+    const rem=thirds%3;
+    const fracStr=rem===0?'':(rem===1?'⅓':'⅔');
+    const wholeStr=whole===0?'':String(whole);
+    return sign+(wholeStr+fracStr||'0');
+  }
+
+  // ─ shutter speed helpers already defined globally ──
+  // calcShutterSpeed(fps,angle), formatShutterFraction, formatShutterMS
+
+  // ─ chip builders ───────────────────────────────────
+  function buildISOChips(rowId,current,setter){
+    const row=document.getElementById(rowId);if(!row)return;row.innerHTML='';
+    const all=[100,...ISO_VALUES]; // ISO_VALUES starts at 200
+    const grp=document.createElement('div');grp.className='chip-group';
+    all.forEach(v=>{
+      const c=makeChip(v,current,val=>{setter(val);},`ISO ${v}`);
+      grp.appendChild(c);
     });
-    renderExpResults();
+    // Custom chip
+    const cust=document.createElement('button');
+    cust.className='chip'+(all.indexOf(current)<0&&current!==null?' active':'');
+    cust.textContent='Custom';
+    const customRowId=rowId.replace('-chips','-custom-row');
+    cust.onclick=()=>{
+      document.getElementById(customRowId).style.display='flex';
+      grp.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      cust.classList.add('active');
+    };
+    grp.appendChild(cust);
+    row.appendChild(grp);
+    // Hide custom row if a preset is active
+    const custRow=document.getElementById(customRowId);
+    if(custRow)custRow.style.display=all.includes(current)?'none':'flex';
   }
-  function renderExpBaseChips(){
-    // FPS chips
-    const fpsRow=document.getElementById('exp-fps-chips');fpsRow.innerHTML='';
-    const groups={};STANDARDS.forEach(s=>{if(!groups[s.group])groups[s.group]=[];groups[s.group].push(s.value);});
-    Object.values(groups).forEach(gv=>{const grp=document.createElement('div');grp.className='chip-group';gv.forEach(v=>{grp.appendChild(makeChip(v,expBaseFPS,val=>{expBaseFPS=val;saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();}));});fpsRow.appendChild(grp);});
-    // Angle chips
-    const angleRow=document.getElementById('exp-angle-chips');angleRow.innerHTML='';
-    const agrp=document.createElement('div');agrp.className='chip-group';
-    SHUTTER_ANGLES.forEach(v=>{const btn=makeChip(v,expBaseAngle,val=>{expBaseAngle=val;saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();});btn.textContent=v+'°';agrp.appendChild(btn);});
-    angleRow.appendChild(agrp);
-    // ISO chips
-    const isoRow=document.getElementById('exp-iso-chips');isoRow.innerHTML='';
-    const igrp=document.createElement('div');igrp.className='chip-group';
-    ISO_VALUES.forEach(v=>{igrp.appendChild(makeChip(v,expBaseISO,val=>{expBaseISO=val;const inp=document.getElementById('exp-iso-input');if(inp)inp.value='';saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();},'ISO '+v));});
-    isoRow.appendChild(igrp);
-    // T-Stop chips
-    const tRow=document.getElementById('exp-tstop-chips');tRow.innerHTML='';
-    const tgrp=document.createElement('div');tgrp.className='chip-group';
-    TSTOP_VALUES.forEach(v=>{tgrp.appendChild(makeChip(v,expBaseTStop,val=>{expBaseTStop=val;const inp=document.getElementById('exp-tstop-input');if(inp)inp.value='';saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();},'T'+v));});
-    tRow.appendChild(tgrp);
-    // Target FPS chips (mode A)
-    const targetRow=document.getElementById('exp-target-fps-chips');if(targetRow){targetRow.innerHTML='';
-      MULTIPLES.filter(m=>m.mult!==1).forEach(({mult})=>{
-        const fps=Math.round(expBaseFPS*mult*1000)/1000;
-        const btn=makeChip(fps,expTargetFPS,val=>{expTargetFPS=val;const inp=document.getElementById('exp-target-fps-input');if(inp)inp.value='';renderExpResults();},formatFPS(fps)+'fps');
-        targetRow.appendChild(btn);
-      });
-    }
-    // Target angle chips (mode B)
-    const targetAngleRow=document.getElementById('exp-target-angle-chips');if(targetAngleRow){targetAngleRow.innerHTML='';
-      const tagrp=document.createElement('div');tagrp.className='chip-group';
-      SHUTTER_ANGLES.forEach(v=>{const btn=makeChip(v,expTargetAngle,val=>{expTargetAngle=val;renderExpResults();});btn.textContent=v+'°';tagrp.appendChild(btn);});
-      targetAngleRow.appendChild(tagrp);
-    }
+
+  function buildAngleChips(rowId,current,setter){
+    const row=document.getElementById(rowId);if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    SHUTTER_ANGLES.forEach(v=>{
+      const c=makeChip(v,current,val=>{setter(val);});c.textContent=v+'°';grp.appendChild(c);
+    });
+    const cust=document.createElement('button');
+    cust.className='chip'+(SHUTTER_ANGLES.includes(current)?'':' active');
+    cust.textContent='Custom°';
+    const customRowId=rowId.replace('-chips','-custom-row');
+    cust.onclick=()=>{
+      document.getElementById(customRowId).style.display='flex';
+      grp.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      cust.classList.add('active');
+    };
+    grp.appendChild(cust);
+    row.appendChild(grp);
+    const custRow=document.getElementById(customRowId);
+    if(custRow)custRow.style.display=SHUTTER_ANGLES.includes(current)?'none':'flex';
   }
-  function renderExpSummary(){
-    const ss=calcShutterSpeed(expBaseFPS,expBaseAngle);
-    const sumEl=document.getElementById('exp-base-summary');
-    if(sumEl)sumEl.textContent=`Base: ${formatFPS(expBaseFPS)}fps · ${expBaseAngle}° · ISO ${expBaseISO} · T${expBaseTStop}`;
-    const ssEl=document.getElementById('exp-base-shutter');
-    if(ssEl)ssEl.textContent=`${formatShutterFraction(ss)} · ${formatShutterMS(ss)}`;
+
+  function buildTStopChips(rowId,current,setter){
+    const row=document.getElementById(rowId);if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    TSTOP_VALUES.forEach(v=>{
+      const c=makeChip(v,current,val=>{setter(val);},'T'+v);grp.appendChild(c);
+    });
+    row.appendChild(grp);
   }
-  function adjustTStop(dir){
-    const idx=TSTOP_SEQUENCE.findIndex(v=>Math.abs(v-expBaseTStop)<0.05);
+
+  function buildOvercrankChips(){
+    const row=document.getElementById('exp-aim-overcrank-chips');if(!row)return;row.innerHTML='';
+    const grp=document.createElement('div');grp.className='chip-group';
+    MULTIPLES.forEach(({mult})=>{
+      const fps=Math.round(expBaseFPS*mult*1000)/1000;
+      const c=makeChip(fps,expAimFPS,val=>{
+        expAimFPS=val;
+        syncAimFPSSelect(val);
+        renderExpAimSummary();renderExpOutput();
+      },formatFPS(fps)+'fps');
+      grp.appendChild(c);
+    });
+    row.appendChild(grp);
+  }
+
+  // ─ select sync ─────────────────────────────────────
+  function syncSelectValue(selectId,value){
+    const sel=document.getElementById(selectId);if(!sel)return;
+    const opt=Array.from(sel.options).find(o=>Math.abs(parseFloat(o.value)-value)<0.001);
+    sel.value=opt?opt.value:'custom';
+    const customRow=document.getElementById(selectId.replace('-select','-custom-row'));
+    if(customRow)customRow.style.display=opt?'none':'flex';
+  }
+  function syncAimFPSSelect(val){syncSelectValue('exp-aim-fps-select',val);}
+  function syncBaseFPSSelect(val){syncSelectValue('exp-base-fps-select',val);}
+
+  // ─ fps select handlers ──────────────────────────────
+  function onBaseFPSSelect(val){
+    const customRow=document.getElementById('exp-base-fps-custom-row');
+    if(val==='custom'){customRow.style.display='flex';return;}
+    customRow.style.display='none';
+    expBaseFPS=parseFloat(val);
+    saveExpState();renderExpBaseSection();renderExpAimSection();renderExpOutput();
+  }
+  function onBaseFPSCustom(val){
+    const v=parseFloat(val);if(!v||v<=0)return;
+    expBaseFPS=v;
+    saveExpState();renderExpBaseSummary();renderExpAimSection();renderExpOutput();
+  }
+  function onAimFPSSelect(val){
+    const customRow=document.getElementById('exp-aim-fps-custom-row');
+    if(val==='custom'){customRow.style.display='flex';return;}
+    customRow.style.display='none';
+    expAimFPS=parseFloat(val);renderExpAimSummary();renderExpOutput();
+  }
+  function onAimFPSCustom(val){
+    const v=parseFloat(val);if(!v||v<=0)return;
+    expAimFPS=v;renderExpAimSummary();renderExpOutput();
+  }
+  // ISO
+  function onBaseISOCustom(val){
+    const v=parseInt(val);if(!v||v<25)return;
+    expBaseISO=v;
+    document.querySelectorAll('#exp-base-iso-chips .chip').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('#exp-base-iso-chips .chip:last-child').forEach(c=>c.classList.add('active'));
+    saveExpState();renderExpBaseSummary();renderExpOutput();
+  }
+  function onAimISOCustom(val){
+    const v=parseInt(val);if(!v||v<25)return;
+    expAimISO=v;
+    document.querySelectorAll('#exp-aim-iso-chips .chip').forEach(c=>c.classList.remove('active'));
+    renderExpAimSummary();renderExpOutput();
+  }
+  // Angle
+  function onBaseAngleCustom(val){
+    const v=parseFloat(val);if(!v||v<=0||v>358)return;
+    expBaseAngle=v;
+    document.querySelectorAll('#exp-base-angle-chips .chip').forEach(c=>c.classList.remove('active'));
+    saveExpState();renderExpBaseSummary();renderExpOutput();
+  }
+  function onAimAngleCustom(val){
+    const v=parseFloat(val);if(!v||v<=0||v>358)return;
+    expAimAngle=v;
+    document.querySelectorAll('#exp-aim-angle-chips .chip').forEach(c=>c.classList.remove('active'));
+    renderExpAimSummary();renderExpOutput();
+  }
+
+  // ─ T-stop controls ─────────────────────────────────
+  function enableTStop(){
+    expTStopEnabled=true;expBaseTStop=2.8;expAimTStop=2.8;
+    saveExpState();renderExpTStopVisibility();renderExpBaseSection();renderExpAimSection();renderExpOutput();
+  }
+  function clearTStop(){
+    expTStopEnabled=false;expBaseTStop=null;expAimTStop=null;
+    saveExpState();renderExpTStopVisibility();renderExpOutput();
+  }
+  function renderExpTStopVisibility(){
+    const baseSect=document.getElementById('exp-base-tstop-section');
+    const enableRow=document.getElementById('exp-tstop-enable-row');
+    const aimRow=document.getElementById('exp-aim-tstop-row');
+    if(baseSect)baseSect.classList.toggle('visible',expTStopEnabled);
+    if(enableRow)enableRow.style.display=expTStopEnabled?'none':'flex';
+    if(aimRow)aimRow.classList.toggle('visible',expTStopEnabled);
+  }
+  function adjustBaseTStop(dir){
+    if(!expTStopEnabled)return;
+    const idx=TSTOP_SEQUENCE.findIndex(v=>Math.abs(v-(expBaseTStop||2.8))<0.05);
     const ni=Math.max(0,Math.min(TSTOP_SEQUENCE.length-1,(idx<0?TSTOP_SEQUENCE.length/2:idx)+dir));
     expBaseTStop=TSTOP_SEQUENCE[ni];
-    const inp=document.getElementById('exp-tstop-input');if(inp)inp.value='';
-    saveExpState();renderExpBaseChips();renderExpSummary();renderExpResults();
+    saveExpState();
+    buildTStopChips('exp-base-tstop-chips',expBaseTStop,val=>{expBaseTStop=val;saveExpState();renderExpOutput();});
+    const v=document.getElementById('exp-base-tstop-val');if(v)v.textContent='T'+expBaseTStop;
+    renderExpOutput();
   }
-  function expDualCards(deltaStops,containerId,newShutterEl,shutFpsLabel,shutAngleLabel){
-    // New T-stop (opening = negative stops, so T decreases)
-    const newTStop=expBaseTStop*Math.pow(Math.sqrt(2),deltaStops);
-    // New ISO (negative delta = lower ISO)
-    const newISO=expBaseISO*Math.pow(2,-deltaStops);
-    const absStops=Math.abs(deltaStops);
-    const stopSign=deltaStops<0?'−':'+';
-    const stopLabel=deltaStops<0?'open':deltaStops>0?'close':'no change';
-    const isoLabel=deltaStops<0?'raise ISO':deltaStops>0?'lower ISO':'no change';
-    function stopsText(s){if(Math.abs(s)<0.01)return 'no change';const a=Math.abs(s);const frac=Math.abs(a-Math.round(a*2)/2)<0.01?((Math.round(a*2)/2===0.5?'½':(Math.round(a*2)/2===1.0?'1':(Math.round(a*2)/2===1.5?'1½':(Math.round(a*2)/2===2.0?'2':''+Math.round(a*2)/2))))):a.toFixed(2);return (s<0?'open ':'close ')+frac+' stop'+(Math.abs(a-1)>0.1?'s':'');}
-    function isoText(d){if(Math.abs(d)<0.01)return 'no change';return d<0?'halve ISO':d>0?'double ISO':'no change';}
-    const tWarn=newTStop>22||newTStop<0.7;const isoWarn=newISO>51200||newISO<25;
-    const grid=document.getElementById(containerId);if(!grid)return;grid.innerHTML='';
-    // Aperture priority card
-    const c1=document.createElement('div');c1.className='exp-result-card';
-    c1.innerHTML=`<div class="erc-tag">Aperture Priority</div>
-    <div class="erc-keep">Keep ISO ${expBaseISO}</div>
-    <div class="erc-value">T${newTStop.toFixed(1)}</div>
-    <div class="erc-stops">${stopSign} ${absStops.toFixed(1)} stops</div>
-    <div class="erc-desc">${stopsText(deltaStops)}</div>
-    ${tWarn?'<div class="erc-warn">⚠ Outside typical range</div>':''}`;
-    c1.addEventListener('click',()=>copyText('T'+newTStop.toFixed(1)));grid.appendChild(c1);
-    // ISO priority card
-    const c2=document.createElement('div');c2.className='exp-result-card';
-    c2.innerHTML=`<div class="erc-tag">ISO Priority</div>
-    <div class="erc-keep">Keep T${expBaseTStop}</div>
-    <div class="erc-value">ISO ${Math.round(newISO)}</div>
-    <div class="erc-stops">${stopSign} ${absStops.toFixed(1)} stops</div>
-    <div class="erc-desc">${isoText(-deltaStops)}</div>
-    ${isoWarn?'<div class="erc-warn">⚠ Outside typical range</div>':''}`;
-    c2.addEventListener('click',()=>copyText('ISO '+Math.round(newISO)));grid.appendChild(c2);
+  function adjustAimTStop(dir){
+    if(!expTStopEnabled)return;
+    const idx=TSTOP_SEQUENCE.findIndex(v=>Math.abs(v-(expAimTStop||2.8))<0.05);
+    const ni=Math.max(0,Math.min(TSTOP_SEQUENCE.length-1,(idx<0?TSTOP_SEQUENCE.length/2:idx)+dir));
+    expAimTStop=TSTOP_SEQUENCE[ni];
+    buildTStopChips('exp-aim-tstop-chips',expAimTStop,val=>{expAimTStop=val;renderExpOutput();});
+    const v=document.getElementById('exp-aim-tstop-val');if(v)v.textContent='T'+expAimTStop;
+    renderExpOutput();
   }
-  function renderExpResults(){
-    renderExpSummary();
-    if(expMode==='fps'){
-      const deltaStops=Math.log2(expTargetFPS/expBaseFPS);
-      const newSS=calcShutterSpeed(expTargetFPS,expBaseAngle);
-      const disp=document.getElementById('exp-new-shutter-display');
-      if(disp)disp.textContent=`At ${formatFPS(expTargetFPS)}fps + ${expBaseAngle}°  →  ${formatShutterFraction(newSS)} · ${formatShutterMS(newSS)}`;
-      expDualCards(deltaStops,'exp-fps-result-grid');
-    }else if(expMode==='angle'){
-      const deltaStops=Math.log2(expBaseAngle/expTargetAngle);
-      const newSS=calcShutterSpeed(expBaseFPS,expTargetAngle);
-      const disp=document.getElementById('exp-angle-shutter-display');
-      if(disp)disp.textContent=`At ${formatFPS(expBaseFPS)}fps + ${expTargetAngle}°  →  ${formatShutterFraction(newSS)} · ${formatShutterMS(newSS)}`;
-      expDualCards(deltaStops,'exp-angle-result-grid');
-    }else if(expMode==='manual'){
-      expDualCards(expManualStops,'exp-manual-result-grid');
+
+  // ─ summaries ───────────────────────────────────────
+  function renderExpBaseSummary(){
+    const ss=calcShutterSpeed(expBaseFPS,expBaseAngle);
+    const sumEl=document.getElementById('exp-base-summary');
+    const ssEl=document.getElementById('exp-base-shutter');
+    let txt=`Base: ${formatFPS(expBaseFPS)}fps · ${expBaseAngle}° · ISO ${expBaseISO}`;
+    if(expTStopEnabled&&expBaseTStop)txt+=` · T${expBaseTStop}`;
+    if(sumEl)sumEl.textContent=txt;
+    if(ssEl)ssEl.textContent=`${formatShutterFraction(ss)} · ${formatShutterMS(ss)}`;
+  }
+  function renderExpAimSummary(){
+    const sumEl=document.getElementById('exp-aim-summary');
+    let txt=`Aim: ${formatFPS(expAimFPS)}fps · ${expAimAngle}° · ISO ${expAimISO}`;
+    if(expTStopEnabled&&expAimTStop)txt+=` · T${expAimTStop}`;
+    if(sumEl)sumEl.textContent=txt;
+  }
+
+  // ─ net stop calculation ─────────────────────────────
+  function calcNetStops(){
+    if(!expAimFPS||expAimFPS<=0||!expBaseFPS||expBaseFPS<=0)return null;
+    const fpsDelta=Math.log2(expBaseFPS/expAimFPS);
+    const isoDelta=Math.log2(expAimISO/expBaseISO);
+    const angleDelta=Math.log2(expAimAngle/expBaseAngle);
+    const tstopDelta=(expTStopEnabled&&expBaseTStop&&expAimTStop)
+      ?Math.log2(expBaseTStop/expAimTStop):0;
+    const net=fpsDelta+isoDelta+angleDelta+tstopDelta;
+    return{net,fpsDelta,isoDelta,angleDelta,tstopDelta};
+  }
+
+  // ─ output render ────────────────────────────────────
+  function renderExpOutput(){
+    const fracEl=document.getElementById('exp-output-fraction');
+    const unitEl=document.getElementById('exp-output-unit');
+    const brkEl=document.getElementById('exp-output-breakdown');
+    const warnEl=document.getElementById('exp-output-warn');
+    const card=document.getElementById('exp-output-card');
+    if(!fracEl)return;
+
+    const res=calcNetStops();
+    if(!res){
+      fracEl.textContent='—';fracEl.className='exp-output-fraction zero';
+      unitEl.textContent='';brkEl.textContent='';if(warnEl)warnEl.style.display='none';
+      return;
     }
+    const{net,fpsDelta,isoDelta,angleDelta,tstopDelta}=res;
+
+    if(Math.abs(net)<0.001){
+      fracEl.textContent='0';fracEl.className='exp-output-fraction zero';
+      unitEl.textContent='stop';brkEl.textContent='No exposure change';
+      if(warnEl)warnEl.style.display='none';
+      if(card)card.dataset.copy='0';
+      return;
+    }
+
+    const fracStr=stopsToFraction(net);
+    fracEl.textContent=fracStr;
+    fracEl.className='exp-output-fraction '+(net<0?'neg':net>0?'pos':'zero');
+    unitEl.textContent='stop'+(Math.abs(net)>1.01?'s':'');
+
+    // Breakdown — only include non-zero deltas
+    const parts=[];
+    if(Math.abs(fpsDelta)>0.001)parts.push(stopsToFraction(fpsDelta)+' (fps)');
+    if(Math.abs(isoDelta)>0.001)parts.push(stopsToFraction(isoDelta)+' (ISO)');
+    if(Math.abs(angleDelta)>0.001)parts.push(stopsToFraction(angleDelta)+' (angle)');
+    if(Math.abs(tstopDelta)>0.001)parts.push(stopsToFraction(tstopDelta)+' (T-stop)');
+    brkEl.textContent=parts.join('  ')+' = '+fracStr;
+
+    if(warnEl){
+      if(Math.abs(net)>4){warnEl.textContent='⚠ Large exposure shift — check settings';warnEl.style.display='';}
+      else{warnEl.style.display='none';}
+    }
+    if(card)card.dataset.copy=fracStr;
   }
-  function changeExpStops(delta){
-    expManualStops=Math.max(-5,Math.min(5,Math.round((expManualStops+delta)*2)/2));
-    const v=document.getElementById('exp-manual-stops-val');
-    if(v)v.textContent=(expManualStops>=0?'+':'')+expManualStops;
-    renderExpResults();
+
+  // ─ section renderers ────────────────────────────────
+  function renderExpBaseSection(){
+    syncBaseFPSSelect(expBaseFPS);
+    buildISOChips('exp-base-iso-chips',expBaseISO,val=>{expBaseISO=val;saveExpState();renderExpBaseSummary();renderExpOutput();});
+    buildAngleChips('exp-base-angle-chips',expBaseAngle,val=>{expBaseAngle=val;saveExpState();renderExpBaseSummary();renderExpOutput();});
+    if(expTStopEnabled&&expBaseTStop){
+      buildTStopChips('exp-base-tstop-chips',expBaseTStop,val=>{expBaseTStop=val;saveExpState();renderExpOutput();});
+      const v=document.getElementById('exp-base-tstop-val');if(v)v.textContent='T'+expBaseTStop;
+    }
+    renderExpTStopVisibility();
+    renderExpBaseSummary();
   }
+  function renderExpAimSection(){
+    syncAimFPSSelect(expAimFPS);
+    buildISOChips('exp-aim-iso-chips',expAimISO,val=>{expAimISO=val;renderExpAimSummary();renderExpOutput();});
+    buildAngleChips('exp-aim-angle-chips',expAimAngle,val=>{expAimAngle=val;renderExpAimSummary();renderExpOutput();});
+    if(expTStopEnabled&&expAimTStop){
+      buildTStopChips('exp-aim-tstop-chips',expAimTStop,val=>{expAimTStop=val;renderExpOutput();});
+      const v=document.getElementById('exp-aim-tstop-val');if(v)v.textContent='T'+expAimTStop;
+    }
+    buildOvercrankChips();
+    renderExpTStopVisibility();
+    renderExpAimSummary();
+  }
+
+  // ─ main entry point ─────────────────────────────────
   function renderExposureTab(){
-    renderExpBaseChips();
-    renderExpSummary();
-    renderExpResults();
-    // wire custom inputs
-    const isoInp=document.getElementById('exp-iso-input');
-    if(isoInp)isoInp.oninput=()=>{const v=parseInt(isoInp.value);if(v>=25&&v<=409600){expBaseISO=v;document.querySelectorAll('#exp-iso-chips .chip').forEach(c=>c.classList.remove('active'));saveExpState();renderExpSummary();renderExpResults();}};
-    const tstopInp=document.getElementById('exp-tstop-input');
-    if(tstopInp)tstopInp.oninput=()=>{const v=parseFloat(tstopInp.value);if(v>=0.7&&v<=22){expBaseTStop=v;document.querySelectorAll('#exp-tstop-chips .chip').forEach(c=>c.classList.remove('active'));saveExpState();renderExpSummary();renderExpResults();}};
-    const targetFpsInp=document.getElementById('exp-target-fps-input');
-    if(targetFpsInp)targetFpsInp.oninput=()=>{const v=parseFloat(targetFpsInp.value);if(v>0){expTargetFPS=v;renderExpResults();}};
+    // Reset aim to base values on each tab visit
+    expAimFPS=expBaseFPS;expAimISO=expBaseISO;
+    expAimAngle=expBaseAngle;expAimTStop=expBaseTStop;
+    renderExpBaseSection();
+    renderExpAimSection();
+    renderExpOutput();
+    // Wire output card tap
+    const card=document.getElementById('exp-output-card');
+    if(card&&!card._wired){
+      card._wired=true;
+      function doCardCopy(){const txt=card.dataset.copy;if(txt&&txt!=='—')copyText(txt);}
+      card.addEventListener('click',doCardCopy);
+      card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();doCardCopy();}});
+    }
   }
 
   // ══════════════════════════════════════════════════════
