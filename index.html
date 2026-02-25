@@ -802,6 +802,456 @@
       margin-top: 4px;
     }
 
+    /* ── NEW FPS TAB ── */
+    .fps-mode-bar {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3px;
+      margin-bottom: 20px;
+    }
+
+    .fps-mode-btn {
+      flex: 1;
+      padding: 9px 10px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      min-height: 40px;
+    }
+
+    .fps-mode-btn.active {
+      background: var(--bg);
+      color: var(--text-primary);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+    }
+
+    .fps-std-select-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .fps-std-select-label {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .fps-std-select {
+      flex: 1;
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 12px;
+      -webkit-appearance: none;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 34px;
+    }
+
+    .fps-std-select:focus {
+      border-color: var(--accent);
+    }
+
+    .fps-reset-link {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color .15s;
+    }
+
+    .fps-reset-link:hover {
+      color: var(--accent);
+    }
+
+    /* Table */
+    .fps-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    .fps-table thead tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fps-table th {
+      font-family: var(--font-ui);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0 8px 8px;
+      text-align: left;
+    }
+
+    .fps-table th:last-child {
+      text-align: right;
+    }
+
+    .fps-table tbody tr {
+      border-bottom: 1px solid #161616;
+      cursor: pointer;
+      transition: background .1s;
+    }
+
+    .fps-table tbody tr:nth-child(odd) {
+      background: #0D0D0D;
+    }
+
+    .fps-table tbody tr:nth-child(even) {
+      background: #111111;
+    }
+
+    .fps-table tbody tr:hover {
+      background: #1a1a1a;
+    }
+
+    .fps-table tbody tr.base-row {
+      border-left: 3px solid var(--accent);
+    }
+
+    .fps-table tbody tr.dimmed {
+      opacity: 0.35;
+    }
+
+    .fps-table td {
+      padding: 11px 8px;
+      vertical-align: middle;
+    }
+
+    /* Column 1: PROJECT FPS — small, muted */
+    .fps-td-base {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      width: 72px;
+      white-space: nowrap;
+    }
+
+    /* Column 2: MULTIPLICATION — medium, primary */
+    .fps-td-mult {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .fps-td-mult-label {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-top: 1px;
+      font-weight: 400;
+    }
+
+    /* Column 3: OFF-SPEED — large, primary, right-aligned */
+    .fps-td-result {
+      text-align: right;
+    }
+
+    .fps-td-result-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    tr.base-row .fps-td-result-val {
+      color: var(--accent);
+    }
+
+    .fps-td-result-sub {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-top: 1px;
+    }
+
+    .fps-td-result-warn {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 9px;
+      color: var(--warn);
+      margin-top: 1px;
+    }
+
+    /* Custom multiplier row */
+    .fps-cust-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+    }
+
+    .fps-cust-chips-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .fps-cust-chip {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .12s, color .12s, border-color .12s;
+    }
+
+    .fps-cust-chip.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .fps-cust-calc-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fps-cust-base-val {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .fps-cust-op {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    .fps-cust-input {
+      width: 90px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      padding: 8px 10px;
+      outline: none;
+      text-align: center;
+    }
+
+    .fps-cust-input:focus {
+      border-color: var(--accent);
+    }
+
+    .fps-cust-eq {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+
+    .fps-cust-result-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      cursor: pointer;
+      flex: 1;
+      text-align: right;
+    }
+
+    /* ── REVERSE LOOKUP ── */
+    .rev-input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .rev-col-label {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .rev-std-select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 10px;
+      -webkit-appearance: none;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .rev-std-select:focus {
+      border-color: var(--accent);
+    }
+
+    .rev-target-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      padding: 10px 10px;
+      outline: none;
+      text-align: center;
+    }
+
+    .rev-target-input:focus {
+      border-color: var(--accent);
+    }
+
+    .rev-target-input::placeholder {
+      color: var(--text-dim);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .rev-mult-display {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      padding: 10px 10px;
+      text-align: center;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* All clean multiples reference table */
+    .rev-clean-section {
+      margin-top: 16px;
+    }
+
+    .rev-clean-toggle {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    .rev-clean-toggle-chevron {
+      font-size: 16px;
+      transition: transform .2s;
+    }
+
+    .rev-clean-toggle-chevron.open {
+      transform: rotate(90deg);
+    }
+
+    .rev-clean-body {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .rev-clean-body.open {
+      display: block;
+    }
+
+    .rev-clean-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .rev-clean-table th {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 4px 8px 6px;
+      text-align: left;
+    }
+
+    .rev-clean-table th:last-child {
+      text-align: right;
+    }
+
+    .rev-clean-table td {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 8px;
+      border-top: 1px solid #161616;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+
+    .rev-clean-table td:last-child {
+      text-align: right;
+    }
+
+    .rev-clean-table tr:hover td {
+      background: #1a1a1a;
+    }
+
     /* ── EXPOSURE TAB ── */
     .exp-section {
       margin-bottom: 20px;
@@ -2388,81 +2838,117 @@
   <!-- ══ TAB 1: FPS ══ -->
   <div class="tab-panel active" id="panel-fps">
     <div class="main">
-      <p class="section-label" id="fps-section-label">Frame Rate Multiples</p>
-      <div id="fps-camera-status"></div>
-      <div class="results-grid" id="fps-grid" role="list"></div>
-    </div>
-  </div>
 
-  <!-- ══ TAB 2: CUSTOM ══ -->
-  <div class="tab-panel" id="panel-custom">
-    <div class="main">
-      <div class="mode-tabs" role="group">
-        <button class="mode-tab active" id="custom-mode-forward" onclick="setCustomMode('forward')">Forward: base ×
-          mult</button>
-        <button class="mode-tab" id="custom-mode-reverse" onclick="setCustomMode('reverse')">Reverse: target →
-          mult</button>
+      <!-- Mode toggle -->
+      <div class="fps-mode-bar">
+        <button class="fps-mode-btn active" id="fps-mode-mult" onclick="setFPSMode('multiples')">Multiples</button>
+        <button class="fps-mode-btn" id="fps-mode-rev" onclick="setFPSMode('reverse')">Reverse Lookup</button>
       </div>
 
-      <!-- Forward mode -->
-      <div id="custom-forward-section">
-        <p class="selector-label">Base FPS</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="custom-base-chips"></div>
-        </div>
-        <div class="input-row">
-          <input type="number" class="custom-input" id="custom-base-input" placeholder="Custom fps" min="1" max="1000"
-            step="any" />
-          <span class="input-label">fps</span>
-        </div>
-
-        <div class="section-gap" style="margin-top:20px">
-          <p class="selector-label">Multiplier</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="custom-mult-chips"></div>
-          </div>
-          <div class="input-row">
-            <input type="number" class="custom-input" id="custom-mult-input" placeholder="e.g. 1.333" min="0.01"
-              max="100" step="any" />
-            <span class="input-label">×</span>
-          </div>
-        </div>
-
-        <div class="section-gap" style="margin-top:20px">
-          <div class="result-live-card" id="custom-forward-result">
-            <div class="rlc-tag">Result</div>
-            <div class="rlc-main" id="cfr-main">—</div>
-            <div class="rlc-sub" id="cfr-sub"></div>
-            <div class="rlc-tertiary" id="cfr-tertiary"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Reverse mode -->
-      <div id="custom-reverse-section" style="display:none">
-        <p class="selector-label">Base FPS</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="custom-rev-base-chips"></div>
-        </div>
-        <div class="input-row">
-          <input type="number" class="custom-input" id="custom-rev-base-input" placeholder="Custom fps" min="1"
-            max="1000" step="any" />
-          <span class="input-label">fps base</span>
+      <!-- ── MODE 1: MULTIPLES ── -->
+      <div id="fps-mult-section">
+        <!-- Project FPS selector -->
+        <div class="fps-std-select-row">
+          <span class="fps-std-select-label">Project FPS</span>
+          <select class="fps-std-select" id="fps-std-select" onchange="onFPSStdChange(this.value)">
+            <optgroup label="Cinema">
+              <option value="23.976">23.976</option>
+              <option value="24">24</option>
+            </optgroup>
+            <optgroup label="PAL / HD">
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </optgroup>
+            <optgroup label="NTSC">
+              <option value="29.97">29.97</option>
+              <option value="59.94">59.94</option>
+            </optgroup>
+            <optgroup label="High Frame Rate">
+              <option value="48">48</option>
+              <option value="96">96</option>
+            </optgroup>
+          </select>
+          <span class="fps-reset-link" id="fps-reset-link" style="display:none" onclick="onFPSReset()">↩ Reset to
+            project</span>
         </div>
 
-        <div class="section-gap" style="margin-top:20px">
-          <p class="selector-label">Target FPS</p>
-          <div class="input-row" style="margin-top:0">
-            <input type="number" class="custom-input" id="custom-target-input" placeholder="e.g. 33" min="1" max="1000"
+        <!-- Camera pill injected here by JS -->
+        <div id="fps-panel-cam-pill"></div>
+
+        <!-- Camera status line -->
+        <div id="fps-camera-status" style="margin-bottom:0"></div>
+
+        <!-- Three-column multiples table -->
+        <table class="fps-table" id="fps-table" aria-label="Frame rate multiples">
+          <thead>
+            <tr>
+              <th>Project FPS</th>
+              <th>Multiplication</th>
+              <th>Off-Speed</th>
+            </tr>
+          </thead>
+          <tbody id="fps-table-body"></tbody>
+        </table>
+
+        <!-- Custom multiplier row -->
+        <div class="fps-cust-section">
+          <div class="fps-cust-chips-row" id="fps-cust-chips"></div>
+          <div class="fps-cust-calc-row">
+            <span class="fps-cust-base-val" id="fps-cust-base-val">—</span>
+            <span class="fps-cust-op">×</span>
+            <input class="fps-cust-input" id="fps-cust-mult-input" type="number" placeholder="mult" min="0.01" max="100"
               step="any" />
-            <span class="input-label">fps target</span>
+            <span class="fps-cust-eq">=</span>
+            <span class="fps-cust-result-val" id="fps-cust-result-val" title="Tap to copy">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MODE 2: REVERSE LOOKUP ── -->
+      <div id="fps-rev-section" style="display:none">
+        <!-- 3-col input header -->
+        <div class="rev-input-grid">
+          <div>
+            <div class="rev-col-label">Project FPS</div>
+            <select class="rev-std-select" id="rev-std-select" onchange="onRevStdChange(this.value)">
+              <optgroup label="Cinema">
+                <option value="23.976">23.976</option>
+                <option value="24">24</option>
+              </optgroup>
+              <optgroup label="PAL / HD">
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </optgroup>
+              <optgroup label="NTSC">
+                <option value="29.97">29.97</option>
+                <option value="59.94">59.94</option>
+              </optgroup>
+              <optgroup label="High Frame Rate">
+                <option value="48">48</option>
+                <option value="96">96</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <div class="rev-col-label">Target</div>
+            <input class="rev-target-input" id="rev-target-input" type="number" placeholder="33" min="1" max="1000"
+              step="any" />
+          </div>
+          <div>
+            <div class="rev-col-label">Multiplication</div>
+            <div class="rev-mult-display" id="rev-mult-display">× ?</div>
           </div>
         </div>
 
-        <div class="section-gap result-stack" style="margin-top:20px" id="custom-reverse-results"></div>
+        <!-- Result cards -->
+        <div id="rev-results"></div>
       </div>
+
     </div>
   </div>
+
+  <!-- ══ TAB 2: CUSTOM (shell — kept for JS compat, hidden from nav) ══ -->
+  <div class="tab-panel" id="panel-custom"></div>
 
   <!-- ══ TAB 3: SHUTTER ══ -->
   <div class="tab-panel" id="panel-shutter">
@@ -2472,65 +2958,6 @@
       <div class="section-gap">
         <p class="section-label">Across All Multiples</p>
         <div class="results-grid" id="shutter-multi-grid"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ TAB 4: ND ══ -->
-  <div class="tab-panel" id="panel-nd">
-    <div class="main">
-      <div class="mode-tabs" role="group" aria-label="ND Calculator Mode">
-        <button class="mode-tab active" id="nd-mode-fps" onclick="setNDMode('fps')">FPS Change</button>
-        <button class="mode-tab" id="nd-mode-stops" onclick="setNDMode('stops')">Manual Stops</button>
-        <button class="mode-tab" id="nd-mode-angle" onclick="setNDMode('angle')">Angle Change</button>
-      </div>
-      <div id="nd-fps-mode">
-        <p class="selector-label">From FPS</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="nd-from-fps-chips"></div>
-        </div>
-        <div class="section-gap" style="margin-top:16px">
-          <p class="selector-label">To FPS</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="nd-to-fps-chips"></div>
-          </div>
-        </div>
-      </div>
-      <div id="nd-stops-mode" style="display:none">
-        <p class="selector-label">Stops of ND</p>
-        <div class="stepper-row">
-          <button class="stepper-btn" id="nd-minus" onclick="changeStops(-1)" aria-label="Decrease stops">−</button>
-          <div class="stepper-val" id="nd-stops-val">3</div>
-          <button class="stepper-btn" id="nd-plus" onclick="changeStops(1)" aria-label="Increase stops">+</button>
-        </div>
-      </div>
-      <div id="nd-angle-mode" style="display:none">
-        <p class="selector-label">From Angle</p>
-        <div class="chips-scroll">
-          <div class="chips-row" id="nd-from-angle-chips"></div>
-        </div>
-        <div class="section-gap" style="margin-top:16px">
-          <p class="selector-label">To Angle</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="nd-to-angle-chips"></div>
-          </div>
-        </div>
-      </div>
-      <div class="nd-result-card" id="nd-result-card">
-        <div class="nd-primary" id="nd-result-primary">—</div>
-        <div class="nd-secondary" id="nd-result-secondary"></div>
-        <div class="nd-stack" id="nd-result-stack"></div>
-      </div>
-      <div class="section-gap">
-        <p class="section-label">ND Filter Reference — Tap to Copy</p>
-        <div class="nd-table" id="nd-table">
-          <div class="nd-table-header">
-            <span class="nd-th">Stops</span>
-            <span class="nd-th">ND No.</span>
-            <span class="nd-th">Factor</span>
-            <span class="nd-th">Name</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -2800,7 +3227,6 @@
     <button class="nav-btn" id="nav-project" onclick="switchTab('project')">Project</button>
     <button class="nav-btn" id="nav-fps" onclick="switchTab('fps')">FPS</button>
     <button class="nav-btn" id="nav-shutter" onclick="switchTab('shutter')">Shutter</button>
-    <button class="nav-btn" id="nav-nd" onclick="switchTab('nd')">ND</button>
     <button class="nav-btn" id="nav-exposure" onclick="switchTab('exposure')">Exposure</button>
   </nav>
 
@@ -2945,7 +3371,7 @@
     let shutterFPS = 24, shutterAngle = 180, shutterCustomFPS = '', shutterCustomAngle = '';
 
     // ND tab
-    let ndMode = 'fps', ndFromFPS = 24, ndToFPS = 48, ndFromAngle = 180, ndToAngle = 90, ndManualStops = 3;
+
 
     // Custom tab
     let customMode = 'forward';
@@ -3106,9 +3532,8 @@
       });
       renderHeader();
       if (tab === 'fps') renderFPSTab();
-      if (tab === 'custom') renderCustomTab();
       if (tab === 'shutter') renderShutterTab();
-      if (tab === 'nd') renderNDTab();
+
       if (tab === 'exposure') renderExposureTab();
       if (tab === 'project') renderProjectTab();
     }
@@ -3119,14 +3544,8 @@
     function renderHeader() {
       const ctrl = document.getElementById('header-controls');
       ctrl.innerHTML = '';
-      if (currentTab === 'fps') {
-        const label = document.createElement('p'); label.className = 'selector-label'; label.textContent = 'Project Standard'; ctrl.appendChild(label);
-        const scroll = document.createElement('div'); scroll.className = 'chips-scroll';
-        const row = document.createElement('div'); row.className = 'chips-row'; row.id = 'fps-chips-row'; row.setAttribute('role', 'group');
-        scroll.appendChild(row); ctrl.appendChild(scroll);
-        renderFPSChips();
-        renderCamPill(ctrl);
-      } else if (currentTab === 'shutter') {
+      // FPS tab: all controls live in the panel body — header stays empty
+      if (currentTab === 'shutter') {
         renderShutterHeader(ctrl);
         renderCamPill(ctrl);
       } else if (currentTab === 'nd') {
@@ -3137,56 +3556,288 @@
     }
 
     // ══════════════════════════════════════════════════════
-    //  FPS TAB
+    //  FPS TAB (merged: Multiples table + Reverse Lookup)
     // ══════════════════════════════════════════════════════
-    function renderFPSChips() {
-      const row = document.getElementById('fps-chips-row'); if (!row) return;
-      row.innerHTML = '';
-      const groups = {};
-      STANDARDS.forEach(s => { if (!groups[s.group]) groups[s.group] = []; groups[s.group].push(s.value); });
-      Object.values(groups).forEach(gv => {
-        const grp = document.createElement('div'); grp.className = 'chip-group';
-        gv.forEach(v => {
-          const btn = makeChip(v, fpsStandard, val => {
-            fpsStandard = val; localStorage.setItem(STORAGE_KEY, val);
-            renderFPSChips(); renderFPSTab();
-          });
-          grp.appendChild(btn);
-        });
-        row.appendChild(grp);
-      });
+
+    // Extended multiples list including custom fractional entries
+    const FPS_TABLE_ROWS = [
+      { mult: 0.25, multLabel: '×0.25', frac: '¼×', slowmo: '400% slow motion' },
+      { mult: 0.5, multLabel: '×0.5', frac: '½×', slowmo: '200% slow motion' },
+      { mult: 1, multLabel: '×1', frac: '1×', slowmo: '' },
+      { mult: 2, multLabel: '×2', frac: '2×', slowmo: '50% slow motion' },
+      { mult: 2.1, multLabel: '×2.1', frac: '2.1×', slowmo: '~47.6% slow motion' },
+      { mult: 2.2, multLabel: '×2.2', frac: '2.2×', slowmo: '~45.5% slow motion' },
+      { mult: 3, multLabel: '×3', frac: '3×', slowmo: '33% slow motion' },
+      { mult: 4, multLabel: '×4', frac: '4×', slowmo: '25% slow motion' },
+      { mult: 6, multLabel: '×6', frac: '6×', slowmo: '16.7% slow motion' },
+      { mult: 8, multLabel: '×8', frac: '8×', slowmo: '12.5% slow motion' },
+    ];
+
+    const FPS_CUST_QUICK = [1.2, 1.25, 1.33, 1.5, 1.75, 2.5];
+
+    // State: local to FPS tab
+    let fpsMode = 'multiples';         // 'multiples' | 'reverse'
+    let fpsLocalStd = projBaseFPS;    // dropdown value — local override
+    let fpsLocalOverride = false;      // true = differs from project value
+    let fpsCustomMult = null;       // custom multiplier input value
+    let revBaseFPS = projBaseFPS;    // reverse mode project fps
+    let revTargetFPS = null;           // reverse mode target fps
+    let revCleanOpen = false;          // collapsible state
+
+    // ── Mode toggle ──────────────────────────────────────
+    function setFPSMode(mode) {
+      fpsMode = mode;
+      document.getElementById('fps-mode-mult').classList.toggle('active', mode === 'multiples');
+      document.getElementById('fps-mode-rev').classList.toggle('active', mode === 'reverse');
+      document.getElementById('fps-mult-section').style.display = mode === 'multiples' ? '' : 'none';
+      document.getElementById('fps-rev-section').style.display = mode === 'reverse' ? '' : 'none';
+      if (mode === 'multiples') renderFPSMultSection();
+      else renderFPSRevSection();
     }
+
+    // ── Main render ──────────────────────────────────────
     function renderFPSTab() {
-      const grid = document.getElementById('fps-grid'); grid.innerHTML = '';
+      // Sync the selects with current state
+      const stdSel = document.getElementById('fps-std-select');
+      if (stdSel) stdSel.value = fpsLocalStd;
+      const revSel = document.getElementById('rev-std-select');
+      if (revSel) revSel.value = revBaseFPS;
+      // Restore last mode
+      document.getElementById('fps-mode-mult').classList.toggle('active', fpsMode === 'multiples');
+      document.getElementById('fps-mode-rev').classList.toggle('active', fpsMode === 'reverse');
+      document.getElementById('fps-mult-section').style.display = fpsMode === 'multiples' ? '' : 'none';
+      document.getElementById('fps-rev-section').style.display = fpsMode === 'reverse' ? '' : 'none';
+      if (fpsMode === 'multiples') renderFPSMultSection();
+      else renderFPSRevSection();
+      // Wire reverse inputs
+      const ti = document.getElementById('rev-target-input');
+      if (ti) {
+        if (revTargetFPS) ti.value = revTargetFPS;
+        ti.oninput = () => { const v = parseFloat(ti.value); revTargetFPS = (v > 0) ? v : null; renderFPSRevResults(); };
+      }
+    }
+
+    // ── Standard dropdown handlers ────────────────────────
+    function onFPSStdChange(val) {
+      fpsLocalStd = parseFloat(val);
+      fpsLocalOverride = (fpsLocalStd !== projBaseFPS);
+      const link = document.getElementById('fps-reset-link');
+      if (link) link.style.display = fpsLocalOverride ? '' : 'none';
+      renderFPSMultSection();
+    }
+    function onFPSReset() {
+      fpsLocalStd = projBaseFPS;
+      fpsLocalOverride = false;
+      const sel = document.getElementById('fps-std-select');
+      if (sel) sel.value = fpsLocalStd;
+      const link = document.getElementById('fps-reset-link');
+      if (link) link.style.display = 'none';
+      renderFPSMultSection();
+    }
+    function onRevStdChange(val) {
+      revBaseFPS = parseFloat(val);
+      renderFPSRevResults();
+    }
+
+    // ── Multiples mode ────────────────────────────────────
+    function renderFPSMultSection() {
+      // Camera pill
+      const pillWrap = document.getElementById('fps-panel-cam-pill');
+      if (pillWrap) { pillWrap.innerHTML = ''; renderCamPill(pillWrap); }
+      // Camera status line
+      const statusEl = document.getElementById('fps-camera-status');
       const projCam = getActiveProjCamera();
       const legacyCam = getActiveCamera();
-      // Prefer project camera, fall back to legacy camera from old PROJECT tab
       const camForDisplay = projCam || (legacyCam ? { name: legacyCam.camera.name + ' · ' + legacyCam.mode.name, maxFps: legacyCam.mode.maxFps } : null);
-      // Status line
-      const statusEl = document.getElementById('fps-camera-status');
-      if (camForDisplay) {
-        statusEl.innerHTML = '<p class="camera-status-line"><span class="camera-status-dot">●</span>' + camForDisplay.name + ' · max ' + camForDisplay.maxFps + 'fps</p>';
-        statusEl.style.marginBottom = '12px';
-      } else {
-        statusEl.innerHTML = ''; statusEl.style.marginBottom = '0';
+      if (statusEl) {
+        if (camForDisplay) {
+          statusEl.innerHTML = '<p class="camera-status-line" style="margin:4px 0 10px"><span class="camera-status-dot">●</span>' + camForDisplay.name + ' · max ' + camForDisplay.maxFps + 'fps</p>';
+        } else {
+          statusEl.innerHTML = '';
+        }
       }
-      MULTIPLES.forEach(({ mult, label, slowmo }) => {
-        const fps = fpsStandard * mult;
+      // Build table rows
+      const tbody = document.getElementById('fps-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const base = fpsLocalStd;
+      FPS_TABLE_ROWS.forEach(({ mult, multLabel, frac, slowmo }) => {
+        const fps = base * mult;
         const fpsStr = formatFPS(fps);
         const isBase = mult === 1;
         const exceeds = camForDisplay && fps > camForDisplay.maxFps;
-        const warnText = exceeds ? '\u26a0 Exceeds ' + camForDisplay.name + ' limit (' + camForDisplay.maxFps + 'fps)' : (fps > 1000 ? '\u26a0 Check camera limits' : '');
-        const card = makeCard({
-          topLabel: getMultLabel(mult), value: fpsStr, unit: 'fps',
-          bottomLabel: label, sub: isBase ? '' : slowmo, isBase,
-          warn: warnText, copyVal: fpsStr, dimmed: exceeds,
+        const tr = document.createElement('tr');
+        if (isBase) tr.classList.add('base-row');
+        if (exceeds) tr.classList.add('dimmed');
+        // Col 1: PROJECT FPS
+        const tdBase = document.createElement('td');
+        tdBase.className = 'fps-td-base';
+        tdBase.textContent = formatFPS(base);
+        // Col 2: MULTIPLICATION
+        const tdMult = document.createElement('td');
+        tdMult.className = 'fps-td-mult';
+        tdMult.innerHTML = `${multLabel}<span class="fps-td-mult-label">${frac}${!isBase && slowmo ? ' · ' + slowmo : ''}</span>`;
+        // Col 3: OFF-SPEED
+        const tdResult = document.createElement('td');
+        tdResult.className = 'fps-td-result';
+        let warnHtml = '';
+        if (exceeds) warnHtml = `<span class="fps-td-result-warn">⚠ Exceeds ${camForDisplay.maxFps}fps limit</span>`;
+        const subHtml = (!exceeds && !isBase && slowmo) ? `<span class="fps-td-result-sub">${slowmo}</span>` : '';
+        tdResult.innerHTML = `<span class="fps-td-result-val">${exceeds ? '⚠ ' : ''}${fpsStr}</span>${subHtml}${warnHtml}`;
+        tr.appendChild(tdBase); tr.appendChild(tdMult); tr.appendChild(tdResult);
+        tr.addEventListener('click', () => {
+          copyText(fpsStr);
+          if (navigator.vibrate) navigator.vibrate(30);
         });
-        grid.appendChild(card);
+        tbody.appendChild(tr);
       });
+      // Custom row
+      renderFPSCustomRow();
+    }
+
+    function renderFPSCustomRow() {
+      const base = fpsLocalStd;
+      const baseEl = document.getElementById('fps-cust-base-val');
+      if (baseEl) baseEl.textContent = formatFPS(base) + ' fps';
+      // Quick-select chips
+      const chipsEl = document.getElementById('fps-cust-chips');
+      if (chipsEl) {
+        chipsEl.innerHTML = '';
+        FPS_CUST_QUICK.forEach(v => {
+          const btn = document.createElement('button');
+          btn.className = 'fps-cust-chip' + (fpsCustomMult === v ? ' active' : '');
+          btn.textContent = '×' + v;
+          btn.onclick = () => {
+            fpsCustomMult = (fpsCustomMult === v) ? null : v;
+            const inp = document.getElementById('fps-cust-mult-input');
+            if (inp) inp.value = fpsCustomMult !== null ? fpsCustomMult : '';
+            renderFPSCustomRow();
+          };
+          chipsEl.appendChild(btn);
+        });
+      }
+      // Wire input
+      const inp = document.getElementById('fps-cust-mult-input');
+      if (inp) {
+        inp.oninput = () => {
+          const v = parseFloat(inp.value);
+          fpsCustomMult = (v > 0) ? v : null;
+          // Deactivate chips
+          const inChips = document.querySelectorAll('.fps-cust-chip');
+          inChips.forEach(c => c.classList.toggle('active', parseFloat(c.textContent.replace('×', '')) === fpsCustomMult));
+          updateFPSCustomResult();
+        };
+      }
+      updateFPSCustomResult();
+    }
+
+    function updateFPSCustomResult() {
+      const resultEl = document.getElementById('fps-cust-result-val');
+      if (!resultEl) return;
+      if (fpsCustomMult === null || fpsCustomMult <= 0) {
+        resultEl.textContent = '—';
+        resultEl.onclick = null;
+        return;
+      }
+      const result = fpsLocalStd * fpsCustomMult;
+      const str = formatFPS(result) + ' fps';
+      resultEl.textContent = str;
+      resultEl.onclick = () => { copyText(formatFPS(result)); };
+    }
+
+    // ── Reverse Lookup mode ───────────────────────────────
+    function renderFPSRevSection() {
+      const sel = document.getElementById('rev-std-select');
+      if (sel) sel.value = revBaseFPS;
+      const ti = document.getElementById('rev-target-input');
+      if (ti && revTargetFPS) ti.value = revTargetFPS;
+      renderFPSRevResults();
+    }
+
+    function renderFPSRevResults() {
+      const base = revBaseFPS;
+      const target = revTargetFPS;
+      const multEl = document.getElementById('rev-mult-display');
+      const container = document.getElementById('rev-results');
+      if (!container) return;
+      container.innerHTML = '';
+      if (!base || !target) {
+        if (multEl) multEl.textContent = '× ?';
+        return;
+      }
+      const exactMult = target / base;
+      if (multEl) multEl.textContent = '×' + exactMult.toFixed(4);
+
+      // Card 1: Exact multiplier
+      const c1 = document.createElement('div'); c1.className = 'result-card-full';
+      c1.innerHTML = `<div class="rc-tag">Exact Multiplier</div>
+        <div class="rc-main-row"><span class="rc-value">${exactMult.toFixed(4)}×</span><span class="rc-fps">${formatFPS(target)} fps</span></div>
+        <div class="rc-detail">${formatFPS(base)} × ${exactMult.toFixed(4)} = ${formatFPS(target)}</div>`;
+      c1.addEventListener('click', () => copyText(formatFPS(target)));
+      container.appendChild(c1);
+
+      // Find fractions
+      const fracs = findCleanFractions(base, target);
+      if (fracs.length === 0) return;
+      const best = fracs[0];
+
+      // Card 2: Nearest clean fraction (amber border)
+      const c2 = document.createElement('div'); c2.className = 'result-card-full accent-border';
+      const dCls = deltaClass(best.absDelta);
+      c2.innerHTML = `<div class="rc-tag">Nearest Clean Multiple</div>
+        <div class="rc-main-row"><span class="rc-value">${best.rn}/${best.rd} (×${best.mult.toFixed(4)})</span><span class="rc-fps">${formatFPS(best.resultFps)} fps</span></div>
+        <div class="rc-detail">${formatFPS(base)} × ${best.rn}/${best.rd} = ${formatFPS(best.resultFps)}</div>
+        <div class="rc-delta ${dCls}">${deltaText(best.delta, best.absDelta)}</div>`;
+      c2.addEventListener('click', () => copyText(formatFPS(best.resultFps)));
+      container.appendChild(c2);
+
+      // Card 3: Nearest standard multiple
+      const STD_MULTS = [0.25, 0.5, 1, 2, 3, 4, 6, 8];
+      const stdExact = STD_MULTS.map(m => ({ m, resultFps: base * m, absDelta: Math.abs(base * m - target) }));
+      stdExact.sort((a, b) => a.absDelta - b.absDelta);
+      const nearest = stdExact[0];
+      const nDelta = nearest.resultFps - target;
+      const nCls = deltaClass(nearest.absDelta);
+      const c3 = document.createElement('div'); c3.className = 'result-card-full';
+      c3.innerHTML = `<div class="rc-tag">Nearest Standard Multiple</div>
+        <div class="rc-main-row"><span class="rc-value">×${nearest.m}</span><span class="rc-fps">${formatFPS(nearest.resultFps)} fps</span></div>
+        <div class="rc-detail">${formatFPS(base)} × ${nearest.m} = ${formatFPS(nearest.resultFps)}</div>
+        <div class="rc-delta ${nCls}">${deltaText(nDelta, nearest.absDelta)}</div>`;
+      c3.addEventListener('click', () => copyText(formatFPS(nearest.resultFps)));
+      container.appendChild(c3);
+
+      // Collapsible: 5 closest clean fractions table
+      const cleanSec = document.createElement('div'); cleanSec.className = 'rev-clean-section';
+      const toggleBtn = document.createElement('button'); toggleBtn.className = 'rev-clean-toggle';
+      const chevron = document.createElement('span'); chevron.className = 'rev-clean-toggle-chevron' + (revCleanOpen ? ' open' : '');
+      chevron.textContent = '›';
+      toggleBtn.innerHTML = `<span>All clean multiples near ${formatFPS(target)} fps</span>`;
+      toggleBtn.appendChild(chevron);
+      const body = document.createElement('div'); body.className = 'rev-clean-body' + (revCleanOpen ? ' open' : '');
+      toggleBtn.onclick = () => {
+        revCleanOpen = !revCleanOpen;
+        chevron.classList.toggle('open', revCleanOpen);
+        body.classList.toggle('open', revCleanOpen);
+      };
+      // Table of 5 closest
+      const top5 = fracs.slice(0, 5);
+      const tbl = document.createElement('table'); tbl.className = 'rev-clean-table';
+      tbl.innerHTML = `<thead><tr><th>Fraction</th><th>Multiplier</th><th>Result fps</th><th>Delta</th></tr></thead>`;
+      const tb = document.createElement('tbody');
+      top5.forEach(f => {
+        const tr = document.createElement('tr');
+        const fCls = deltaClass(f.absDelta);
+        tr.innerHTML = `<td>${f.rn}/${f.rd}</td><td>×${f.mult.toFixed(4)}</td><td>${formatFPS(f.resultFps)}</td><td class="rc-delta ${fCls}">${deltaText(f.delta, f.absDelta)}</td>`;
+        tr.addEventListener('click', () => copyText(formatFPS(f.resultFps)));
+        tb.appendChild(tr);
+      });
+      tbl.appendChild(tb); body.appendChild(tbl);
+      cleanSec.appendChild(toggleBtn); cleanSec.appendChild(body);
+      container.appendChild(cleanSec);
     }
 
     // ══════════════════════════════════════════════════════
-    //  CUSTOM TAB
+    //  CUSTOM TAB HELPERS (kept for ref; panel is now empty)
     // ══════════════════════════════════════════════════════
     const COMMON_MULTS = [1.2, 1.25, 1.33, 1.5, 1.75, 2, 2.5, 3];
     function setCustomMode(mode) {
@@ -3409,70 +4060,7 @@
       });
     }
 
-    // ══════════════════════════════════════════════════════
-    //  ND TAB
-    // ══════════════════════════════════════════════════════
-    function setNDMode(mode) {
-      ndMode = mode;
-      ['fps', 'stops', 'angle'].forEach(m => { document.getElementById('nd-' + m + '-mode').style.display = m === mode ? '' : 'none'; document.getElementById('nd-mode-' + m).classList.toggle('active', m === mode); });
-      renderNDResult();
-    }
-    function changeStops(delta) { ndManualStops = Math.max(-10, Math.min(10, ndManualStops + delta)); document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops; renderNDResult(); }
-    function stopsToND(stops) { const a = Math.abs(stops); return { ndNum: 'ND ' + (a * 0.3).toFixed(1), ndFactor: 'ND' + Math.round(Math.pow(2, a)) }; }
-    function fpsToStops(from, to) { if (from <= 0 || to <= 0) return 0; return Math.log2(to / from); }
-    function angleToStops(from, to) { if (from <= 0 || to <= 0) return 0; return Math.log2(from / to); }
-    function suggestStack(stops) {
-      const a = Math.abs(stops); let best = null, bestDiff = Infinity;
-      for (let i = 0; i < ND_TABLE_DATA.length; i++)for (let j = i; j < ND_TABLE_DATA.length; j++) { const sum = ND_TABLE_DATA[i].stops + ND_TABLE_DATA[j].stops; const diff = Math.abs(sum - a); if (diff < bestDiff) { bestDiff = diff; best = [ND_TABLE_DATA[i], ND_TABLE_DATA[j]]; } }
-      return best;
-    }
-    function renderNDResult() {
-      let stops = 0;
-      if (ndMode === 'fps') stops = fpsToStops(ndFromFPS, ndToFPS);
-      else if (ndMode === 'stops') stops = ndManualStops;
-      else if (ndMode === 'angle') stops = angleToStops(ndFromAngle, ndToAngle);
-      const primary = document.getElementById('nd-result-primary');
-      const secondary = document.getElementById('nd-result-secondary');
-      const stack = document.getElementById('nd-result-stack');
-      if (stops === 0) { primary.textContent = 'No change'; secondary.textContent = 'Same exposure'; stack.textContent = ''; return; }
-      const dir = stops > 0 ? 'Add' : 'Remove'; const a = Math.abs(stops); const r = Math.round(a * 10) / 10;
-      const { ndNum, ndFactor } = stopsToND(a);
-      primary.textContent = dir + ' ' + r.toFixed(1) + ' stop' + (r !== 1 ? 's' : '');
-      secondary.textContent = ndNum + '  ·  ' + ndFactor;
-      const isClean = Number.isInteger(Math.round(a * 10) / 10) && Math.abs(a - Math.round(a)) < 0.05;
-      if (!isClean || a > 10) { const s = suggestStack(a); if (s && s[0] !== s[1]) stack.textContent = 'Stack: ' + s[0].nd + ' + ' + s[1].nd; else if (s) stack.textContent = 'Single: ' + s[0].nd; }
-      else stack.textContent = '';
-    }
-    function renderNDFPSChips() {
-      const fromRow = document.getElementById('nd-from-fps-chips'); const toRow = document.getElementById('nd-to-fps-chips'); if (!fromRow || !toRow) return;
-      const groups = {}; STANDARDS.forEach(s => { if (!groups[s.group]) groups[s.group] = []; groups[s.group].push(s.value); });
-      [fromRow, toRow].forEach((row, idx) => {
-        row.innerHTML = '';
-        Object.values(groups).forEach(gv => {
-          const grp = document.createElement('div'); grp.className = 'chip-group';
-          gv.forEach(v => { grp.appendChild(makeChip(v, idx === 0 ? ndFromFPS : ndToFPS, val => { if (idx === 0) ndFromFPS = val; else ndToFPS = val; renderNDFPSChips(); renderNDResult(); })); });
-          row.appendChild(grp);
-        });
-      });
-    }
-    function renderNDAngleChips() {
-      const fromRow = document.getElementById('nd-from-angle-chips'); const toRow = document.getElementById('nd-to-angle-chips'); if (!fromRow || !toRow) return;
-      [fromRow, toRow].forEach((row, idx) => {
-        row.innerHTML = ''; const grp = document.createElement('div'); grp.className = 'chip-group';
-        SHUTTER_ANGLES.forEach(v => { const btn = makeChip(v, idx === 0 ? ndFromAngle : ndToAngle, val => { if (idx === 0) ndFromAngle = val; else ndToAngle = val; renderNDAngleChips(); renderNDResult(); }); btn.textContent = v + '°'; grp.appendChild(btn); });
-        row.appendChild(grp);
-      });
-    }
-    function renderNDTable() {
-      const table = document.getElementById('nd-table'); const header = table.querySelector('.nd-table-header'); table.innerHTML = ''; table.appendChild(header);
-      ND_TABLE_DATA.forEach(row => {
-        const el = document.createElement('div'); el.className = 'nd-row'; el.setAttribute('role', 'row'); el.setAttribute('tabindex', '0');
-        el.innerHTML = `<span class="nd-cell stops">${row.stops}</span><span class="nd-cell">${row.nd}</span><span class="nd-cell">${row.factor}</span><span class="nd-cell" style="font-size:10px;color:var(--text-dim)">${row.name}</span>`;
-        el.addEventListener('click', () => copyText(row.nd)); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(row.nd); } });
-        table.appendChild(el);
-      });
-    }
-    function renderNDTab() { renderNDFPSChips(); renderNDAngleChips(); renderNDTable(); renderNDResult(); document.getElementById('nd-stops-val').textContent = ndManualStops > 0 ? '+' + ndManualStops : ndManualStops; }
+
 
     // ══════════════════════════════════════════════════════
     //  EXPOSURE TAB (redesign)
@@ -3953,7 +4541,7 @@
             // Re-render current tab
             if (currentTab === 'fps') renderFPSTab();
             if (currentTab === 'shutter') renderShutterTab();
-            if (currentTab === 'nd') renderNDTab();
+
             if (currentTab === 'exposure') renderExposureTab();
             // Update pill active state
             pill.querySelectorAll('.cam-pill-btn').forEach((b, j) => b.classList.toggle('active', j === i));
