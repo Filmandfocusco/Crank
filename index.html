@@ -1678,6 +1678,257 @@
       min-height: 48px;
     }
 
+    /* ── Camera pill (cross-tab switcher) ── */
+    .cam-pill-wrap {
+      padding: 10px 16px 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cam-pill-label {
+      font-family: var(--font-ui);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .cam-pill {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .cam-pill-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+      white-space: nowrap;
+      min-height: 32px;
+    }
+
+    .cam-pill-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── Project Presets ── */
+    .proj-presets-section {
+      margin-top: 24px;
+    }
+
+    .proj-presets-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 12px 0 10px;
+      border-top: 1px solid var(--border);
+      user-select: none;
+    }
+
+    .proj-presets-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proj-presets-title {
+      font-family: var(--font-ui);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .proj-presets-count {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: var(--surface-2, #2a2a2a);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 1px 7px;
+    }
+
+    .proj-presets-chevron {
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: transform .2s;
+      line-height: 1;
+    }
+
+    .proj-presets-chevron.open {
+      transform: rotate(90deg);
+    }
+
+    .proj-presets-body {
+      display: none;
+    }
+
+    .proj-presets-body.open {
+      display: block;
+    }
+
+    .proj-save-preset-btn {
+      width: 100%;
+      padding: 13px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+      min-height: 48px;
+      margin-bottom: 12px;
+    }
+
+    .proj-save-preset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .preset-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 8px;
+    }
+
+    .preset-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .preset-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preset-meta {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .preset-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .preset-load-btn {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      cursor: pointer;
+      min-height: 36px;
+      transition: background .15s, color .15s;
+    }
+
+    .preset-load-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .preset-del-btn {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      min-height: 36px;
+      transition: border-color .15s, color .15s;
+    }
+
+    .preset-del-btn:hover {
+      border-color: var(--warn);
+      color: var(--warn);
+    }
+
+    .proj-preset-popover {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .proj-preset-popover-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .proj-preset-popover-title {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+
+    .proj-preset-name-input {
+      width: 100%;
+      background: var(--input-bg, #1a1a1a);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      padding: 12px 14px;
+      box-sizing: border-box;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    .proj-preset-name-input:focus {
+      border-color: var(--accent);
+    }
+
+    .proj-preset-popover-btns {
+      display: flex;
+      gap: 10px;
+    }
+
     /* Base FPS card fields */
     .proj-param-row {
       margin-bottom: 16px;
@@ -2525,8 +2776,24 @@
         <div class="proj-summary-line" id="proj-base-summary">Base: 23.976fps · 172.8° · ISO 800</div>
       </div>
 
+      <!-- ── PRESETS ── -->
+      <div class="proj-presets-section" id="proj-presets-section">
+        <div class="proj-presets-header" id="proj-presets-toggle" onclick="projTogglePresets()">
+          <div class="proj-presets-header-left">
+            <span class="proj-presets-title">Saved Presets</span>
+            <span class="proj-presets-count" id="proj-presets-count">0</span>
+          </div>
+          <span class="proj-presets-chevron" id="proj-presets-chevron">›</span>
+        </div>
+        <div class="proj-presets-body" id="proj-presets-body">
+          <button class="proj-save-preset-btn" onclick="projOpenSavePreset()">+ Save current project as preset</button>
+          <div id="proj-presets-list"></div>
+        </div>
+      </div>
+
     </div>
   </div>
+
 
   <!-- ══ BOTTOM NAV ══ -->
   <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
@@ -2716,6 +2983,10 @@
     let projCameras = (() => { try { const s = localStorage.getItem(STORAGE_PROJ_CAMERAS); if (s) return JSON.parse(s); } catch (e) { } return []; })();
     let projActiveCamIdx = (() => { try { const s = localStorage.getItem(STORAGE_PROJ_ACTCAM); if (s) return parseInt(s) || 0; } catch (e) { } return 0; })();
 
+    const STORAGE_PROJ_PRESETS = 'fps-calc-proj-presets';
+    let projPresets = (() => { try { const s = localStorage.getItem(STORAGE_PROJ_PRESETS); if (s) return JSON.parse(s); } catch (e) { } return []; })();
+    let projPresetsOpen = false;
+
     // Legacy project (old tab — kept for compat, won't render new panel)
     let customCameras = (() => {
       try { const s = localStorage.getItem(STORAGE_CAMERAS); if (s) return JSON.parse(s); } catch (e) { }
@@ -2854,8 +3125,14 @@
         const row = document.createElement('div'); row.className = 'chips-row'; row.id = 'fps-chips-row'; row.setAttribute('role', 'group');
         scroll.appendChild(row); ctrl.appendChild(scroll);
         renderFPSChips();
+        renderCamPill(ctrl);
       } else if (currentTab === 'shutter') {
         renderShutterHeader(ctrl);
+        renderCamPill(ctrl);
+      } else if (currentTab === 'nd') {
+        renderCamPill(ctrl);
+      } else if (currentTab === 'exposure') {
+        renderCamPill(ctrl);
       }
     }
 
@@ -2881,11 +3158,14 @@
     }
     function renderFPSTab() {
       const grid = document.getElementById('fps-grid'); grid.innerHTML = '';
-      const activeCamera = getActiveCamera();
+      const projCam = getActiveProjCamera();
+      const legacyCam = getActiveCamera();
+      // Prefer project camera, fall back to legacy camera from old PROJECT tab
+      const camForDisplay = projCam || (legacyCam ? { name: legacyCam.camera.name + ' · ' + legacyCam.mode.name, maxFps: legacyCam.mode.maxFps } : null);
       // Status line
       const statusEl = document.getElementById('fps-camera-status');
-      if (activeCamera) {
-        statusEl.innerHTML = `<p class="camera-status-line"><span class="camera-status-dot">●</span>${activeCamera.camera.name} · ${activeCamera.mode.name} · max ${activeCamera.mode.maxFps}fps</p>`;
+      if (camForDisplay) {
+        statusEl.innerHTML = '<p class="camera-status-line"><span class="camera-status-dot">●</span>' + camForDisplay.name + ' · max ' + camForDisplay.maxFps + 'fps</p>';
         statusEl.style.marginBottom = '12px';
       } else {
         statusEl.innerHTML = ''; statusEl.style.marginBottom = '0';
@@ -2894,8 +3174,8 @@
         const fps = fpsStandard * mult;
         const fpsStr = formatFPS(fps);
         const isBase = mult === 1;
-        const exceeds = activeCamera && fps > activeCamera.mode.maxFps;
-        const warnText = exceeds ? `⚠ Exceeds ${activeCamera.camera.name} limit (${activeCamera.mode.maxFps}fps)` : (fps > 1000 ? '⚠ Check camera limits' : '');
+        const exceeds = camForDisplay && fps > camForDisplay.maxFps;
+        const warnText = exceeds ? '\u26a0 Exceeds ' + camForDisplay.name + ' limit (' + camForDisplay.maxFps + 'fps)' : (fps > 1000 ? '\u26a0 Check camera limits' : '');
         const card = makeCard({
           topLabel: getMultLabel(mult), value: fpsStr, unit: 'fps',
           bottomLabel: label, sub: isBase ? '' : slowmo, isBase,
@@ -3512,8 +3792,193 @@
     }
 
     // ══════════════════════════════════════════════════════
+    //  PROJECT PRESETS
+    // ══════════════════════════════════════════════════════
+    function projSavePresets() {
+      try { localStorage.setItem(STORAGE_PROJ_PRESETS, JSON.stringify(projPresets)); } catch (e) { }
+    }
+
+    function projTogglePresets() {
+      projPresetsOpen = !projPresetsOpen;
+      document.getElementById('proj-presets-body').classList.toggle('open', projPresetsOpen);
+      document.getElementById('proj-presets-chevron').classList.toggle('open', projPresetsOpen);
+    }
+
+    function projOpenSavePreset() {
+      const ov = document.createElement('div');
+      ov.className = 'proj-preset-popover';
+      const defaultName = projJobName || ('Preset ' + (projPresets.length + 1));
+      ov.innerHTML = '<div class="proj-preset-popover-box">'
+        + '<div class="proj-preset-popover-title">Save as Preset</div>'
+        + '<input class="proj-preset-name-input" id="preset-name-inp" type="text" placeholder="Preset name" value="' + defaultName.replace(/"/g, '&quot;') + '" />'
+        + '<div class="proj-preset-popover-btns">'
+        + '<button class="proj-confirm-cancel" style="flex:1">Cancel</button>'
+        + '<button class="proj-confirm-remove" style="flex:1;background:var(--accent);color:#000" id="preset-save-ok">Save</button>'
+        + '</div></div>';
+      ov.querySelector('.proj-confirm-cancel').onclick = () => ov.remove();
+      ov.querySelector('#preset-save-ok').onclick = () => {
+        const name = ov.querySelector('#preset-name-inp').value.trim() || defaultName;
+        ov.remove();
+        projDoSavePreset(name);
+      };
+      // Allow enter key
+      ov.querySelector('#preset-name-inp').onkeydown = (e) => {
+        if (e.key === 'Enter') ov.querySelector('#preset-save-ok').click();
+        if (e.key === 'Escape') ov.remove();
+      };
+      document.body.appendChild(ov);
+      setTimeout(() => ov.querySelector('#preset-name-inp').select(), 50);
+    }
+
+    function projDoSavePreset(name) {
+      const preset = {
+        id: Date.now().toString(),
+        name,
+        savedAt: new Date().toISOString(),
+        jobName: projJobName,
+        notes: projNotes,
+        cameras: JSON.parse(JSON.stringify(projCameras)),
+        activeCamIdx: projActiveCamIdx,
+        baseFPS: projBaseFPS,
+        baseAngle: projBaseAngle,
+        baseISO: projBaseISO,
+      };
+      projPresets.unshift(preset);
+      projSavePresets();
+      renderPresetsSection();
+      showToast('Preset saved');
+    }
+
+    function projLoadPreset(idx) {
+      const p = projPresets[idx];
+      if (!p) return;
+      projJobName = p.jobName || '';
+      projNotes = p.notes || '';
+      projCameras = JSON.parse(JSON.stringify(p.cameras || []));
+      projActiveCamIdx = Math.min(p.activeCamIdx || 0, Math.max(0, projCameras.length - 1));
+      projBaseFPS = p.baseFPS || 23.976;
+      projBaseAngle = p.baseAngle || 172.8;
+      projBaseISO = p.baseISO || 800;
+      // persist all
+      try { localStorage.setItem(STORAGE_PROJ_JOB, JSON.stringify({ name: projJobName, notes: projNotes })); } catch (e) { }
+      projSaveCameras();
+      projSaveBase();
+      renderProjectTab();
+      showToast('Preset loaded');
+    }
+
+    function projDeletePreset(idx) {
+      const p = projPresets[idx];
+      if (!p) return;
+      const ov = document.createElement('div');
+      ov.className = 'proj-confirm-overlay';
+      ov.innerHTML = '<div class="proj-confirm-box">'
+        + '<div class="proj-confirm-title">Delete "' + p.name.replace(/</g, '&lt;') + '"?</div>'
+        + '<div class="proj-confirm-body">This preset will be permanently removed.</div>'
+        + '<div class="proj-confirm-btns">'
+        + '<button class="proj-confirm-cancel">Cancel</button>'
+        + '<button class="proj-confirm-remove">Delete</button>'
+        + '</div></div>';
+      ov.querySelector('.proj-confirm-cancel').onclick = () => ov.remove();
+      ov.querySelector('.proj-confirm-remove').onclick = () => {
+        ov.remove();
+        projPresets.splice(idx, 1);
+        projSavePresets();
+        renderPresetsSection();
+      };
+      document.body.appendChild(ov);
+    }
+
+    function renderPresetsSection() {
+      const list = document.getElementById('proj-presets-list');
+      const countEl = document.getElementById('proj-presets-count');
+      if (!list) return;
+      if (countEl) countEl.textContent = projPresets.length;
+      list.innerHTML = '';
+      if (!projPresets.length) {
+        const empty = document.createElement('p');
+        empty.style.cssText = 'font-size:12px;color:var(--text-dim);text-align:center;padding:12px 0';
+        empty.textContent = 'No presets saved yet.';
+        list.appendChild(empty);
+        return;
+      }
+      projPresets.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'preset-card';
+        const camSummary = (p.cameras || []).map(c => c.customName || c.model || '—').filter(Boolean).join(', ');
+        const d = new Date(p.savedAt);
+        const dateStr = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        card.innerHTML = '<div class="preset-info">'
+          + '<div class="preset-name">' + p.name.replace(/</g, '&lt;') + '</div>'
+          + '<div class="preset-meta">' + dateStr + (camSummary ? ' · ' + camSummary : '') + '</div>'
+          + '</div>';
+        const actions = document.createElement('div');
+        actions.className = 'preset-actions';
+        const loadBtn = document.createElement('button');
+        loadBtn.className = 'preset-load-btn';
+        loadBtn.textContent = 'Load';
+        loadBtn.onclick = () => projLoadPreset(i);
+        const delBtn = document.createElement('button');
+        delBtn.className = 'preset-del-btn';
+        delBtn.textContent = '×';
+        delBtn.title = 'Delete preset';
+        delBtn.onclick = () => projDeletePreset(i);
+        actions.appendChild(loadBtn); actions.appendChild(delBtn);
+        card.appendChild(actions);
+        list.appendChild(card);
+      });
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  CROSS-TAB CAMERA PILL
+    // ══════════════════════════════════════════════════════
+    function renderCamPill(container) {
+      if (!projCameras.length) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'cam-pill-wrap';
+      const lbl = document.createElement('span');
+      lbl.className = 'cam-pill-label';
+      lbl.textContent = 'Camera';
+      wrap.appendChild(lbl);
+      const pill = document.createElement('div');
+      pill.className = 'cam-pill';
+      projCameras.forEach((cam, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'cam-pill-btn' + (i === projActiveCamIdx ? ' active' : '');
+        btn.textContent = projGetCamDisplayName(cam);
+        if (projCameras.length > 1) {
+          btn.onclick = () => {
+            projActiveCamIdx = i;
+            projSaveCameras();
+            // Re-render current tab
+            if (currentTab === 'fps') renderFPSTab();
+            if (currentTab === 'shutter') renderShutterTab();
+            if (currentTab === 'nd') renderNDTab();
+            if (currentTab === 'exposure') renderExposureTab();
+            // Update pill active state
+            pill.querySelectorAll('.cam-pill-btn').forEach((b, j) => b.classList.toggle('active', j === i));
+          };
+        }
+        pill.appendChild(btn);
+      });
+      wrap.appendChild(pill);
+      container.appendChild(wrap);
+    }
+
+    // Returns the active project camera's maxFPS + display name for limit warnings
+    function getActiveProjCamera() {
+      if (!projCameras.length) return null;
+      const cam = projCameras[Math.min(projActiveCamIdx, projCameras.length - 1)];
+      if (!cam) return null;
+      const maxFps = projGetCamMaxFPS(cam);
+      if (!maxFps) return null;
+      return { name: projGetCamDisplayName(cam), maxFps };
+    }
+
+    // ══════════════════════════════════════════════════════
     //  PROJECT TAB — NEW IMPLEMENTATION
     // ══════════════════════════════════════════════════════
+
 
     let _projSavedTimer = null;
     function projSaveJob() {
@@ -3747,7 +4212,9 @@
       if (!projCameras.length) { projCameras.push({ model: '', sensorModeIdx: 0, codec: '', mediaAmount: '', mediaTB: false, resultsOpen: false, customName: '', customMaxFPS: '', customModeName: '' }); projSaveCameras(); }
       _projRenderCameraSection();
       projRenderBaseSection();
+      renderPresetsSection();
     }
+
 
     // ══════════════════════════════════════════════════════
     //  LEGACY PROJECT HELPERS (kept for internal compat)
