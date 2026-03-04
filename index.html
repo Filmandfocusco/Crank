@@ -262,19 +262,6 @@
       color: var(--accent);
     }
 
-    .card-copy-hint {
-      font-size: 9px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      opacity: 0;
-      transition: opacity .2s;
-    }
-
-    .card:hover .card-copy-hint {
-      opacity: 1;
-    }
-
     .card-fps {
       font-family: var(--font-mono);
       font-size: 32px;
@@ -881,16 +868,6 @@
       font-size: 11px;
       color: var(--warn);
       margin-top: 10px;
-    }
-
-    .exp-copy-hint {
-      font-family: var(--font-ui);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-top: 14px;
-      opacity: .5;
     }
 
     /* ── PROJECT TAB ── */
@@ -2868,12 +2845,11 @@
       <!-- SECTION 3: OUTPUT / ANSWER -->
       <div class="exp-section">
         <p class="exp-section-label">Output / Answer</p>
-        <div class="exp-output-card" id="exp-output-card" role="button" tabindex="0" aria-label="Tap to copy result">
+        <div class="exp-output-card" id="exp-output-card">
           <div class="exp-output-fraction" id="exp-output-fraction">—</div>
           <div class="exp-output-unit" id="exp-output-unit">stop</div>
           <div class="exp-output-breakdown" id="exp-output-breakdown"></div>
           <div class="exp-output-warn" id="exp-output-warn" style="display:none"></div>
-          <div class="exp-copy-hint">Tap to copy</div>
         </div>
       </div>
 
@@ -3209,20 +3185,6 @@
       if (m === 0.5) return '½×';
       return m + '×';
     }
-    function copyText(text) {
-      if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) { } }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-      } else { fallbackCopy(text); }
-      showToast('Copied ' + text);
-    }
-    function fallbackCopy(t) {
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = t; ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-      } catch (e) { }
-    }
     let toastTimer = null;
     function showToast(msg) {
       const el = document.getElementById('toast');
@@ -3242,12 +3204,9 @@
       const card = document.createElement('div');
       let cls = 'card' + (opts.isBase ? ' is-base' : '') + (opts.dimmed ? ' is-dimmed' : '');
       card.className = cls;
-      card.setAttribute('role', 'listitem');
-      card.setAttribute('tabindex', '0');
       card.innerHTML = `
     <div class="card-top">
       <span class="card-mult">${opts.topLabel}</span>
-      <span class="card-copy-hint">Copy</span>
     </div>
     <div class="card-fps">${opts.value}<span class="card-unit">${opts.unit || ''}</span></div>
     <div class="card-bottom">
@@ -3255,9 +3214,6 @@
       <span class="card-sub">${opts.sub || ''}</span>
     </div>
     ${opts.warn ? `<div class="card-warn">${opts.warn}</div>` : ''}`;
-      const copyVal = opts.copyVal !== undefined ? opts.copyVal : opts.value;
-      card.addEventListener('click', () => copyText(String(copyVal)));
-      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyText(String(copyVal)); } });
       return card;
     }
 
@@ -3807,7 +3763,6 @@
         fracEl.textContent = '0'; fracEl.className = 'exp-output-fraction zero';
         unitEl.textContent = 'stop'; brkEl.textContent = 'No exposure change';
         if (warnEl) warnEl.style.display = 'none';
-        if (card) card.dataset.copy = '0';
         return;
       }
 
@@ -3828,7 +3783,6 @@
         if (Math.abs(net) > 4) { warnEl.textContent = '⚠ Large exposure shift — check settings'; warnEl.style.display = ''; }
         else { warnEl.style.display = 'none'; }
       }
-      if (card) card.dataset.copy = fracStr;
     }
 
     // ─ section renderers ────────────────────────────────
@@ -3852,14 +3806,6 @@
       renderExpBaseSection();
       renderExpAimSection();
       renderExpOutput();
-      // Wire output card tap
-      const card = document.getElementById('exp-output-card');
-      if (card && !card._wired) {
-        card._wired = true;
-        function doCardCopy() { const txt = card.dataset.copy; if (txt && txt !== '—') copyText(txt); }
-        card.addEventListener('click', doCardCopy);
-        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); doCardCopy(); } });
-      }
     }
 
     // ══════════════════════════════════════════════════════
@@ -4423,7 +4369,6 @@
         const runtime = filmRuntime(filmFeet, fps, filmFormat);
         const row = document.createElement('div'); row.className = 'film-row' + (isBase ? ' is-base-row' : '');
         row.innerHTML = `<span class="film-cell ${isBase ? 'base-cell' : ''}">${getMultLabel(mult)}${isBase ? ' ●' : ''}</span><span class="film-cell ${isBase ? 'base-cell' : ''}">${formatFPS(fps)} fps</span><span class="film-cell ${isBase ? 'base-cell' : ''}">${runtime}</span>`;
-        row.addEventListener('click', () => copyText(runtime));
         table.appendChild(row);
       });
       wrap.appendChild(table);
