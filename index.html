@@ -3687,21 +3687,21 @@
 
     // ─ handlers: BASE ──────────────────────────────
     function onBaseFPSSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-base-fps-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-base-fps-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-base-fps-custom').style.display = 'none';
       expBaseFPS = parseFloat(val); saveExpState(); renderExpBaseSection(); renderExpAimSection(); renderExpOutput();
     }
     function onBaseFPSCustom(val) { const v = parseFloat(val); if (!v || v <= 0) return; expBaseFPS = v; saveExpState(); renderExpAimSection(); renderExpOutput(); }
 
     function onBaseISOSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-base-iso-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-base-iso-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-base-iso-custom').style.display = 'none';
       expBaseISO = parseInt(val); saveExpState(); renderExpOutput();
     }
     function onBaseISOCustom(val) { const v = parseInt(val); if (!v || v < 25) return; expBaseISO = v; saveExpState(); renderExpOutput(); }
 
     function onBaseAngleSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-base-angle-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-base-angle-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-base-angle-custom').style.display = 'none';
       expBaseAngle = parseFloat(val); saveExpState(); renderExpOutput();
     }
@@ -3709,7 +3709,7 @@
 
     function onBaseTStopSelect(val) {
       if (val === 'none') { expTStopEnabled = false; expBaseTStop = null; expAimTStop = null; document.getElementById('exp-base-tstop-custom').style.display = 'none'; saveExpState(); renderExpBaseSection(); renderExpAimSection(); renderExpOutput(); return; }
-      if (val === 'custom') { document.getElementById('exp-base-tstop-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-base-tstop-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-base-tstop-custom').style.display = 'none';
       expTStopEnabled = true; expBaseTStop = parseFloat(val); if (!expAimTStop) expAimTStop = 2.8; saveExpState(); renderExpOutput();
     }
@@ -3717,21 +3717,21 @@
 
     // ─ handlers: AIM ──────────────────────────────
     function onAimFPSSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-aim-fps-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-aim-fps-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-aim-fps-custom').style.display = 'none';
       expAimFPS = parseFloat(val); renderExpOutput();
     }
     function onAimFPSCustom(val) { const v = parseFloat(val); if (!v || v <= 0) return; expAimFPS = v; renderExpOutput(); }
 
     function onAimISOSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-aim-iso-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-aim-iso-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-aim-iso-custom').style.display = 'none';
       expAimISO = parseInt(val); renderExpOutput();
     }
     function onAimISOCustom(val) { const v = parseInt(val); if (!v || v < 25) return; expAimISO = v; renderExpOutput(); }
 
     function onAimAngleSelect(val) {
-      if (val === 'custom') { document.getElementById('exp-aim-angle-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-aim-angle-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-aim-angle-custom').style.display = 'none';
       expAimAngle = parseFloat(val); renderExpOutput();
     }
@@ -3739,7 +3739,7 @@
 
     function onAimTStopSelect(val) {
       if (val === 'none') { expAimTStop = null; document.getElementById('exp-aim-tstop-custom').style.display = 'none'; renderExpOutput(); return; }
-      if (val === 'custom') { document.getElementById('exp-aim-tstop-custom').style.display = 'block'; return; }
+      if (val === 'custom') { const m = document.getElementById('exp-aim-tstop-custom'); m.style.display = 'block'; m.focus(); return; }
       document.getElementById('exp-aim-tstop-custom').style.display = 'none';
       expAimTStop = parseFloat(val); renderExpOutput();
     }
@@ -4221,7 +4221,7 @@
     }
     function onProjBaseFPSSelect(val) {
       const cr = document.getElementById('proj-base-fps-custom-row');
-      if (val === 'custom') { if (cr) cr.style.display = 'flex'; }
+      if (val === 'custom') { if (cr) { cr.style.display = 'flex'; const inp = document.getElementById('proj-base-fps-custom'); if (inp) inp.focus(); } }
       else { projBaseFPS = parseFloat(val); if (cr) cr.style.display = 'none'; projSaveBase(); projUpdateBaseSummary(); }
     }
     function onProjBaseFPSCustom(val) { const v = parseFloat(val); if (v > 0) { projBaseFPS = v; projSaveBase(); projUpdateBaseSummary(); } }
