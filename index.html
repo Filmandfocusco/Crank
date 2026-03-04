@@ -2507,7 +2507,6 @@
     <button class="nav-btn" id="nav-project" onclick="switchTab('project')">Project</button>
     <button class="nav-btn" id="nav-fps" onclick="switchTab('fps')">Off Speed</button>
     <button class="nav-btn" id="nav-exposure" onclick="switchTab('exposure')">Exposure</button>
-    <button class="nav-btn" id="nav-shutter" onclick="switchTab('shutter')">Shutter</button>
   </nav>
 
   <!-- ══ HEADER ══ -->
@@ -2610,20 +2609,6 @@
             </div>
           </details>
         </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- ══ TAB 3: SHUTTER ══ -->
-  <div class="tab-panel" id="panel-shutter">
-    <div class="main">
-      <p class="section-label">Single Result</p>
-      <div class="results-grid" id="shutter-single-grid"></div>
-      <div class="section-gap">
-        <p class="section-label">Across All Multiples</p>
-        <div class="results-grid" id="shutter-multi-grid"></div>
       </div>
     </div>
   </div>
@@ -3007,7 +2992,7 @@
     const STORAGE_ACTIVE_CAMERA = 'fps-calc-active-camera';
     const STORAGE_EXPOSURE = 'fps-calc-exposure';
 
-    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'custom', 'shutter', 'nd', 'exposure'].includes(t) ? t : 'project'; })();
+    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'custom', 'nd', 'exposure'].includes(t) ? t : 'project'; })();
 
     let fpsStandard = (() => {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -3015,7 +3000,6 @@
       return 23.976;
     })();
 
-    // Shutter tab
     let shutterFPS = 24, shutterAngle = 180, shutterCustomFPS = '', shutterCustomAngle = '';
 
 
@@ -3179,8 +3163,8 @@
     // ══════════════════════════════════════════════════════
     //  TAB SWITCHING
     // ══════════════════════════════════════════════════════
-    const ALL_TABS = ['project', 'fps', 'exposure', 'shutter'];
-    const NAV_TABS = ['project', 'fps', 'exposure', 'shutter']; // visible in nav
+    const ALL_TABS = ['project', 'fps', 'exposure'];
+    const NAV_TABS = ['project', 'fps', 'exposure']; // visible in nav
 
     function sendFPSToExposure(fpsVal) {
       const v = parseFloat(fpsVal);
@@ -3199,7 +3183,6 @@
       renderHeader();
       if (tab === 'fps') renderFPSTab();
       if (tab === 'custom') renderCustomTab();
-      if (tab === 'shutter') renderShutterTab();
 
       if (tab === 'exposure') renderExposureTab();
       if (tab === 'project') renderProjectTab();
@@ -3211,10 +3194,7 @@
     function renderHeader() {
       const ctrl = document.getElementById('header-controls');
       ctrl.innerHTML = '';
-      if (currentTab === 'shutter') {
-        renderShutterHeader(ctrl);
-        renderCamPill(ctrl);
-      } else if (currentTab === 'exposure') {
+      if (currentTab === 'exposure') {
         renderCamPill(ctrl);
       }
     }
@@ -3548,69 +3528,6 @@
     }
 
 
-
-    // ══════════════════════════════════════════════════════
-    //  SHUTTER TAB
-    // ══════════════════════════════════════════════════════
-    function renderShutterHeader(ctrl) {
-      const fpsLabel = document.createElement('p'); fpsLabel.className = 'selector-label'; fpsLabel.textContent = 'Frame Rate'; ctrl.appendChild(fpsLabel);
-      const fpsScroll = document.createElement('div'); fpsScroll.className = 'chips-scroll';
-      const fpsRow = document.createElement('div'); fpsRow.className = 'chips-row'; fpsRow.id = 'shutter-fps-chips';
-      fpsScroll.appendChild(fpsRow); ctrl.appendChild(fpsScroll);
-      const fpsInputRow = document.createElement('div'); fpsInputRow.className = 'input-row';
-      const fpsInput = document.createElement('input'); fpsInput.type = 'number'; fpsInput.className = 'custom-input'; fpsInput.placeholder = 'Custom fps'; fpsInput.min = 1; fpsInput.max = 1000; fpsInput.id = 'shutter-custom-fps';
-      if (shutterCustomFPS) fpsInput.value = shutterCustomFPS;
-      fpsInput.addEventListener('input', () => { const v = parseFloat(fpsInput.value); if (v >= 1 && v <= 1000) { shutterCustomFPS = fpsInput.value; shutterFPS = v; document.querySelectorAll('#shutter-fps-chips .chip').forEach(c => c.classList.remove('active')); renderShutterTab(); } });
-      const fpsInputLabel = document.createElement('span'); fpsInputLabel.className = 'input-label'; fpsInputLabel.textContent = 'fps';
-      fpsInputRow.appendChild(fpsInput); fpsInputRow.appendChild(fpsInputLabel); ctrl.appendChild(fpsInputRow);
-      const angleLabel = document.createElement('p'); angleLabel.className = 'selector-label'; angleLabel.style.marginTop = '10px'; angleLabel.textContent = 'Shutter Angle'; ctrl.appendChild(angleLabel);
-      const angleScroll = document.createElement('div'); angleScroll.className = 'chips-scroll';
-      const angleRow = document.createElement('div'); angleRow.className = 'chips-row'; angleRow.id = 'shutter-angle-chips';
-      angleScroll.appendChild(angleRow); ctrl.appendChild(angleScroll);
-      const angleInputRow = document.createElement('div'); angleInputRow.className = 'input-row';
-      const angleInput = document.createElement('input'); angleInput.type = 'number'; angleInput.className = 'custom-input'; angleInput.placeholder = 'Custom °'; angleInput.min = 1; angleInput.max = 358; angleInput.id = 'shutter-custom-angle';
-      if (shutterCustomAngle) angleInput.value = shutterCustomAngle;
-      angleInput.addEventListener('input', () => { const v = parseFloat(angleInput.value); if (v >= 1 && v <= 358) { shutterCustomAngle = angleInput.value; shutterAngle = v; document.querySelectorAll('#shutter-angle-chips .chip').forEach(c => c.classList.remove('active')); renderShutterTab(); } });
-      const angleInputLabel = document.createElement('span'); angleInputLabel.className = 'input-label'; angleInputLabel.textContent = '°';
-      angleInputRow.appendChild(angleInput); angleInputRow.appendChild(angleInputLabel); ctrl.appendChild(angleInputRow);
-      const badgeEl = document.createElement('div'); badgeEl.id = 'shutter-180-badge'; ctrl.appendChild(badgeEl);
-      populateShutterFPSChips(); populateShutterAngleChips(); update180Badge();
-    }
-    function populateShutterFPSChips() {
-      const row = document.getElementById('shutter-fps-chips'); if (!row) return; row.innerHTML = '';
-      const groups = {}; STANDARDS.forEach(s => { if (!groups[s.group]) groups[s.group] = []; groups[s.group].push(s.value); });
-      Object.values(groups).forEach(gv => {
-        const grp = document.createElement('div'); grp.className = 'chip-group';
-        gv.forEach(v => { grp.appendChild(makeChip(v, shutterFPS, val => { shutterFPS = val; shutterCustomFPS = ''; const ci = document.getElementById('shutter-custom-fps'); if (ci) ci.value = ''; populateShutterFPSChips(); renderShutterTab(); })); });
-        row.appendChild(grp);
-      });
-    }
-    function populateShutterAngleChips() {
-      const row = document.getElementById('shutter-angle-chips'); if (!row) return; row.innerHTML = '';
-      const grp = document.createElement('div'); grp.className = 'chip-group';
-      SHUTTER_ANGLES.forEach(v => {
-        const btn = makeChip(v, shutterAngle, val => { shutterAngle = val; shutterCustomAngle = ''; const ci = document.getElementById('shutter-custom-angle'); if (ci) ci.value = ''; populateShutterAngleChips(); update180Badge(); renderShutterTab(); });
-        btn.textContent = v + '°'; grp.appendChild(btn);
-      });
-      row.appendChild(grp);
-    }
-    function update180Badge() {
-      const el = document.getElementById('shutter-180-badge'); if (!el) return;
-      el.innerHTML = shutterAngle === 180 ? '<span class="badge-180">● 180° Rule</span>' : '<span class="badge-off180">△ Off 180° rule</span>';
-    }
-    function calcShutterSpeed(fps, angle) { return angle / (360 * fps); }
-    function formatShutterFraction(ss) { return '1/' + Math.round(1 / ss); }
-    function formatShutterMS(ss) { return (ss * 1000).toFixed(2) + 'ms'; }
-    function renderShutterTab() {
-      const singleGrid = document.getElementById('shutter-single-grid'); singleGrid.innerHTML = '';
-      const ss = calcShutterSpeed(shutterFPS, shutterAngle);
-      singleGrid.appendChild(makeCard({ topLabel: shutterAngle + '° @ ' + formatFPS(shutterFPS) + 'fps', value: formatShutterFraction(ss), unit: 's', bottomLabel: 'Shutter Speed', sub: formatShutterMS(ss), isBase: true, warn: ss < 1 / 8000 ? '⚠ Check camera limits' : '', copyVal: formatShutterFraction(ss) }));
-      const multiGrid = document.getElementById('shutter-multi-grid'); multiGrid.innerHTML = '';
-      MULTIPLES.forEach(({ mult, label }) => {
-        const fps = shutterFPS * mult; const ss2 = calcShutterSpeed(fps, shutterAngle);
-        multiGrid.appendChild(makeCard({ topLabel: getMultLabel(mult) + ' — ' + formatFPS(fps) + 'fps', value: formatShutterFraction(ss2), unit: 's', bottomLabel: label, sub: formatShutterMS(ss2), isBase: mult === 1, warn: ss2 < 1 / 8000 ? '⚠ Check camera limits' : '', copyVal: formatShutterFraction(ss2) }));
-      });
-    }
 
 
 
@@ -3996,7 +3913,6 @@
             projSaveCameras();
             // Re-render current tab
             if (currentTab === 'fps') renderFPSTab();
-            if (currentTab === 'shutter') renderShutterTab();
 
             if (currentTab === 'exposure') renderExposureTab();
             // Update pill active state
