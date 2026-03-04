@@ -2628,6 +2628,7 @@
                 <option value="25">25</option>
                 <option value="29.97">29.97</option>
                 <option value="30">30</option>
+                <option value="47.952">47.952</option>
                 <option value="48">48</option>
                 <option value="50">50</option>
                 <option value="59.94">59.94</option>
@@ -2743,6 +2744,7 @@
                 <option value="25">25</option>
                 <option value="29.97">29.97</option>
                 <option value="30">30</option>
+                <option value="47.952">47.952</option>
                 <option value="48">48</option>
                 <option value="50">50</option>
                 <option value="59.94">59.94</option>
@@ -2905,6 +2907,7 @@
               <option value="24">24</option>
               <option value="25">25</option>
               <option value="29.97">29.97</option>
+              <option value="47.952">47.952</option>
               <option value="48">48</option>
               <option value="50">50</option>
               <option value="59.94">59.94</option>
@@ -2967,7 +2970,7 @@
       { value: 23.976, group: 0 }, { value: 24, group: 0 },
       { value: 25, group: 1 }, { value: 50, group: 1 },
       { value: 29.97, group: 2 }, { value: 59.94, group: 2 },
-      { value: 48, group: 3 }, { value: 96, group: 3 },
+      { value: 47.952, group: 3 }, { value: 48, group: 3 }, { value: 96, group: 3 },
     ];
     const MULTIPLES = [
       { mult: 0.25, label: '¼ Speed', slowmo: '400% slow motion' },
@@ -4182,7 +4185,7 @@
       const sel = document.getElementById('proj-base-fps-select');
       const cfr = document.getElementById('proj-base-fps-custom-row');
       if (sel) {
-        const std = [23.976, 24, 25, 29.97, 48, 50, 59.94, 96]; const isCust = !std.includes(projBaseFPS);
+        const std = [23.976, 24, 25, 29.97, 47.952, 48, 50, 59.94, 96]; const isCust = !std.includes(projBaseFPS);
         sel.value = isCust ? 'custom' : String(projBaseFPS);
         if (cfr) cfr.style.display = isCust ? 'flex' : 'none';
         if (isCust) { const ci = document.getElementById('proj-base-fps-custom'); if (ci) ci.value = projBaseFPS; }
