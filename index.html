@@ -3672,7 +3672,7 @@
       const isoDelta = Math.log2(expAimISO / expBaseISO);
       const angleDelta = Math.log2(expAimAngle / expBaseAngle);
       const tstopDelta = (expTStopEnabled && expBaseTStop && expAimTStop)
-        ? Math.log2(expBaseTStop / expAimTStop) : 0;
+        ? 2 * Math.log2(expBaseTStop / expAimTStop) : 0;
       const net = fpsDelta + isoDelta + angleDelta + tstopDelta;
       return { net, fpsDelta, isoDelta, angleDelta, tstopDelta };
     }
