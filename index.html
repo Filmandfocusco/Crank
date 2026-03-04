@@ -3351,6 +3351,13 @@
       appRenderAccordions();
 
       const isMultiples = fpsTabMode === 'multiples';
+
+      // Enforce correct UI visibility based on saved state
+      document.getElementById('fps-mode-multiples').classList.toggle('active', isMultiples);
+      document.getElementById('fps-mode-reverse').classList.toggle('active', !isMultiples);
+      document.getElementById('fps-multiples-section').style.display = isMultiples ? '' : 'none';
+      document.getElementById('fps-reverse-section').style.display = isMultiples ? 'none' : '';
+
       const currentBase = getCurrentFPSBase();
       const isOverridden = fpsLocalBase !== null && fpsLocalBase !== projBaseFPS;
 
