@@ -4081,9 +4081,9 @@
       h += '<option value="__custom__"' + (sel === '__custom__' ? ' selected' : '') + '>Custom\u2026</option>';
       return h;
     }
-    function projSensorModeOpts(dbCam, si, codec) {
+    function projSensorModeOpts(dbCam, si) {
       if (!dbCam) return '<option value="0">\u2014</option>';
-      return dbCam.modes.map((m, i) => '<option value="' + i + '"' + (i === si ? ' selected' : '') + '>' + m.name + (codec ? ' \u00b7 max ' + m.maxFps + 'fps' : '') + '</option>').join('');
+      return dbCam.modes.map((m, i) => '<option value="' + i + '"' + (i === si ? ' selected' : '') + '>' + m.name + '</option>').join('');
     }
     function projRenderResults(cam, container) {
       const mfps = projGetCamMaxFPS(cam), exc = mfps != null && mfps < projBaseFPS;
@@ -4140,7 +4140,7 @@
       const mla = document.createElement('label'); mla.className = 'proj-field-label'; mla.textContent = 'Sensor Mode'; mw.appendChild(mla);
       if (cam.model && cam.model !== '__custom__' && dbCam) {
         const msel = document.createElement('select'); msel.className = 'proj-select'; msel.id = 'proj-mode-sel-' + idx;
-        msel.innerHTML = projSensorModeOpts(dbCam, cam.sensorModeIdx || 0, cam.codec); msel.onchange = () => projOnSensorMode(idx, msel.value); mw.appendChild(msel);
+        msel.innerHTML = projSensorModeOpts(dbCam, cam.sensorModeIdx || 0); msel.onchange = () => projOnSensorMode(idx, msel.value); mw.appendChild(msel);
       } else if (cam.model === '__custom__') {
         const mi = document.createElement('input'); mi.className = 'proj-text-input'; mi.type = 'text'; mi.placeholder = 'e.g. 4K Open Gate'; mi.value = cam.customModeName || ''; mi.oninput = () => projOnCustomMode(idx, mi.value); mw.appendChild(mi);
       } else {
