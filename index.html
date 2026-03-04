@@ -1558,8 +1558,8 @@
       display: flex;
     }
 
-    /* Main Sections (Collapsible) */
-    .proj-section-header {
+    /* Universal Accordion Sections */
+    .app-accordion-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1569,11 +1569,11 @@
       margin-top: 16px;
     }
 
-    .proj-section-header:first-of-type {
+    .app-accordion-header:first-of-type {
       margin-top: 0;
     }
 
-    .proj-section-label {
+    .app-accordion-label {
       font-size: 11px;
       font-weight: 500;
       letter-spacing: .1em;
@@ -1582,21 +1582,21 @@
       margin: 0;
     }
 
-    .proj-section-chevron {
+    .app-accordion-chevron {
       font-size: 16px;
       color: var(--text-dim);
       transition: transform .2s;
     }
 
-    .proj-section-chevron.open {
+    .app-accordion-chevron.open {
       transform: rotate(90deg);
     }
 
-    .proj-section-body {
+    .app-accordion-body {
       display: none;
     }
 
-    .proj-section-body.open {
+    .app-accordion-body.open {
       display: block;
     }
 
@@ -2541,50 +2541,67 @@
           <div id="fps-camera-status" style="margin-top:6px;"></div>
         </div>
 
-        <div class="fps-table-card">
-          <div class="fps-table-header">
-            <span class="fps-th th-proj">Project FPS</span>
-            <span class="fps-th th-mult">Multiplication</span>
-            <span class="fps-th th-off">Off-Speed</span>
+        <div class="app-accordion-header" onclick="appToggleAccordion('off-multiples')">
+          <p class="app-accordion-label">Frame Rate Multiples</p>
+          <span class="app-accordion-chevron" id="accordion-chevron-off-multiples">›</span>
+        </div>
+        <div class="app-accordion-body" id="accordion-body-off-multiples">
+          <div class="fps-table-card">
+            <div class="fps-table-header">
+              <span class="fps-th th-proj">Project FPS</span>
+              <span class="fps-th th-mult">Multiplication</span>
+              <span class="fps-th th-off">Off-Speed</span>
+            </div>
+            <div id="fps-multiples-table"></div>
           </div>
-          <div id="fps-multiples-table"></div>
         </div>
 
         <!-- Custom Multiplier Row -->
-        <div class="section-gap" style="margin-top:24px;">
-          <p class="section-label">Custom Multiplier</p>
-          <div class="chips-scroll">
-            <div class="chips-row" id="fps-custom-mult-chips"></div>
-          </div>
-          <div class="fps-custom-row">
-            <span class="fps-custom-base" id="fps-custom-base-label">24</span>
-            <span class="fps-custom-cross">×</span>
-            <input type="number" class="fps-custom-input" id="fps-custom-mult-input" placeholder="e.g. 1.33" step="any"
-              min="0.01">
-            <span class="fps-custom-eq">=</span>
-            <span class="fps-custom-res" id="fps-custom-result">—</span>
+        <div class="app-accordion-header" onclick="appToggleAccordion('off-custom')">
+          <p class="app-accordion-label">Custom Multiplier</p>
+          <span class="app-accordion-chevron" id="accordion-chevron-off-custom">›</span>
+        </div>
+        <div class="app-accordion-body" id="accordion-body-off-custom">
+          <div class="section-gap">
+            <div class="chips-scroll">
+              <div class="chips-row" id="fps-custom-mult-chips"></div>
+            </div>
+            <div class="fps-custom-row">
+              <span class="fps-custom-base" id="fps-custom-base-label">24</span>
+              <span class="fps-custom-cross">×</span>
+              <input type="number" class="fps-custom-input" id="fps-custom-mult-input" placeholder="e.g. 1.33"
+                step="any" min="0.01">
+              <span class="fps-custom-eq">=</span>
+              <span class="fps-custom-res" id="fps-custom-result">—</span>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- REVERSE LOOKUP MODE -->
       <div id="fps-reverse-section" style="display:none;">
-        <div class="reverse-header-row">
-          <div class="rev-col-base">
-            <p class="selector-label">Project FPS</p>
-            <div class="styled-select">
-              <select id="fps-rev-project-select" onchange="updateFPSBase(this.value)"></select>
+        <div class="app-accordion-header" onclick="appToggleAccordion('off-reverse')">
+          <p class="app-accordion-label">Lookup Settings</p>
+          <span class="app-accordion-chevron" id="accordion-chevron-off-reverse">›</span>
+        </div>
+        <div class="app-accordion-body" id="accordion-body-off-reverse">
+          <div class="reverse-header-row">
+            <div class="rev-col-base">
+              <p class="selector-label">Project FPS</p>
+              <div class="styled-select">
+                <select id="fps-rev-project-select" onchange="updateFPSBase(this.value)"></select>
+              </div>
+              <button id="fps-rev-reset-btn" class="text-btn" style="display:none;margin-top:6px;font-size:10px"
+                onclick="resetFPSBase()">↩ Reset</button>
             </div>
-            <button id="fps-rev-reset-btn" class="text-btn" style="display:none;margin-top:6px;font-size:10px"
-              onclick="resetFPSBase()">↩ Reset</button>
-          </div>
-          <div class="rev-col-target">
-            <p class="selector-label">Target</p>
-            <input type="number" class="rev-target-input" id="fps-rev-target-input" placeholder="33" step="any">
-          </div>
-          <div class="rev-col-result">
-            <p class="selector-label">Multiplication</p>
-            <div class="rev-calc-val" id="fps-rev-calc-val">× ?</div>
+            <div class="rev-col-target">
+              <p class="selector-label">Target</p>
+              <input type="number" class="rev-target-input" id="fps-rev-target-input" placeholder="33" step="any">
+            </div>
+            <div class="rev-col-result">
+              <p class="selector-label">Multiplication</p>
+              <div class="rev-calc-val" id="fps-rev-calc-val">× ?</div>
+            </div>
           </div>
         </div>
 
@@ -2618,8 +2635,11 @@
     <div class="main">
 
       <!-- SECTION 1: PROJECT SETTINGS / BASE -->
-      <div class="exp-section">
-        <p class="exp-section-label">Project Settings / Base</p>
+      <div class="app-accordion-header" onclick="appToggleAccordion('exp-base')">
+        <p class="app-accordion-label">Project Settings / Base</p>
+        <span class="app-accordion-chevron" id="accordion-chevron-exp-base">›</span>
+      </div>
+      <div class="app-accordion-body" id="accordion-body-exp-base">
         <div class="exp-card">
 
           <div class="exp-grid">
@@ -2731,8 +2751,11 @@
       </div>
 
       <!-- SECTION 2: INPUT / AIM -->
-      <div class="exp-section">
-        <p class="exp-section-label">Input / Aim</p>
+      <div class="app-accordion-header" onclick="appToggleAccordion('exp-aim')">
+        <p class="app-accordion-label">Input / Aim</p>
+        <span class="app-accordion-chevron" id="accordion-chevron-exp-aim">›</span>
+      </div>
+      <div class="app-accordion-body" id="accordion-body-exp-aim">
         <div class="exp-card">
           <div class="exp-grid">
             <div class="exp-col">
@@ -2862,11 +2885,11 @@
     <div class="main">
 
       <!-- ─── SECTION 1: JOB INFO ─── -->
-      <div class="proj-section-header" onclick="projToggleSection('job')">
-        <p class="proj-section-label">Job Info</p>
-        <span class="proj-section-chevron" id="proj-job-chevron">›</span>
+      <div class="app-accordion-header" onclick="appToggleAccordion('proj-job')">
+        <p class="app-accordion-label">Job Info</p>
+        <span class="app-accordion-chevron" id="accordion-chevron-proj-job">›</span>
       </div>
-      <div class="proj-section-body" id="proj-job-body">
+      <div class="app-accordion-body" id="accordion-body-proj-job">
         <div class="proj-card">
           <label class="proj-field-label" for="proj-job-name">Job Name</label>
           <input class="proj-text-input" id="proj-job-name" type="text" placeholder="Project name…"
@@ -2879,11 +2902,11 @@
       </div>
 
       <!-- ─── SECTION 2: CAMERA ─── -->
-      <div class="proj-section-header" onclick="projToggleSection('camera')">
-        <p class="proj-section-label">Camera</p>
-        <span class="proj-section-chevron" id="proj-camera-chevron">›</span>
+      <div class="app-accordion-header" onclick="appToggleAccordion('proj-camera')">
+        <p class="app-accordion-label">Camera</p>
+        <span class="app-accordion-chevron" id="accordion-chevron-proj-camera">›</span>
       </div>
-      <div class="proj-section-body" id="proj-camera-body">
+      <div class="app-accordion-body" id="accordion-body-proj-camera">
         <!-- Camera toggle bar (shown when 2+ cameras) -->
         <div class="cam-toggle-bar" id="proj-cam-toggle-bar" style="display:none"></div>
         <!-- Camera blocks rendered by JS -->
@@ -2893,11 +2916,11 @@
       </div>
 
       <!-- ─── SECTION 3: BASE FPS SETTINGS ─── -->
-      <div class="proj-section-header" onclick="projToggleSection('base')">
-        <p class="proj-section-label">Base FPS Settings</p>
-        <span class="proj-section-chevron" id="proj-base-chevron">›</span>
+      <div class="app-accordion-header" onclick="appToggleAccordion('proj-base')">
+        <p class="app-accordion-label">Base FPS Settings</p>
+        <span class="app-accordion-chevron" id="accordion-chevron-proj-base">›</span>
       </div>
-      <div class="proj-section-body" id="proj-base-body">
+      <div class="app-accordion-body" id="accordion-body-proj-base">
         <div class="proj-card">
           <div class="proj-param-row">
             <label class="proj-field-label">FPS</label>
@@ -3128,15 +3151,26 @@
     let projPresets = (() => { try { const s = localStorage.getItem(STORAGE_PROJ_PRESETS); if (s) return JSON.parse(s); } catch (e) { } return []; })();
     let projPresetsOpen = false;
 
-    // Project Sections state
-    let projSectionsState = (() => {
-      try { const s = localStorage.getItem('fps-calc-proj-sections'); if (s) return JSON.parse(s); } catch (e) { }
-      return { job: true, camera: true, base: true };
+    // Universal Accordion State
+    let appAccordionState = (() => {
+      try { const s = localStorage.getItem('fps-calc-accordions'); if (s) return JSON.parse(s); } catch (e) { }
+      // Default to open for the main project ones on first load
+      return { 'proj-job': true, 'proj-camera': true, 'proj-base': true, 'exp-base': true, 'exp-aim': true, 'off-multiples': true, 'off-custom': true, 'off-reverse': true };
     })();
-    function projToggleSection(sec) {
-      projSectionsState[sec] = !projSectionsState[sec];
-      try { localStorage.setItem('fps-calc-proj-sections', JSON.stringify(projSectionsState)); } catch (e) { }
-      renderProjectTab();
+
+    function appToggleAccordion(secId) {
+      appAccordionState[secId] = !appAccordionState[secId];
+      try { localStorage.setItem('fps-calc-accordions', JSON.stringify(appAccordionState)); } catch (e) { }
+      appRenderAccordions();
+    }
+
+    function appRenderAccordions() {
+      Object.keys(appAccordionState).forEach(secId => {
+        const body = document.getElementById('accordion-body-' + secId);
+        const chevron = document.getElementById('accordion-chevron-' + secId);
+        if (body) body.classList.toggle('open', appAccordionState[secId]);
+        if (chevron) chevron.classList.toggle('open', appAccordionState[secId]);
+      });
     }
 
     // Legacy project (old tab — kept for compat, won't render new panel)
@@ -3356,6 +3390,9 @@
     function renderFPSTab() {
       // Initialize selects if empty
       if (document.getElementById('fps-project-select').options.length === 0) initFPSSelects();
+
+      // Render tab specific collapsible states
+      appRenderAccordions();
 
       const isMultiples = fpsTabMode === 'multiples';
       const currentBase = getCurrentFPSBase();
@@ -3810,6 +3847,7 @@
 
     // ─ main entry point ─────────────────────────────────
     function renderExposureTab() {
+      appRenderAccordions();
       // (Reset removed to allow persistent state and FPS-tab injection)
       renderExpBaseSection();
       renderExpAimSection();
@@ -4230,12 +4268,7 @@
     function onProjISOCustom(val) { const v = parseInt(val); if (v > 0) { projBaseISO = v; projSaveBase(); projUpdateBaseSummary(); } }
 
     function renderProjectTab() {
-      ['job', 'camera', 'base'].forEach(sec => {
-        const body = document.getElementById(`proj-${sec}-body`);
-        const chevron = document.getElementById(`proj-${sec}-chevron`);
-        if (body) body.classList.toggle('open', projSectionsState[sec]);
-        if (chevron) chevron.classList.toggle('open', projSectionsState[sec]);
-      });
+      appRenderAccordions();
       const jn = document.getElementById('proj-job-name'); if (jn) { jn.value = projJobName; jn.oninput = projSaveJob; }
       const no = document.getElementById('proj-notes'); if (no) { no.value = projNotes; no.oninput = projSaveJob; }
       if (!projCameras.length) { projCameras.push({ model: '', sensorModeIdx: 0, codec: '', mediaAmount: '', mediaTB: true, resultsOpen: false, customName: '', customMaxFPS: '', customModeName: '' }); projSaveCameras(); }
