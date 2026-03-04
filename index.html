@@ -2598,7 +2598,6 @@
               <table class="clean-list-table">
                 <thead>
                   <tr>
-                    <th>n/d ×</th>
                     <th>Multiplier</th>
                     <th>Resulting fps</th>
                     <th>Delta</th>
@@ -3503,27 +3502,17 @@
       }
     }
 
-    function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { let t = b; b = a % b; a = t; } return a; }
     function findCleanFractions(base, target) {
       const candidates = [];
-      for (let n = 1; n <= 16; n++) {
-        for (let d = 1; d <= 16; d++) {
-          const g = gcd(n, d);
-          if (g === n && g === d && n !== d) continue;
-          const resultFps = base * (n / d);
-          const delta = resultFps - target;
-          candidates.push({ n, d, mult: n / d, resultFps, delta, absDelta: Math.abs(delta) });
-        }
+      // Test multipliers from 0.1x to 50.0x in 0.1 increments
+      for (let m = 1; m <= 500; m++) {
+        const mult = m / 10;
+        const resultFps = base * mult;
+        const delta = resultFps - target;
+        candidates.push({ mult, resultFps, delta, absDelta: Math.abs(delta) });
       }
-      const seen = new Set();
-      const deduped = [];
-      for (const c of candidates) {
-        const g = gcd(c.n, c.d);
-        const key = `${c.n / g}/${c.d / g}`;
-        if (!seen.has(key)) { seen.add(key); deduped.push({ ...c, rn: c.n / g, rd: c.d / g }); }
-      }
-      deduped.sort((a, b) => a.absDelta - b.absDelta);
-      return deduped;
+      candidates.sort((a, b) => a.absDelta - b.absDelta);
+      return candidates;
     }
     function deltaClass(absDelta) {
       if (absDelta === 0) return 'exact';
@@ -3569,9 +3558,9 @@
         const dCls = deltaClass(best.absDelta);
         const c2 = document.createElement('div'); c2.className = 'result-card-full';
         c2.innerHTML = `<div class="rc-tag">Nearest clean multiple</div>
-          <div class="rc-main-row"><span class="rc-value">${best.rn}/${best.rd} (${best.mult.toFixed(3)}×)</span><span class="rc-fps">${formatFPS(best.resultFps)} fps</span></div>
+          <div class="rc-main-row"><span class="rc-value">${best.mult.toFixed(1)}×</span><span class="rc-fps">${formatFPS(best.resultFps)} fps</span></div>
           <div class="rc-delta ${dCls}">${deltaText(best.delta, best.absDelta)}</div>
-          <div class="rc-detail" style="margin-top:4px">= ${formatFPS(best.resultFps)} fps</div>`;
+          <div class="rc-detail" style="margin-top:4px">${formatFPS(base)} × ${best.mult.toFixed(1)} = ${formatFPS(best.resultFps)} fps</div>`;
         c2.addEventListener('click', () => sendFPSToExposure(best.resultFps));
         stack.appendChild(c2);
       }
@@ -3601,8 +3590,7 @@
         const tr = document.createElement('tr');
         const sign = f.delta > 0 ? '+' : '−';
         tr.innerHTML = `
-          <td>${f.rn}/${f.rd}</td>
-          <td>${f.mult.toFixed(3)}</td>
+          <td>${f.mult.toFixed(1)}×</td>
           <td>${formatFPS(f.resultFps)}</td>
           <td class="${deltaClass(f.absDelta)}">${f.absDelta < 0.001 ? '0' : sign + f.absDelta.toFixed(3)}</td>
         `;
