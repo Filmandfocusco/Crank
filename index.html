@@ -2663,7 +2663,7 @@
                 <option value="640">640</option>
                 <option value="800">800</option>
                 <option value="1000">1000</option>
-                <option value="1250">1250</option>
+                <option value="1280">1280</option>
                 <option value="1600">1600</option>
                 <option value="2000">2000</option>
                 <option value="2500">2500</option>
@@ -2779,7 +2779,7 @@
                 <option value="640">640</option>
                 <option value="800">800</option>
                 <option value="1000">1000</option>
-                <option value="1250">1250</option>
+                <option value="1280">1280</option>
                 <option value="1600">1600</option>
                 <option value="2000">2000</option>
                 <option value="2500">2500</option>
@@ -2938,8 +2938,8 @@
             <label class="proj-field-label">ISO</label>
             <div class="proj-codec-row" id="proj-iso-chips"></div>
             <div style="display:none;gap:8px;align-items:center;margin-top:8px" id="proj-iso-custom-row">
-              <input class="proj-num-input" type="number" id="proj-iso-custom" min="25" max="409600" step="1"
-                placeholder="e.g. 1250" style="max-width:140px" oninput="onProjISOCustom(this.value)" />
+              <input class="proj-num-input" type="number" id="proj-base-iso-custom" min="1" step="any"
+                placeholder="e.g. 1280" style="max-width:140px" oninput="onProjISOCustom(this.value)" />
               <span style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted)">ISO</span>
             </div>
           </div>
@@ -2989,7 +2989,7 @@
     ];
     const SHUTTER_ANGLES = [45, 90, 135, 172.8, 180, 270, 358];
 
-    const ISO_VALUES = [100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200, 4000, 5000, 6400, 8000, 10000, 12800];
+    const ISO_VALUES = [100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1280, 1600, 2000, 2500, 3200, 4000, 5000, 6400, 8000, 10000, 12800];
     const TSTOP_VALUES = [1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10, 11, 13, 16, 18, 22];
     const TSTOP_SEQUENCE = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10, 11, 13, 16, 18, 22];
     const MAG_SIZES = [200, 400, 1000];
