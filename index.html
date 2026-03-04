@@ -3543,15 +3543,7 @@
       const exactMult = target / base;
       calcVal.textContent = '× ' + exactMult.toFixed(4);
 
-      // Card 1: EXACT
-      const c1 = document.createElement('div'); c1.className = 'result-card-full accent-border';
-      c1.innerHTML = `<div class="rc-tag">Exact multiple</div>
-        <div class="rc-main-row"><span class="rc-value" style="color:var(--accent)">${exactMult.toFixed(4)}×</span><span class="rc-fps">${formatFPS(target)} fps</span></div>
-        <div class="rc-detail">${formatFPS(base)} × ${exactMult.toFixed(4)} = ${formatFPS(target)}</div>`;
-      c1.addEventListener('click', () => sendFPSToExposure(target));
-      stack.appendChild(c1);
-
-      // Card 2: NEAREST CLEAN FRACTION
+      // Card 2: NEAREST CLEAN FRACTION (Now rendered first)
       const fracs = findCleanFractions(base, target);
       if (fracs.length > 0) {
         const best = fracs[0];
@@ -3564,6 +3556,14 @@
         c2.addEventListener('click', () => sendFPSToExposure(best.resultFps));
         stack.appendChild(c2);
       }
+
+      // Card 1: EXACT MULTIPLE (Now rendered second)
+      const c1 = document.createElement('div'); c1.className = 'result-card-full accent-border';
+      c1.innerHTML = `<div class="rc-tag">Exact multiple</div>
+        <div class="rc-main-row"><span class="rc-value" style="color:var(--accent)">${exactMult.toFixed(4)}×</span><span class="rc-fps">${formatFPS(target)} fps</span></div>
+        <div class="rc-detail">${formatFPS(base)} × ${exactMult.toFixed(4)} = ${formatFPS(target)}</div>`;
+      c1.addEventListener('click', () => sendFPSToExposure(target));
+      stack.appendChild(c1);
 
       // Card 3: NEAREST STANDARD
       const STD_MULTS = [0.25, 0.5, 1, 2, 3, 4, 6, 8];
