@@ -4188,10 +4188,26 @@
     function projGetCamMaxFPS(cam) {
       if (!cam || !cam.model) return null;
       if (cam.model === '__custom__') return cam.customMaxFPS ? parseFloat(cam.customMaxFPS) : null;
-      const dbCam = CAMERA_DB.find(c => c.name === cam.model);
+
+      let dbCam = null;
+      for (const [brand, data] of Object.entries(CAMERA_DB)) {
+        const found = data.cameras.find(c => c.name === cam.model);
+        if (found) { dbCam = found; break; }
+      }
       if (!dbCam) return null;
+
       const idx = cam.sensorModeIdx != null ? cam.sensorModeIdx : 0;
-      return dbCam.modes[idx] ? dbCam.modes[idx].maxFps : null;
+      const mode = dbCam.modes[idx];
+      if (!mode) return null;
+
+      if (!cam.codec && mode.max_fps) {
+        // Just return the absolute max fps of all codecs for this mode if codec not selected
+        return Math.max(...Object.values(mode.max_fps));
+      } else if (cam.codec && mode.max_fps[cam.codec]) {
+        return mode.max_fps[cam.codec];
+      }
+
+      return null;
     }
     function projGetCamDisplayName(cam) {
       if (!cam || !cam.model) return 'Camera';
@@ -4228,16 +4244,23 @@
       projSaveCameras(); _projRenderCameraSection();
     }
     function projCameraModelOptions(sel) {
-      const brands = {};
-      CAMERA_DB.forEach(c => { if (!brands[c.brand]) brands[c.brand] = []; brands[c.brand].push(c.name); });
       let h = '<option value="">— Select camera —</option>';
-      Object.keys(brands).forEach(b => { h += '<optgroup label="' + b + '">'; brands[b].forEach(n => { h += '<option value="' + n + '"' + (sel === n ? ' selected' : '') + '>' + n + '</option>'; }); h += '</optgroup>'; });
+      for (const [brand, data] of Object.entries(CAMERA_DB)) {
+        h += '<optgroup label="' + brand + '">';
+        data.cameras.forEach(c => {
+          h += '<option value="' + c.name + '"' + (sel === c.name ? ' selected' : '') + '>' + c.name + '</option>';
+        });
+        h += '</optgroup>';
+      }
       h += '<option value="__custom__"' + (sel === '__custom__' ? ' selected' : '') + '>Custom\u2026</option>';
       return h;
     }
     function projSensorModeOpts(dbCam, si) {
       if (!dbCam) return '<option value="0">\u2014</option>';
-      return dbCam.modes.map((m, i) => '<option value="' + i + '"' + (i === si ? ' selected' : '') + '>' + m.name + '</option>').join('');
+      return dbCam.modes.map((m, i) => {
+        const label = m.sensor_mode + ' — ' + m.resolution;
+        return '<option value="' + i + '"' + (i === si ? ' selected' : '') + '>' + label + '</option>';
+      }).join('');
     }
     function projRenderResults(cam, container) {
       const mfps = projGetCamMaxFPS(cam), exc = mfps != null && mfps < projBaseFPS;
@@ -4256,9 +4279,16 @@
     }
     function projRenderCameraBlock(cam, idx, container) {
       const block = document.createElement('div'); block.className = 'proj-cam-block'; block.id = 'proj-cam-block-' + idx;
-      const dbCam = (cam.model && cam.model !== '__custom__') ? CAMERA_DB.find(c => c.name === cam.model) : null;
-      const brand = dbCam ? dbCam.brand : '';
-      const codecs = CAMERA_CODECS[brand] || ['ProRes 4444', 'ProRes 422 HQ', 'RAW'];
+
+      let dbCam = null; let brand = '';
+      if (cam.model && cam.model !== '__custom__') {
+        for (const [b, data] of Object.entries(CAMERA_DB)) {
+          const found = data.cameras.find(c => c.name === cam.model);
+          if (found) { dbCam = found; brand = b; break; }
+        }
+      }
+
+      const codecs = dbCam ? dbCam.codecs : (CAMERA_CODECS[brand] || ['ProRes 4444', 'ProRes 422 HQ', 'RAW']);
       const inner = document.createElement('div'); inner.className = 'proj-cam-block-inner';
 
       // Header
