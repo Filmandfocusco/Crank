@@ -2480,6 +2480,221 @@
       color: var(--text-primary);
       font-weight: 600;
     }
+
+    /* ── CAMERAS TAB ── */
+    .camdb-search {
+      width: 100%;
+      padding: 10px 14px 10px 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s;
+      margin-bottom: 20px;
+      -webkit-appearance: none;
+    }
+
+    .camdb-search:focus {
+      border-color: var(--accent);
+    }
+
+    .camdb-search-wrap {
+      position: relative;
+    }
+
+    .camdb-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 14px;
+      pointer-events: none;
+      margin-top: -10px;
+    }
+
+    .camdb-brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .camdb-brand-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .camdb-brand-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .camdb-brand-chevron {
+      font-size: 16px;
+      color: var(--text-dim);
+      transition: transform .2s;
+    }
+
+    .camdb-brand-chevron.open {
+      transform: rotate(90deg);
+    }
+
+    .camdb-brand-body {
+      display: none;
+      padding-bottom: 8px;
+    }
+
+    .camdb-brand-body.open {
+      display: block;
+    }
+
+    .camdb-cam-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: border-color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .camdb-cam-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .camdb-cam-card.expanded {
+      border-color: var(--accent);
+    }
+
+    .camdb-cam-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .camdb-cam-name {
+      font-family: var(--font-ui);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .camdb-cam-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-radius: 100px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .camdb-cam-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .camdb-cam-meta-item {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: .04em;
+    }
+
+    .camdb-cam-detail {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .camdb-cam-card.expanded .camdb-cam-detail {
+      display: block;
+    }
+
+    .camdb-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -16px;
+      padding: 0 16px;
+    }
+
+    .camdb-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 400px;
+    }
+
+    .camdb-table th {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+    }
+
+    .camdb-table td {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, .03);
+      white-space: nowrap;
+    }
+
+    .camdb-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .camdb-table td.fps-val {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .camdb-table td.fps-val.high {
+      color: var(--accent);
+    }
+
+    .camdb-table td.fps-na {
+      color: var(--text-dim);
+      font-size: 10px;
+    }
+
+    .camdb-table td.mode-cell {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .camdb-no-results {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      padding: 40px 0;
+    }
   </style>
 </head>
 
@@ -2489,6 +2704,7 @@
     <button class="nav-btn" id="nav-project" onclick="switchTab('project')">Project</button>
     <button class="nav-btn" id="nav-fps" onclick="switchTab('fps')">Off Speed</button>
     <button class="nav-btn" id="nav-exposure" onclick="switchTab('exposure')">Exposure</button>
+    <button class="nav-btn" id="nav-cameras" onclick="switchTab('cameras')">Cameras</button>
   </nav>
 
   <!-- ══ HEADER ══ -->
@@ -2863,6 +3079,17 @@
     </div>
   </div>
 
+  <!-- ══ TAB: CAMERAS ══ -->
+  <div class="tab-panel" id="panel-cameras">
+    <div class="main">
+      <div class="camdb-search-wrap">
+        <span class="camdb-search-icon">⌕</span>
+        <input class="camdb-search" id="camdb-search" type="text" placeholder="Search cameras…" autocomplete="off">
+      </div>
+      <div id="camdb-root"></div>
+    </div>
+  </div>
+
   <!-- ══ TAB 6: PROJECT ══ -->
   <div class="tab-panel" id="panel-project">
     <div class="main">
@@ -3000,79 +3227,6 @@
       '16mm': 0.300 / 12,
     };
 
-    // Camera database
-    const CAMERA_DB = [
-      {
-        brand: 'ARRI', name: 'ALEXA 35', modes: [
-          { name: '4.6K Open Gate (4608×3164)', maxFps: 60 },
-          { name: '4K 16:9 (4096×2304)', maxFps: 120 },
-          { name: '4K 2.39:1 (4096×1716)', maxFps: 120 },
-          { name: '3.8K 16:9 (3840×2160)', maxFps: 120 },
-          { name: '3K 1:1 Anamorphic (3072×3072)', maxFps: 60 },
-          { name: '2K 16:9 (2048×1152)', maxFps: 120 },
-        ]
-      },
-      {
-        brand: 'ARRI', name: 'ALEXA Mini LF', modes: [
-          { name: 'LF Open Gate (4448×3096)', maxFps: 40 },
-          { name: 'LF 16:9 (4448×2520)', maxFps: 60 },
-          { name: 'LF 2.39:1 (4448×1856)', maxFps: 60 },
-          { name: 'Super35 4K 16:9 (3840×2160)', maxFps: 60 },
-        ]
-      },
-      {
-        brand: 'SONY', name: 'VENICE 2 (8.6K sensor)', modes: [
-          { name: 'Full Frame 8.6K 3:2 (8640×5760)', maxFps: 30 },
-          { name: 'Full Frame 8.2K 17:9 (8192×4320)', maxFps: 60 },
-          { name: 'Super35 5.8K 16:9 (5792×3240)', maxFps: 90 },
-          { name: 'Super35 5.4K 16:9 (5400×3040)', maxFps: 90 },
-        ]
-      },
-      {
-        brand: 'SONY', name: 'VENICE 2 (6K sensor)', modes: [
-          { name: 'Full Frame 6K 3:2 (6048×4032)', maxFps: 60 },
-          { name: 'Full Frame 6K 17:9 (6048×3384)', maxFps: 72 },
-          { name: 'Anamorphic 4K 4:3 (4096×3024)', maxFps: 75 },
-          { name: 'Super35 3.8K 16:9 (3840×2160)', maxFps: 120 },
-        ]
-      },
-      {
-        brand: 'RED', name: 'V-RAPTOR [X] 8K VV', modes: [
-          { name: '8K VV 17:9 (8192×4320)', maxFps: 120 },
-          { name: '7K VV 17:9 (7168×3780)', maxFps: 140 },
-          { name: '6K VV 17:9 (6144×3240)', maxFps: 160 },
-          { name: '5K VV 17:9 (5120×2700)', maxFps: 192 },
-          { name: '4K VV 17:9 (4096×2160)', maxFps: 240 },
-          { name: '2K VV 17:9 (2048×1080)', maxFps: 480 },
-        ]
-      },
-      {
-        brand: 'RED', name: 'KOMODO-X 6K', modes: [
-          { name: '6K S35 17:9 (6144×3240)', maxFps: 80 },
-          { name: '5K S35 17:9 (5120×2700)', maxFps: 96 },
-          { name: '4K S35 17:9 (4096×2160)', maxFps: 120 },
-          { name: '2K S35 17:9 (2048×1080)', maxFps: 240 },
-        ]
-      },
-      {
-        brand: 'BLACKMAGIC', name: 'URSA Cine 12K LF', modes: [
-          { name: '12K 17:9 (12288×6480)', maxFps: 100 },
-          { name: '12K 2.4:1 (12288×5112)', maxFps: 120 },
-          { name: '8K 3:2 (8192×5360)', maxFps: 144 },
-          { name: '8K 2.4:1 (8192×3408)', maxFps: 224 },
-          { name: '4K 17:9 (4096×2160)', maxFps: 240 },
-        ]
-      },
-      {
-        brand: 'BLACKMAGIC', name: 'URSA Mini Pro 12K', modes: [
-          { name: '12K 17:9 (12288×6480)', maxFps: 60 },
-          { name: '12K 2.4:1 (12288×5112)', maxFps: 75 },
-          { name: '8K DCI (8192×4320)', maxFps: 120 },
-          { name: '4K Super 16 (4096×2160)', maxFps: 240 },
-        ]
-      },
-    ];
-
     // ══════════════════════════════════════════════════════
     //  STATE
     // ══════════════════════════════════════════════════════
@@ -3082,7 +3236,7 @@
     const STORAGE_ACTIVE_CAMERA = 'fps-calc-active-camera';
     const STORAGE_EXPOSURE = 'fps-calc-exposure';
 
-    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'custom', 'nd', 'exposure'].includes(t) ? t : 'project'; })();
+    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'custom', 'nd', 'exposure', 'cameras'].includes(t) ? t : 'project'; })();
 
     let fpsStandard = (() => {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -3244,8 +3398,8 @@
     // ══════════════════════════════════════════════════════
     //  TAB SWITCHING
     // ══════════════════════════════════════════════════════
-    const ALL_TABS = ['project', 'fps', 'exposure'];
-    const NAV_TABS = ['project', 'fps', 'exposure']; // visible in nav
+    const ALL_TABS = ['project', 'fps', 'exposure', 'cameras'];
+    const NAV_TABS = ['project', 'fps', 'exposure', 'cameras']; // visible in nav
 
     function sendFPSToExposure(fpsVal) {
       const v = parseFloat(fpsVal);
@@ -3267,6 +3421,7 @@
 
       if (tab === 'exposure') renderExposureTab();
       if (tab === 'project') renderProjectTab();
+      if (tab === 'cameras') renderCamerasTab();
     }
 
     // ══════════════════════════════════════════════════════
@@ -4407,6 +4562,127 @@
           .then(r => console.log('[FPS Calc] SW registered', r.scope))
           .catch(e => console.warn('[FPS Calc] SW failed:', e));
       } catch (e) { console.warn('[FPS Calc] SW blob failed:', e); }
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  CAMERA DATABASE
+    // ══════════════════════════════════════════════════════
+    const CAMERA_DB = { "ARRI": { cameras: [{ name: "ALEXA Classic", sensor: "ALEV 3", codecs: ["ProRes 422", "ProRes 422 HQ", "ProRes 4444"], modes: [{ sensor_mode: "16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 60 } }, { sensor_mode: "16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60 } }, { sensor_mode: "4:3", resolution: "2K (2048 x 1536)", max_fps: { "ProRes 422": 48, "ProRes 422 HQ": 48, "ProRes 4444": 48 } }] }, { name: "ALEXA XT", sensor: "ALEV 3", codecs: ["ARRIRAW", "ProRes 422", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ"], modes: [{ sensor_mode: "16:9", resolution: "2.8K (2880 x 1620)", max_fps: { "ARRIRAW": 120 } }, { sensor_mode: "4:3", resolution: "2.8K (2880 x 2160)", max_fps: { "ARRIRAW": 90 } }, { sensor_mode: "6:5 (4:3 Cropped)", resolution: "2.6K (2578 x 2160)", max_fps: { "ARRIRAW": 96 } }, { sensor_mode: "Open Gate", resolution: "3.4K (3424 x 2202)", max_fps: { "ARRIRAW": 75 } }, { sensor_mode: "16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 75 } }, { sensor_mode: "16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "16:9", resolution: "3.2K (3164 x 1778)", max_fps: { "ProRes 422": 30, "ProRes 422 HQ": 30, "ProRes 4444": 30, "ProRes 4444 XQ": 30 } }, { sensor_mode: "4:3", resolution: "2K (2048 x 1536)", max_fps: { "ProRes 422": 48, "ProRes 422 HQ": 48, "ProRes 4444": 48, "ProRes 4444 XQ": 48 } }] }, { name: "ALEXA SXT", sensor: "ALEV 3", codecs: ["ARRIRAW", "ProRes 422", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ"], modes: [{ sensor_mode: "16:9", resolution: "2.8K (2880 x 1620)", max_fps: { "ARRIRAW": 120 } }, { sensor_mode: "16:9", resolution: "3.2K (3168 x 1782)", max_fps: { "ARRIRAW": 120 } }, { sensor_mode: "6:5", resolution: "2.6K (2578 x 2160)", max_fps: { "ARRIRAW": 96 } }, { sensor_mode: "4:3", resolution: "2.8K (2880 x 2160)", max_fps: { "ARRIRAW": 96 } }, { sensor_mode: "Open Gate", resolution: "3.4K (3424 x 2202)", max_fps: { "ARRIRAW": 90 } }, { sensor_mode: "16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "16:9", resolution: "3.2K (3200 x 1800)", max_fps: { "ProRes 422": 72, "ProRes 422 HQ": 72, "ProRes 4444": 72, "ProRes 4444 XQ": 72 } }, { sensor_mode: "16:9", resolution: "4K UHD (3840 x 2160)", max_fps: { "ProRes 422": 50, "ProRes 422 HQ": 50, "ProRes 4444": 50, "ProRes 4444 XQ": 50 } }, { sensor_mode: "6:5", resolution: "2K Anamorphic (2048 x 858)", max_fps: { "ProRes 422": 96, "ProRes 422 HQ": 96, "ProRes 4444": 96, "ProRes 4444 XQ": 96 } }, { sensor_mode: "6:5", resolution: "4K Cine Anamorphic (4096 x 1716)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "4:3", resolution: "4:3 2.8K (2880 x 2160)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "Open Gate", resolution: "Open Gate 3.4K (3424 x 2202)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "Open Gate", resolution: "Open Gate 4K Cine (4096 x 2636)", max_fps: { "ProRes 422": 48, "ProRes 422 HQ": 48, "ProRes 4444": 48, "ProRes 4444 XQ": 48 } }] }, { name: "ALEXA LF", sensor: "ALEV 3 A2X", codecs: ["ARRIRAW", "ProRes 422", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ"], modes: [{ sensor_mode: "LF 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ARRIRAW": 90, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "LF 16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "LF 16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "LF 2.39:1", resolution: "4.5K Scope (4448 x 1856)", max_fps: { "ARRIRAW": 150, "ProRes 422": 100, "ProRes 422 HQ": 100, "ProRes 4444": 100, "ProRes 4444 XQ": 100 } }, { sensor_mode: "LF Open Gate", resolution: "LF Open Gate 4.5K (4448 x 3096)", max_fps: { "ARRIRAW": 90, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 40 } }] }, { name: "ARRI ALEXA Mini", sensor: "ALEV 3", codecs: ["ARRIRAW", "ProRes 422 LT", "ProRes 422", "ProRes 422 HQ", "ProRes 4444"], modes: [{ sensor_mode: "16:9 2.8K", resolution: "2.8K (2880 x 1620)", max_fps: { "ARRIRAW": 48 } }, { sensor_mode: "Open Gate 3.4K", resolution: "3.4K (3424 x 2202)", max_fps: { "ARRIRAW": 30 } }, { sensor_mode: "Open Gate 3.4K", resolution: "2.8K (2880 x 2160)", max_fps: { "ARRIRAW": 30 } }, { sensor_mode: "Open Gate 3.4K", resolution: "1.9K (1920 x 2160)", max_fps: { "ARRIRAW": 30 } }, { sensor_mode: "Open Gate 3.4K", resolution: "2.5K (2560 x 2145)", max_fps: { "ARRIRAW": 30 } }, { sensor_mode: "16:9 2.8K", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "16:9 1.6K", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "0.88:1 1.9K", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 LT": 120, "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120 } }, { sensor_mode: "16:9 2.8K", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "1.19:1 2.5K", resolution: "2K (2048 x 858)", max_fps: { "ProRes 422 LT": 120, "ProRes 422": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120 } }, { sensor_mode: "16:9 3.2K", resolution: "3.2K (3200 x 1800)", max_fps: { "ProRes 422 LT": 60, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60 } }, { sensor_mode: "16:9 3.2K", resolution: "UHD (3840 x 2160)", max_fps: { "ProRes 422 LT": 60, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60 } }, { sensor_mode: "4:3 2.8K", resolution: "2.8K (2880 x 2160)", max_fps: { "ProRes 422 LT": 50, "ProRes 422": 50, "ProRes 422 HQ": 50, "ProRes 4444": 50 } }] }, { name: "ALEXA Mini LF", sensor: "ALEV 3 A2X", codecs: ["ARRIRAW", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ"], modes: [{ sensor_mode: "4.5K 3:2 OG", resolution: "4.5K (4448 x 3096)", max_fps: { "ARRIRAW": 40, "ProRes 422 HQ": 40, "ProRes 4444": 40, "ProRes 4444 XQ": 40 } }, { sensor_mode: "4.5K 2.39:1", resolution: "4.5K (4448 x 1856)", max_fps: { "ARRIRAW": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "3.8K 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ARRIRAW": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "2.8K 1:1", resolution: "2.8K (2880 x 2880)", max_fps: { "ARRIRAW": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "3.4K 3:2", resolution: "3.4K (3424 x 2202)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "4.3K 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ProRes 422 HQ": 48, "ProRes 4444": 48, "ProRes 4444 XQ": 48 } }, { sensor_mode: "4.3K 16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 HQ": 75, "ProRes 4444": 75, "ProRes 4444 XQ": 75 } }, { sensor_mode: "3.8K 16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422 HQ": 90, "ProRes 4444": 90, "ProRes 4444 XQ": 90 } }, { sensor_mode: "3.8K 16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 HQ": 90, "ProRes 4444": 90, "ProRes 4444 XQ": 90 } }, { sensor_mode: "3.2K 16:9", resolution: "3.2K (3200 x 1800)", max_fps: { "ProRes 422 HQ": 75, "ProRes 4444": 75, "ProRes 4444 XQ": 75 } }, { sensor_mode: "2.8K 4:3", resolution: "2.8K (2880 x 2160)", max_fps: { "ProRes 422 HQ": 75, "ProRes 4444": 75, "ProRes 4444 XQ": 75 } }, { sensor_mode: "2.8K 16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 HQ": 100, "ProRes 4444": 100, "ProRes 4444 XQ": 100 } }] }, { name: "ALEXA 35", sensor: "ALEV 4", codecs: ["ARRIRAW", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ"], modes: [{ sensor_mode: "4.6K 3:2 Open Gate", resolution: "4.6K (4608 x 3164)", max_fps: { "ARRIRAW": 120, "ProRes 422 HQ": 60, "ProRes 4444": 60, "ProRes 4444 XQ": 60 } }, { sensor_mode: "4.6K 16:9", resolution: "4.6K (4608 x 2592)", max_fps: { "ARRIRAW": 75 } }, { sensor_mode: "4K 16:9", resolution: "4K (4096 x 2304)", max_fps: { "ARRIRAW": 120, "ProRes 422 HQ": 100, "ProRes 4444": 100, "ProRes 4444 XQ": 100 } }, { sensor_mode: "3.8K 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ARRIRAW": 120 } }, { sensor_mode: "4K 2:1", resolution: "4K (4096 x 2048)", max_fps: { "ARRIRAW": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "3.3K 6:5", resolution: "3.3K (3328 x 2790)", max_fps: { "ARRIRAW": 100, "ProRes 422 HQ": 75, "ProRes 4444": 75, "ProRes 4444 XQ": 75 } }, { sensor_mode: "3K 1:1", resolution: "3K (3072 x 3072)", max_fps: { "ARRIRAW": 100, "ProRes 422 HQ": 90, "ProRes 4444": 90, "ProRes 4444 XQ": 90 } }, { sensor_mode: "4.6K 16:9", resolution: "4K (4096 x 2304)", max_fps: { "ProRes 422 HQ": 75, "ProRes 4444": 75, "ProRes 4444 XQ": 75 } }, { sensor_mode: "4K 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "4K 16:9", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "4K 16:9", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }, { sensor_mode: "3.3K 6:5", resolution: "4K 2.39:1 Ana 2x", max_fps: { "ProRes 422 HQ": 90, "ProRes 4444": 90, "ProRes 4444 XQ": 90 } }, { sensor_mode: "3K 1:1", resolution: "3.8K 2:1 Ana 2x", max_fps: { "ProRes 422 HQ": 100, "ProRes 4444": 100, "ProRes 4444 XQ": 100 } }, { sensor_mode: "2.7K 8:9", resolution: "UHD 16:9 Ana 2x", max_fps: { "ProRes 422 HQ": 100, "ProRes 4444": 100, "ProRes 4444 XQ": 100 } }, { sensor_mode: "2K 16:9 S16", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120 } }] }, { name: "ALEXA 35 Xtreme", sensor: "ALEV 4", codecs: ["ARRIRAW", "ProRes 422 HQ", "ProRes 4444", "ProRes 4444 XQ", "ARRICORE"], modes: [{ sensor_mode: "4.6K 3:2 Open Gate", resolution: "4.6K (4608 x 3164)", max_fps: { "ARRIRAW": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120, "ARRICORE": 165 } }, { sensor_mode: "4.6K 16:9", resolution: "4.6K (4608 x 2592)", max_fps: { "ARRIRAW": 75, "ProRes 422 HQ": 150, "ProRes 4444": 150, "ProRes 4444 XQ": 150, "ARRICORE": 200 } }, { sensor_mode: "4K 16:9", resolution: "4K (4096 x 2304)", max_fps: { "ARRIRAW": 125, "ProRes 422 HQ": 150, "ProRes 4444": 150, "ProRes 4444 XQ": 150, "ARRICORE": 210 } }, { sensor_mode: "3.8K 16:9", resolution: "UHD (3840 x 2160)", max_fps: { "ARRIRAW": 140, "ProRes 422 HQ": 150, "ProRes 4444": 150, "ProRes 4444 XQ": 150, "ARRICORE": 240 } }, { sensor_mode: "3.8K 2.39:1", resolution: "3.8K (3840 x 1608)", max_fps: { "ARRIRAW": 190, "ProRes 422 HQ": 240, "ProRes 4444": 240, "ProRes 4444 XQ": 240, "ARRICORE": 240 } }, { sensor_mode: "3.3K 6:5", resolution: "3.3K (3328 x 2790)", max_fps: { "ARRIRAW": 120, "ProRes 422 HQ": 120, "ProRes 4444": 120, "ProRes 4444 XQ": 120, "ARRICORE": 210 } }, { sensor_mode: "2K 16:9 S16", resolution: "2K (2048 x 1152)", max_fps: { "ARRIRAW": 330, "ProRes 422 HQ": 330, "ProRes 4444": 330, "ProRes 4444 XQ": 330, "ARRICORE": 660 } }, { sensor_mode: "HD 16:9 S16", resolution: "HD (1920 x 1080)", max_fps: { "ARRIRAW": 330, "ProRes 422 HQ": 330, "ProRes 4444": 330, "ProRes 4444 XQ": 330, "ARRICORE": 660 } }] }, { name: "ALEXA 65", sensor: "ALEV 3 A3X", codecs: ["ARRIRAW"], modes: [{ sensor_mode: "Open Gate", resolution: "6.5K (6560 x 3100)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "5.1K 16:9", resolution: "5.1K (5120 x 2880)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "4.3K 3:2", resolution: "4.3K (4320 x 2880)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "4K UHD", resolution: "UHD (3840 x 2160)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "LF Open Gate", resolution: "LF Open Gate 4.5K 3:2 (4448 x 3096)", max_fps: { "ARRIRAW": 60 } }] }, { name: "ALEXA 265", sensor: "ALEV 3 A3X", codecs: ["ARRIRAW"], modes: [{ sensor_mode: "6.5K 2.12:1 Open Gate", resolution: "6.5K (6560x3100)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "6.5K Open Gate", resolution: "5.1K (5120x3100)", max_fps: { "ARRIRAW": 60 } }, { sensor_mode: "6.5K Open Gate", resolution: "4.5K (4448x3096)", max_fps: { "ARRIRAW": 60 } }] }, { name: "AMIRA", sensor: "ALEV 3 AMIRA", codecs: ["ARRIRAW", "ProRes 422 LT", "ProRes 422", "ProRes 422 HQ", "ProRes 4444"], modes: [{ sensor_mode: "16:9 2.8K", resolution: "2.8K (2880 x 1620)", max_fps: { "ARRIRAW": 48 } }, { sensor_mode: "16:9 2.8K", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "16:9 1.6K", resolution: "HD (1920 x 1080)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "16:9 2.8K", resolution: "2K (2048 x 1152)", max_fps: { "ProRes 422 LT": 200, "ProRes 422": 200, "ProRes 422 HQ": 200, "ProRes 4444": 200 } }, { sensor_mode: "16:9 3.2K", resolution: "3.2K (3200 x 1800)", max_fps: { "ProRes 422 LT": 60, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60 } }, { sensor_mode: "16:9 3.2K", resolution: "UHD (3840 x 2160)", max_fps: { "ProRes 422 LT": 60, "ProRes 422": 60, "ProRes 422 HQ": 60, "ProRes 4444": 60 } }] }] } };
+
+    let camdbExpandedCam = null;
+    let camdbExpandedBrands = {};
+
+    function renderCamerasTab() {
+      const root = document.getElementById('camdb-root');
+      const searchInput = document.getElementById('camdb-search');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+      let html = '';
+      let totalVisible = 0;
+
+      for (const [brandName, brandData] of Object.entries(CAMERA_DB)) {
+        const filteredCams = brandData.cameras.filter(c =>
+          !query || c.name.toLowerCase().includes(query) || c.sensor.toLowerCase().includes(query)
+        );
+        if (filteredCams.length === 0) continue;
+        totalVisible += filteredCams.length;
+
+        const isOpen = camdbExpandedBrands[brandName] !== false; // default open
+        html += `<div class="camdb-brand">`;
+        html += `<div class="camdb-brand-header" onclick="camdbToggleBrand('${brandName}')">`;
+        html += `<div><span class="camdb-brand-name">${brandName}</span> <span class="camdb-brand-count">${filteredCams.length} camera${filteredCams.length !== 1 ? 's' : ''}</span></div>`;
+        html += `<span class="camdb-brand-chevron ${isOpen ? 'open' : ''}">›</span>`;
+        html += `</div>`;
+        html += `<div class="camdb-brand-body ${isOpen ? 'open' : ''}">`;
+
+        for (const cam of filteredCams) {
+          const camKey = brandName + '::' + cam.name;
+          const isExpanded = camdbExpandedCam === camKey;
+          const maxFPS = Math.max(...cam.modes.flatMap(m => Object.values(m.max_fps)));
+
+          html += `<div class="camdb-cam-card ${isExpanded ? 'expanded' : ''}" onclick="camdbToggleCam('${camKey.replace(/'/g, "\\'")}')">`;
+          html += `<div class="camdb-cam-header">`;
+          html += `<span class="camdb-cam-name">${cam.name}</span>`;
+          html += `<span class="camdb-cam-badge">${maxFPS} fps</span>`;
+          html += `</div>`;
+          html += `<div class="camdb-cam-meta">`;
+          html += `<span class="camdb-cam-meta-item">Sensor: ${cam.sensor}</span>`;
+          html += `<span class="camdb-cam-meta-item">${cam.codecs.length} codec${cam.codecs.length !== 1 ? 's' : ''}</span>`;
+          html += `<span class="camdb-cam-meta-item">${cam.modes.length} mode${cam.modes.length !== 1 ? 's' : ''}</span>`;
+          html += `</div>`;
+
+          if (isExpanded) {
+            html += `<div class="camdb-cam-detail" style="display:block">`;
+            html += renderCamDetail(cam);
+            html += `</div>`;
+          }
+
+          html += `</div>`;
+        }
+
+        html += `</div></div>`;
+      }
+
+      if (totalVisible === 0) {
+        html = `<div class="camdb-no-results">No cameras match "${query}"</div>`;
+      }
+
+      root.innerHTML = html;
+
+      // Attach search listener once
+      if (searchInput && !searchInput._bound) {
+        searchInput._bound = true;
+        searchInput.addEventListener('input', () => renderCamerasTab());
+      }
+    }
+
+    function renderCamDetail(cam) {
+      // Build codec short names for column headers
+      const codecShort = c => c.replace('ProRes ', 'PR').replace('ARRIRAW', 'RAW').replace('ARRICORE', 'CORE').replace('MPEG-2 HD 422', 'MPEG');
+      let h = '<div class="camdb-table-wrap"><table class="camdb-table">';
+      h += '<thead><tr><th>Mode</th><th>Resolution</th>';
+      cam.codecs.forEach(c => { h += `<th>${codecShort(c)}</th>`; });
+      h += '</tr></thead><tbody>';
+
+      // Group modes by sensor_mode for display
+      const modeGroups = [];
+      const seen = {};
+      for (const m of cam.modes) {
+        if (!seen[m.sensor_mode]) { seen[m.sensor_mode] = []; modeGroups.push(m.sensor_mode); }
+        seen[m.sensor_mode].push(m);
+      }
+
+      for (const modeName of modeGroups) {
+        const entries = seen[modeName];
+        entries.forEach((entry, idx) => {
+          h += '<tr>';
+          h += `<td class="mode-cell">${idx === 0 ? modeName : ''}</td>`;
+          h += `<td>${entry.resolution}</td>`;
+          cam.codecs.forEach(codec => {
+            const fps = entry.max_fps[codec];
+            if (fps) {
+              const cls = fps >= 120 ? 'fps-val high' : 'fps-val';
+              h += `<td class="${cls}">${fps}</td>`;
+            } else {
+              h += `<td class="fps-na">—</td>`;
+            }
+          });
+          h += '</tr>';
+        });
+      }
+
+      h += '</tbody></table></div>';
+      return h;
+    }
+
+    function camdbToggleBrand(brand) {
+      camdbExpandedBrands[brand] = camdbExpandedBrands[brand] === false ? true : false;
+      renderCamerasTab();
+    }
+
+    function camdbToggleCam(key) {
+      camdbExpandedCam = camdbExpandedCam === key ? null : key;
+      renderCamerasTab();
     }
 
     // ══════════════════════════════════════════════════════
