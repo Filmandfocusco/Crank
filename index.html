@@ -9,12 +9,11 @@
     content="Professional frame rate, shutter angle, ND filter, exposure and project calculator for camera departments." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="FPS Calc" />
-  <title>FPS Calc — Camera Department Tools</title>
+  <meta name="apple-mobile-web-app-title" content="Crank" />
+  <title>Crank — Camera Department Tools</title>
   <link rel="manifest"
-    href="data:application/manifest+json,%7B%22name%22%3A%22FPS+Calc%22%2C%22short_name%22%3A%22FPS%22%2C%22description%22%3A%22Professional+frame+rate+calculator+for+camera+departments%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D0D0D%22%2C%22theme_color%22%3A%22%230D0D0D%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+viewBox%3D%270+0+512+512%27%253E%253Crect+width%3D%27512%27+height%3D%27512%27+fill%3D%27%25230D0D0D%27%2F%253E%253Crect+x%3D%2764%27+y%3D%27112%27+width%3D%27384%27+height%3D%27288%27+rx%3D%2724%27+fill%3D%27none%27+stroke%3D%27%2523E8A020%27+stroke-width%3D%2724%27%2F%253E%253Ctext+x%3D%27256%27+y%3D%27280%27+font-family%3D%27monospace%27+font-size%3D%27120%27+fill%3D%27%2523E8A020%27+text-anchor%3D%27middle%27+dominant-baseline%3D%27middle%27%253EFPS%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any+maskable%22%7D%5D%7D" />
-  <link rel="apple-touch-icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230D0D0D'/><rect x='64' y='112' width='384' height='288' rx='24' fill='none' stroke='%23E8A020' stroke-width='24'/><text x='256' y='280' font-family='monospace' font-size='120' fill='%23E8A020' text-anchor='middle' dominant-baseline='middle'>FPS</text></svg>" />
+    href="data:application/manifest+json,%7B%22name%22%3A%22Crank%22%2C%22short_name%22%3A%22Crank%22%2C%22description%22%3A%22Professional+frame+rate+calculator+for+camera+departments%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D0D0D%22%2C%22theme_color%22%3A%22%230D0D0D%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22crank_logo.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any+maskable%22%7D%5D%7D" />
+  <link rel="apple-touch-icon" href="crank_logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -2695,6 +2694,109 @@
       font-size: 13px;
       padding: 40px 0;
     }
+    /* Info Tab */
+    .info-container {
+      padding: 10px 0 40px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s ease;
+    }
+
+    .info-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .info-logo-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .info-logo {
+      height: 48px;
+      width: auto;
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 4px;
+    }
+
+    /* For white-on-white logos, maybe a slight dim filter or border */
+    .info-logo.inverted {
+      background: #0D0D0D;
+      border: 1px solid var(--border);
+    }
+
+    .info-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .info-role {
+      font-size: 13px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .info-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .info-link:hover {
+      color: var(--accent);
+    }
+
+    .info-link-icon {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .about-section {
+      margin-top: 10px;
+      padding: 0 4px;
+    }
+
+    .about-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .about-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 
@@ -2708,9 +2810,20 @@
   </nav>
 
   <!-- ══ HEADER ══ -->
-  <header class="app-header" id="app-header">
-    <p class="app-title" id="header-title">FPS Calc</p>
-    <div id="header-controls"></div>
+  <header class="app-header" id="app-header" style="padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <img src="crank_logo.png" alt="Crank Logo" style="height: 48px; width: auto; border-radius: 6px;">
+      <div style="display: flex; flex-direction: column;">
+        <p class="app-title" id="header-title" style="margin-bottom: 0; font-size: 14px; letter-spacing: 0.25em;">Crank</p>
+        <p style="font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px;">The Off-speed Calculator</p>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div id="header-controls"></div>
+      <button class="icon-btn" onclick="switchTab('info')" title="App Info" style="background: none; border: 1px solid var(--border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">
+        <span style="font-family: serif; font-style: italic; font-weight: bold; font-size: 18px; position: relative; top: -1px;">i</span>
+      </button>
+    </div>
   </header>
 
   <!-- ══ TAB 1: FPS (OFF-SPEED) ══ -->
@@ -3191,6 +3304,66 @@
 
     </div>
   </div>
+
+  <!-- ══ TAB 7: INFO ══ -->
+  <div class="tab-panel" id="panel-info">
+    <div class="main info-container">
+      <div class="about-section" style="margin-bottom: 24px;">
+        <p class="about-title">About Crank</p>
+        <p class="about-text">Crank is a dedicated digital tool designed by industry professionals for DITs and ACs to help manage and calculate off-speed frame rates effectively on set. Initially developed by Emin Atilgan GBCT and Joe Dibble DIT to solve the complexities of non-standard frame rate relationships, Crank has evolved into a comprehensive suite for camera departments. It offers precise, offline-capable calculations for exposure compensation, ND filtration, and shutter angles, ensuring that technical decisions are made with absolute confidence in any environment.</p>
+      </div>
+
+      <!-- Emin Atilgan -->
+      <div class="info-card">
+        <div class="info-header">
+          <div class="info-logo-group">
+            <img src="logo_focus3d.png" alt="Focus3D" class="info-logo">
+            <img src="logo_filmandfocus.png" alt="Film & Focus" class="info-logo inverted">
+          </div>
+          <div>
+            <p class="info-name">Emin Atilgan GBCT</p>
+            <p class="info-role">Founder of Focus3D</p>
+          </div>
+        </div>
+        <div class="info-links">
+          <a href="https://www.focus3d.xyz" target="_blank" class="info-link">
+            <span class="info-link-icon">🌐</span> Focus3d.xyz
+          </a>
+          <a href="mailto:hello.focus3d@gmail.com" class="info-link">
+            <span class="info-link-icon">✉️</span> hello.focus3d@gmail.com
+          </a>
+          <a href="https://www.instagram.com/filmandfocusco/" target="_blank" class="info-link">
+            <span class="info-link-icon">📸</span> filmandfocusco (Online Store)
+          </a>
+        </div>
+      </div>
+
+      <!-- Joe Dibble -->
+      <div class="info-card">
+        <div class="info-header">
+          <img src="logo_joedibble.png" alt="Joe Dibble" class="info-logo">
+          <div>
+            <p class="info-name">Joe Dibble</p>
+            <p class="info-role">Digital Imaging Technician</p>
+          </div>
+        </div>
+        <div class="info-links">
+          <a href="https://digitalorchardgroup.com/digital-imaging/joe-dibble" target="_blank" class="info-link">
+            <span class="info-link-icon">📄</span> View Professional CV
+          </a>
+          <a href="tel:+447905111828" class="info-link">
+            <span class="info-link-icon">📞</span> +44 (0) 7905 111 828
+          </a>
+          <a href="mailto:Joe.dibble@digitalorchardgroup.com" class="info-link">
+            <span class="info-link-icon">✉️</span> Joe.dibble@digitalorchardgroup.com
+          </a>
+          <a href="https://www.instagram.com/joescolouringin" target="_blank" class="info-link">
+            <span class="info-link-icon">📸</span> @joescolouringin
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Toast -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -3236,7 +3409,7 @@
     const STORAGE_ACTIVE_CAMERA = 'fps-calc-active-camera';
     const STORAGE_EXPOSURE = 'fps-calc-exposure';
 
-    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'custom', 'nd', 'exposure', 'cameras'].includes(t) ? t : 'project'; })();
+    let currentTab = (() => { const t = localStorage.getItem(STORAGE_TAB); return ['project', 'fps', 'exposure', 'cameras', 'info'].includes(t) ? t : 'project'; })();
 
     let fpsStandard = (() => {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -3398,7 +3571,7 @@
     // ══════════════════════════════════════════════════════
     //  TAB SWITCHING
     // ══════════════════════════════════════════════════════
-    const ALL_TABS = ['project', 'fps', 'exposure', 'cameras'];
+    const ALL_TABS = ['project', 'fps', 'exposure', 'cameras', 'info'];
     const NAV_TABS = ['project', 'fps', 'exposure', 'cameras']; // visible in nav
 
     function sendFPSToExposure(fpsVal) {
