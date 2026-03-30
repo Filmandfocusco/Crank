@@ -2810,6 +2810,60 @@
       line-height: 1.6;
       color: var(--text-muted);
     }
+
+    /* PWA Install Prompt */
+    #pwa-prompt {
+      position: fixed;
+      bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 20px);
+      left: 16px;
+      right: 16px;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      z-index: 1000;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      gap: 12px;
+      animation: slideUp .4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .pwa-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .pwa-content { flex: 1; }
+    .pwa-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+    .pwa-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+    .pwa-close { 
+      background: transparent; border: none; color: var(--text-dim); padding: 8px; cursor: pointer;
+      font-size: 18px; line-height: 1;
+    }
+    /* iOS Pointer */
+    #ios-pointer {
+      position: fixed;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .ios-arrow {
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid var(--accent);
+    }
   </style>
 </head>
 
@@ -4787,6 +4841,62 @@
       } catch (e) { console.warn('[Crank] SW blob failed:', e); }
     }
 
+
+    // ══════════════════════════════════════════════════════
+    //  PWA INSTALL PROMPT
+    // ══════════════════════════════════════════════════════
+    let deferredPrompt;
+
+    function initPWAInstall() {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      const isDismissed = localStorage.getItem('pwa-dismissed') === 'true';
+
+      if (isStandalone || isDismissed) return;
+
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isAndroid = /Android/.test(navigator.userAgent);
+
+      // Create Prompt HTML
+      const prompt = document.createElement('div');
+      prompt.id = 'pwa-prompt';
+      prompt.innerHTML = `
+        <img src="crank_logo.png" class="pwa-icon" alt="Crank">
+        <div class="pwa-content">
+          <div class="pwa-title">Install Crank</div>
+          <div class="pwa-desc">${isIOS ? 'Tap the Share icon and "Add to Home Screen" for offline use.' : 'Save to your home screen for fast, offline access on set.'}</div>
+        </div>
+        <button class="pwa-close" onclick="dismissPWAPrompt()">&times;</button>
+      `;
+      document.body.appendChild(prompt);
+
+      if (isIOS) {
+        const pointer = document.createElement('div');
+        pointer.id = 'ios-pointer';
+        pointer.innerHTML = '<div class="ios-arrow"></div>';
+        document.body.appendChild(pointer);
+      }
+
+      // Show after delay
+      setTimeout(() => {
+        prompt.style.display = 'flex';
+        if (isIOS) document.getElementById('ios-pointer').style.display = 'flex';
+      }, 3000);
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Optional: you could make the prompt click to trigger deferredPrompt.prompt()
+      });
+    }
+
+    function dismissPWAPrompt() {
+      const p = document.getElementById('pwa-prompt');
+      const i = document.getElementById('ios-pointer');
+      if (p) p.style.display = 'none';
+      if (i) i.style.display = 'none';
+      localStorage.setItem('pwa-dismissed', 'true');
+    }
+
     // ══════════════════════════════════════════════════════
     //  CAMERA DATABASE
     // ══════════════════════════════════════════════════════
@@ -4987,6 +5097,7 @@
     // ══════════════════════════════════════════════════════
     switchTab(currentTab);
     initServiceWorker();
+    initPWAInstall();
   </script>
 </body>
 
