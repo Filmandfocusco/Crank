@@ -11,6 +11,18 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Crank" />
   <title>Crank — Camera Department Tools</title>
+
+  <!-- Social Sharing (Open Graph) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Crank — Camera Department Tools" />
+  <meta property="og:description"
+    content="Professional off-speed calculator and technical tools for camera departments, DITs, and ACs." />
+  <meta property="og:image" content="crank_logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Crank — Camera Department Tools" />
+  <meta name="twitter:description"
+    content="Professional off-speed calculator and technical tools for camera departments, DITs, and ACs." />
+  <meta name="twitter:image" content="crank_logo.png" />
   <link rel="manifest"
     href="data:application/manifest+json,%7B%22name%22%3A%22Crank%22%2C%22short_name%22%3A%22Crank%22%2C%22description%22%3A%22Professional+frame+rate+calculator+for+camera+departments%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D0D0D%22%2C%22theme_color%22%3A%22%230D0D0D%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22crank_logo.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any+maskable%22%7D%5D%7D" />
   <link rel="apple-touch-icon" href="crank_logo.png" />
@@ -3335,6 +3347,11 @@
           <a href="https://www.instagram.com/filmandfocusco/" target="_blank" class="info-link">
             <span class="info-link-icon">📸</span> filmandfocusco (Online Store)
           </a>
+          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+            <a href="mailto:hello.focus3d@gmail.com?subject=Crank App: Feedback / Camera Request" class="info-link" style="color: var(--accent); font-weight: 600;">
+              <span class="info-link-icon">💡</span> Request a Camera / Report Bug
+            </a>
+          </div>
         </div>
       </div>
 
@@ -3371,6 +3388,8 @@
     // ══════════════════════════════════════════════════════
     //  CONSTANTS
     // ══════════════════════════════════════════════════════
+    const APP_VERSION = '1.0.1';
+
     const STANDARDS = [
       { value: 23.976, group: 0 }, { value: 24, group: 0 },
       { value: 25, group: 1 }, { value: 50, group: 1 },
@@ -4754,7 +4773,7 @@
     function initServiceWorker() {
       if (!('serviceWorker' in navigator)) return;
       const swCode = `
-    const CACHE='fps-calc-v4';
+    const CACHE='crank-v${APP_VERSION}';
     self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll([]).catch(()=>{})));self.skipWaiting();});
     self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
     self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(cached=>{if(cached)return cached;return fetch(e.request).then(r=>{if(r&&r.status===200){const cl=r.clone();caches.open(CACHE).then(c=>c.put(e.request,cl));}return r;}).catch(()=>caches.match(e.request));}));});
@@ -4762,9 +4781,9 @@
       try {
         const blob = new Blob([swCode], { type: 'application/javascript' });
         navigator.serviceWorker.register(URL.createObjectURL(blob), { scope: './' })
-          .then(r => console.log('[FPS Calc] SW registered', r.scope))
-          .catch(e => console.warn('[FPS Calc] SW failed:', e));
-      } catch (e) { console.warn('[FPS Calc] SW blob failed:', e); }
+          .then(r => console.log('[Crank] SW registered (v' + APP_VERSION + ')', r.scope))
+          .catch(e => console.warn('[Crank] SW failed:', e));
+      } catch (e) { console.warn('[Crank] SW blob failed:', e); }
     }
 
     // ══════════════════════════════════════════════════════
