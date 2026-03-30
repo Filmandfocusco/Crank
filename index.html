@@ -3903,9 +3903,7 @@
     // ─ net stop calculation ─────────────────────────────
     function calcNetStops() {
       if (!expAimFPS || expAimFPS <= 0 || !expBaseFPS || expBaseFPS <= 0) return null;
-      // User explicitly requested linear FPS math instead of logarithmic:
-      // 25 -> 50 = -1, 25 -> 75 = -2, 25 -> 100 = -3
-      const fpsDelta = -(expAimFPS / expBaseFPS - 1);
+      const fpsDelta = Math.log2(expBaseFPS / expAimFPS);
       const isoDelta = Math.log2(expAimISO / expBaseISO);
       const angleDelta = Math.log2(expAimAngle / expBaseAngle);
       const tstopDelta = (expTStopEnabled && expBaseTStop && expAimTStop)
