@@ -556,21 +556,27 @@
       "sensor_mode": "4.6K 3:2 Open Gate",
       "resolution": "4.6K (4608 x 3164)",
       "max_fps_by_codec": {
-        "ARRIRAW": 120
+        "ARRIRAW": 75,
+        "ProRes 4444": 60,
+        "ProRes 422 HQ": 60
       }
     },
     {
       "sensor_mode": "4.6K 16:9",
       "resolution": "4.6K (4608 x 2592)",
       "max_fps_by_codec": {
-        "ARRIRAW": 75
+        "ARRIRAW": 75,
+        "ProRes 4444": 75,
+        "ProRes 422 HQ": 75
       }
     },
     {
       "sensor_mode": "4K 16:9",
       "resolution": "4K (4096 x 2304)",
       "max_fps_by_codec": {
-        "ARRIRAW": 120
+        "ARRIRAW": 120,
+        "ProRes 4444": 100,
+        "ProRes 422 HQ": 100
       }
     },
     {
@@ -584,21 +590,27 @@
       "sensor_mode": "4K 2:1",
       "resolution": "4K (4096 x 2048)",
       "max_fps_by_codec": {
-        "ARRIRAW": 120
+        "ARRIRAW": 120,
+        "ProRes 4444": 120,
+        "ProRes 422 HQ": 120
       }
     },
     {
       "sensor_mode": "3.3K 6:5",
       "resolution": "3.3K (3328 x 2790)",
       "max_fps_by_codec": {
-        "ARRIRAW": 100
+        "ARRIRAW": 100,
+        "ProRes 4444": 75,
+        "ProRes 422 HQ": 75
       }
     },
     {
       "sensor_mode": "3K 1:1",
       "resolution": "3K (3072 x 3072)",
       "max_fps_by_codec": {
-        "ARRIRAW": 100
+        "ARRIRAW": 100,
+        "ProRes 4444": 90,
+        "ProRes 422 HQ": 90
       }
     },
     {
@@ -607,7 +619,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 60,
         "ProRes 4444": 60,
-        "ProRes 4444 XQ": 60
+        "ProRes 4444 XQ": 60,
+        "ARRIRAW": 75
       }
     },
     {
@@ -625,7 +638,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 100,
         "ProRes 4444": 100,
-        "ProRes 4444 XQ": 100
+        "ProRes 4444 XQ": 100,
+        "ARRIRAW": 120
       }
     },
     {
@@ -661,7 +675,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 120,
         "ProRes 4444": 120,
-        "ProRes 4444 XQ": 120
+        "ProRes 4444 XQ": 120,
+        "ARRIRAW": 120
       }
     },
     {
@@ -670,7 +685,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 75,
         "ProRes 4444": 75,
-        "ProRes 4444 XQ": 75
+        "ProRes 4444 XQ": 75,
+        "ARRIRAW": 100
       }
     },
     {
@@ -688,7 +704,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 90,
         "ProRes 4444": 90,
-        "ProRes 4444 XQ": 90
+        "ProRes 4444 XQ": 90,
+        "ARRIRAW": 100
       }
     },
     {
@@ -724,28 +741,36 @@
       "sensor_mode": "4.6K 3:2 Open Gate",
       "resolution": "4.6K (4608 x 3164)",
       "max_fps_by_codec": {
-        "ARRIRAW": 120
+        "ARRIRAW": 80,
+        "ProRes 4444": 120,
+        "ProRes 422 HQ": 120
       }
     },
     {
       "sensor_mode": "4.6K 16:9",
       "resolution": "4.6K (4608 x 2592)",
       "max_fps_by_codec": {
-        "ARRIRAW": 75
+        "ARRIRAW": 95,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
       "sensor_mode": "4K 16:9",
       "resolution": "4K (4096 x 2304)",
       "max_fps_by_codec": {
-        "ARRIRAW": 125
+        "ARRIRAW": 125,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
       "sensor_mode": "3.8K 16:9",
       "resolution": "UHD (3840 x 2160)",
       "max_fps_by_codec": {
-        "ARRIRAW": 140
+        "ARRIRAW": 140,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
@@ -759,7 +784,9 @@
       "sensor_mode": "3.3K 6:5",
       "resolution": "3.3K (3328 x 2790)",
       "max_fps_by_codec": {
-        "ARRIRAW": 120
+        "ARRIRAW": 120,
+        "ProRes 4444": 120,
+        "ProRes 422 HQ": 120
       }
     },
     {
@@ -782,7 +809,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 120,
         "ProRes 4444": 120,
-        "ProRes 4444 XQ": 120
+        "ProRes 4444 XQ": 120,
+        "ARRIRAW": 80
       }
     },
     {
@@ -791,7 +819,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 150,
         "ProRes 4444": 150,
-        "ProRes 4444 XQ": 150
+        "ProRes 4444 XQ": 150,
+        "ARRIRAW": 95
       }
     },
     {
@@ -800,7 +829,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 150,
         "ProRes 4444": 150,
-        "ProRes 4444 XQ": 150
+        "ProRes 4444 XQ": 150,
+        "ARRIRAW": 125
       }
     },
     {
@@ -809,7 +839,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 150,
         "ProRes 4444": 150,
-        "ProRes 4444 XQ": 150
+        "ProRes 4444 XQ": 150,
+        "ARRIRAW": 140
       }
     },
     {
@@ -827,7 +858,8 @@
       "max_fps_by_codec": {
         "ProRes 422 HQ": 120,
         "ProRes 4444": 120,
-        "ProRes 4444 XQ": 120
+        "ProRes 4444 XQ": 120,
+        "ARRIRAW": 120
       }
     },
     {
@@ -852,28 +884,40 @@
       "sensor_mode": "4.6K 3:2 Open Gate",
       "resolution": "4.6K (4608 x 3164)",
       "max_fps_by_codec": {
-        "ARRICORE": 165
+        "ARRICORE": 165,
+        "ARRIRAW": 80,
+        "ProRes 4444": 120,
+        "ProRes 422 HQ": 120
       }
     },
     {
       "sensor_mode": "4.6K 16:9",
       "resolution": "4.6K (4608 x 2592)",
       "max_fps_by_codec": {
-        "ARRICORE": 200
+        "ARRICORE": 200,
+        "ARRIRAW": 95,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
       "sensor_mode": "4K 16:9",
       "resolution": "4K (4096 x 2304)",
       "max_fps_by_codec": {
-        "ARRICORE": 210
+        "ARRICORE": 210,
+        "ARRIRAW": 125,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
       "sensor_mode": "3.8K 16:9",
       "resolution": "UHD (3840 x 2160)",
       "max_fps_by_codec": {
-        "ARRICORE": 240
+        "ARRICORE": 240,
+        "ARRIRAW": 140,
+        "ProRes 4444": 150,
+        "ProRes 422 HQ": 150
       }
     },
     {
@@ -887,7 +931,10 @@
       "sensor_mode": "3.3K 6:5",
       "resolution": "3.3K (3328 x 2790)",
       "max_fps_by_codec": {
-        "ARRICORE": 210
+        "ARRICORE": 210,
+        "ARRIRAW": 120,
+        "ProRes 4444": 120,
+        "ProRes 422 HQ": 120
       }
     },
     {
