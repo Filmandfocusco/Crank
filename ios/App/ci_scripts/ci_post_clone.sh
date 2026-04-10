@@ -1,16 +1,26 @@
 #!/bin/sh
-
-# Fail the build if any command fails
 set -e
 
-# Navigate to the root of the project (from ios/App/ci_scripts)
-cd ../../..
+echo "Starting ci_post_clone.sh..."
 
-# Install Node and npm using Homebrew
+# Navigate to the root of the cloned repository explicitly
+cd $CI_WORKSPACE
+echo "Workspace is: $(pwd)"
+
+# Optimize Homebrew to install Node faster
+export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=TRUE
+
+echo "Installing Node.js..."
 brew install node
 
-# Install npm dependencies
-npm install
+echo "Node version: $(node -v)"
+echo "NPM version: $(npm -v)"
 
-# Build the web assets (if applicable) and sync capacitor
-npx cap copy ios
+echo "Installing project dependencies..."
+npm install --no-audit --no-fund
+
+echo "Syncing Capacitor plugins..."
+npx cap sync ios
+
+echo "Finished ci_post_clone.sh successfully!"
