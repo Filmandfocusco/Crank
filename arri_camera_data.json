@@ -1073,7 +1073,488 @@
       }
     ]
   },
-  "Sony": {},
+  "Sony": {
+    "Sony VENICE": [
+      {
+        "sensor_mode": "6K 1.85:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "6K 3:2",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "5.7K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "RAW-SQ": 110,
+          "X-OCN LT": 110,
+          "X-OCN ST": 110,
+          "X-OCN XT": 110,
+          "XAVC C300": 59.94,
+          "XAVC C480": 29.97
+        }
+      },
+      {
+        "sensor_mode": "4K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 120,
+          "X-OCN ST": 120,
+          "X-OCN XT": 120,
+          "XAVC C300": 59.94,
+          "XAVC C480": 29.97
+        }
+      },
+      {
+        "sensor_mode": "4K 4:3",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 75,
+          "X-OCN ST": 75,
+          "X-OCN XT": 75,
+          "XAVC C300": 59.94,
+          "XAVC C480": 29.97
+        }
+      },
+      {
+        "sensor_mode": "4K 6:5",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97,
+          "XAVC C300": 59.94,
+          "XAVC C480": 29.97
+        }
+      },
+      {
+        "sensor_mode": "3.8K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "RAW-SQ": 59.94,
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 59.94,
+          "XAVC C300": 59.94,
+          "XAVC C480": 29.97
+        }
+      },
+      {
+        "sensor_mode": "2K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "MPEG50": 29.97,
+          "ProRes 422": 59.94,
+          "ProRes 422HQ": 59.94,
+          "ProRes 4444": 29.97,
+          "ProRes Proxy": 59.94
+        }
+      }
+    ],
+    "Sony Venice 2 6K": [
+      {
+        "sensor_mode": "8.6K 3:2",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "8.2K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "7.6K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "6K 1.85:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "6K 3:2",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "5.8K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "5.8K 6:5",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 47.95,
+          "X-OCN ST": 47.95,
+          "X-OCN XT": 47.95
+        }
+      },
+      {
+        "sensor_mode": "5.7K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "5.4K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "ProRes 422HQ": 90,
+          "ProRes 4444": 59.94,
+          "ProRes 4444XQ": 59.94,
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "4K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 120,
+          "X-OCN ST": 120,
+          "X-OCN XT": 120
+        }
+      },
+      {
+        "sensor_mode": "4K 4:3",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 75,
+          "X-OCN ST": 75,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "4K 6:5",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "3.8K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "ProRes 422HQ": 90,
+          "ProRes 4444": 59.94,
+          "ProRes 4444XQ": 59.94,
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "2K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "MPEG50": 29.97,
+          "ProRes 422": 59.94,
+          "ProRes 422HQ": 59.94,
+          "ProRes 4444": 29.97,
+          "ProRes Proxy": 59.94
+        }
+      }
+    ],
+    "Sony Venice 2 8K": [
+      {
+        "sensor_mode": "8.6K 3:2",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "8.6K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 47.95,
+          "X-OCN ST": 47.95,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "8.2K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "8.2K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "8.1K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "7.6K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "6K 1.85:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 72,
+          "X-OCN ST": 72,
+          "X-OCN XT": 50
+        }
+      },
+      {
+        "sensor_mode": "6K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "6K 3:2",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "5.8K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "5.8K 6:5",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 47.95,
+          "X-OCN ST": 47.95,
+          "X-OCN XT": 47.95
+        }
+      },
+      {
+        "sensor_mode": "5.8K 4:3",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "5.7K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "5.5K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 59.94,
+          "X-OCN ST": 59.94,
+          "X-OCN XT": 59.94
+        }
+      },
+      {
+        "sensor_mode": "5.4K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 90,
+          "X-OCN ST": 90,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "ProRes 422HQ": 90,
+          "ProRes 4444": 59.94,
+          "ProRes 4444XQ": 59.94
+        }
+      },
+      {
+        "sensor_mode": "4K 2.39:1",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 120,
+          "X-OCN ST": 120,
+          "X-OCN XT": 120
+        }
+      },
+      {
+        "sensor_mode": "4K 4:3",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 75,
+          "X-OCN ST": 75,
+          "X-OCN XT": 75
+        }
+      },
+      {
+        "sensor_mode": "4K 6:5",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "X-OCN LT": 29.97,
+          "X-OCN ST": 29.97,
+          "X-OCN XT": 29.97
+        }
+      },
+      {
+        "sensor_mode": "3.8K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "ProRes 422HQ": 90,
+          "ProRes 4444": 59.94,
+          "ProRes 4444XQ": 59.94
+        }
+      },
+      {
+        "sensor_mode": "2K 16:9",
+        "resolution": "",
+        "max_fps_by_codec": {
+          "MPEG50": 29.97,
+          "ProRes 422": 59.94,
+          "ProRes 422HQ": 59.94,
+          "ProRes 4444": 29.97,
+          "ProRes Proxy": 59.94
+        }
+      }
+    ]
+  },
   "RED": {
     "RED Monstro 8K VV": [
       {
@@ -1123,6 +1604,318 @@
         "resolution": "2.1K (2048 x 1150)",
         "max_fps_by_codec": {
           "REDCODE RAW": 300
+        }
+      }
+    ],
+    "KOMODO 6K": [
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "6144 × 3240",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 40
+        }
+      },
+      {
+        "sensor_mode": "6K 2.4:1",
+        "resolution": "6144 × 2592",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 50
+        }
+      },
+      {
+        "sensor_mode": "5K 17:9",
+        "resolution": "5120 × 2700",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 48
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "4096 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 60,
+          "ProRes 422 HQ": 60,
+          "ProRes 422": 60
+        }
+      },
+      {
+        "sensor_mode": "2K 17:9",
+        "resolution": "2048 × 1080",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 120,
+          "ProRes 422 HQ": 120,
+          "ProRes 422": 120
+        }
+      }
+    ],
+    "KOMODO-X": [
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "6144 × 3240",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 80,
+          "ProRes 4444": 80
+        }
+      },
+      {
+        "sensor_mode": "6K 2:1",
+        "resolution": "6144 × 3072",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 80
+        }
+      },
+      {
+        "sensor_mode": "6K 2.4:1",
+        "resolution": "6144 × 2592",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 96
+        }
+      },
+      {
+        "sensor_mode": "6K 16:9",
+        "resolution": "6144 × 3456",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 80
+        }
+      },
+      {
+        "sensor_mode": "5K 17:9",
+        "resolution": "5120 × 2700",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 96
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "4096 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 120,
+          "ProRes 422 LT": 120
+        }
+      },
+      {
+        "sensor_mode": "4K 16:9",
+        "resolution": "3840 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 120,
+          "ProRes 4444 XQ": 60
+        }
+      },
+      {
+        "sensor_mode": "2K 17:9",
+        "resolution": "2048 × 1080",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 240
+        }
+      }
+    ],
+    "V-RAPTOR 8K S35": [
+      {
+        "sensor_mode": "8K 17:9",
+        "resolution": "8192 × 4320",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 120
+        }
+      },
+      {
+        "sensor_mode": "8K 2.4:1",
+        "resolution": "8192 × 3456",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 150
+        }
+      },
+      {
+        "sensor_mode": "7K 17:9",
+        "resolution": "7168 × 3780",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 140
+        }
+      },
+      {
+        "sensor_mode": "7K 2.4:1",
+        "resolution": "7168 × 3024",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 175
+        }
+      },
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "6144 × 3240",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 160
+        }
+      },
+      {
+        "sensor_mode": "6K 2.4:1",
+        "resolution": "6144 × 2592",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 200
+        }
+      },
+      {
+        "sensor_mode": "5K 17:9",
+        "resolution": "5120 × 2700",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 192
+        }
+      },
+      {
+        "sensor_mode": "5K 2.4:1",
+        "resolution": "5120 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 240
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "4096 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 240,
+          "ProRes 4444 XQ": 120,
+          "ProRes 4444": 120,
+          "ProRes 422 HQ": 120,
+          "ProRes 422": 120,
+          "ProRes 422 LT": 120
+        }
+      },
+      {
+        "sensor_mode": "4K 2.4:1",
+        "resolution": "4096 × 1728",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 300
+        }
+      },
+      {
+        "sensor_mode": "3K 17:9",
+        "resolution": "3072 × 1620",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 320
+        }
+      },
+      {
+        "sensor_mode": "3K 2.4:1",
+        "resolution": "3072 × 1296",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 400
+        }
+      },
+      {
+        "sensor_mode": "2K 17:9",
+        "resolution": "2048 × 1080",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 480
+        }
+      },
+      {
+        "sensor_mode": "2K 2.4:1",
+        "resolution": "2048 × 864",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 600
+        }
+      }
+    ],
+    "V-RAPTOR [X] 8K VV": [
+      {
+        "sensor_mode": "8K 17:9",
+        "resolution": "8192 × 4320",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 120
+        }
+      },
+      {
+        "sensor_mode": "8K 2.4:1",
+        "resolution": "8192 × 3456",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 150
+        }
+      },
+      {
+        "sensor_mode": "7K 17:9",
+        "resolution": "7168 × 3780",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 140
+        }
+      },
+      {
+        "sensor_mode": "7K 2.4:1",
+        "resolution": "7168 × 3024",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 175
+        }
+      },
+      {
+        "sensor_mode": "6K 17:9",
+        "resolution": "6144 × 3240",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 160
+        }
+      },
+      {
+        "sensor_mode": "6K 2.4:1",
+        "resolution": "6144 × 2592",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 200
+        }
+      },
+      {
+        "sensor_mode": "5K 17:9",
+        "resolution": "5120 × 2700",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 192
+        }
+      },
+      {
+        "sensor_mode": "5K 2.4:1",
+        "resolution": "5120 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 240
+        }
+      },
+      {
+        "sensor_mode": "4K 17:9",
+        "resolution": "4096 × 2160",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 240,
+          "ProRes 4444 XQ": 120,
+          "ProRes 4444": 120,
+          "ProRes 422 HQ": 120,
+          "ProRes 422": 120,
+          "ProRes 422 LT": 120
+        }
+      },
+      {
+        "sensor_mode": "4K 2.4:1",
+        "resolution": "4096 × 1728",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 300
+        }
+      },
+      {
+        "sensor_mode": "3K 17:9",
+        "resolution": "3072 × 1620",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 320
+        }
+      },
+      {
+        "sensor_mode": "3K 2.4:1",
+        "resolution": "3072 × 1296",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 400
+        }
+      },
+      {
+        "sensor_mode": "2K 17:9",
+        "resolution": "2048 × 1080",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 480
+        }
+      },
+      {
+        "sensor_mode": "2K 2.4:1",
+        "resolution": "2048 × 864",
+        "max_fps_by_codec": {
+          "REDCODE RAW": 600
         }
       }
     ]
