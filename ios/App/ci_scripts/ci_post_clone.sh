@@ -3,24 +3,24 @@ set -e
 
 echo "Starting ci_post_clone.sh..."
 
-# Navigate to the root of the cloned repository explicitly
-cd $CI_WORKSPACE
-echo "Workspace is: $(pwd)"
+# The repository root is located at $CI_PRIMARY_REPOSITORY_PATH
+cd "$CI_PRIMARY_REPOSITORY_PATH"
+echo "Root workspace is: $(pwd)"
 
-# Optimize Homebrew to install Node faster
-export HOMEBREW_NO_INSTALL_CLEANUP=TRUE
-export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=TRUE
+# Ensure Node and NPM are in the path (standard Xcode Cloud paths)
+export PATH=$PATH:/usr/local/bin
 
-echo "Installing Node.js..."
-brew install node
-
+echo "Checking environment..."
 echo "Node version: $(node -v)"
 echo "NPM version: $(npm -v)"
 
 echo "Installing project dependencies..."
+# Use --no-audit and --no-fund to speed up and avoid exit code noise
 npm install --no-audit --no-fund
 
 echo "Syncing Capacitor plugins..."
+# Syncing ensures native dependencies are mapped correctly
 npx cap sync ios
 
 echo "Finished ci_post_clone.sh successfully!"
+
