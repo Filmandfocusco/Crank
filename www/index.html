@@ -2921,6 +2921,43 @@
       border-right: 10px solid transparent;
       border-top: 10px solid var(--accent);
     }
+    
+    /* Tablet / iPad Adjustments */
+    @media(min-width: 768px) {
+      .main {
+        max-width: 840px;
+        padding: 40px 32px;
+      }
+      .results-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .card {
+        padding: 24px;
+        min-height: 120px;
+      }
+      .card-fps {
+        font-size: 42px;
+      }
+      .exp-grid {
+        gap: 20px;
+      }
+      .custom-input {
+        width: 140px;
+        font-size: 16px;
+      }
+      .stepper-val {
+        font-size: 48px;
+      }
+      .stepper-btn {
+        width: 80px;
+        height: 80px;
+        font-size: 36px;
+      }
+      .stepper-row {
+        height: 80px;
+      }
+    }
   </style>
 </head>
 
