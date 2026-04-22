@@ -491,6 +491,79 @@
       font-style: italic;
     }
 
+    /* Technical Specs Card */
+    .specs-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .spec-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Shutter Visualizer */
+    .shutter-viz-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      background: rgba(0,0,0,0.2);
+      border-radius: var(--radius);
+      margin-top: 10px;
+    }
+
+    .shutter-canvas {
+      width: 100px;
+      height: 100px;
+    }
+
+    /* Data Rate Result Group */
+    .data-rate-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .data-rate-val {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .data-rate-unit {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
     /* Mode Tabs (segmented control) */
     .mode-tabs {
       display: flex;
@@ -3350,6 +3423,13 @@
         </div>
       </div>
 
+      <!-- Shutter Viz -->
+      <div class="shutter-viz-wrap">
+        <p class="exp-section-label" style="margin-bottom: 6px;">Visual Shutter Angle</p>
+        <canvas id="shutter-canvas" class="shutter-canvas" width="100" height="100"></canvas>
+        <p style="font-size: 10px; color: var(--text-dim); margin-top: 6px;">Effective Motion Blur Geometry</p>
+      </div>
+
     </div>
   </div>
 
@@ -4389,6 +4469,7 @@
       renderExpBaseSection();
       renderExpAimSection();
       renderExpOutput();
+      drawShutterViz();
     }
 
     // ══════════════════════════════════════════════════════
@@ -4681,15 +4762,123 @@
         return '<option value="' + i + '"' + (i === si ? ' selected' : '') + '>' + label + '</option>';
       }).join('');
     }
+
+    function projGetDBCam(model) {
+      if (!model || model === '__custom__') return null;
+      for (const brand of Object.values(CAMERA_DB)) {
+        const found = brand.cameras.find(c => c.name === model);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function projExportSetup(idx) {
+      const cam = projCameras[idx];
+      const dbCam = projGetDBCam(cam.model);
+      const mode = dbCam ? dbCam.modes[cam.sensorModeIdx || 0] : null;
+      
+      let text = "🎞 CRANK - CAMERA SETUP CARD\n";
+      text += "----------------------------\n";
+      text += "Job: " + (projJobName || "Untitled Project") + "\n";
+      text += "Camera: " + (cam.model === "__custom__" ? cam.customName : cam.model) + "\n";
+      if (mode) text += "Mode: " + mode.sensor_mode + " " + mode.resolution + "\n";
+      text += "Codec: " + (cam.codec || "—") + "\n";
+      text += "Base: " + formatFPS(projBaseFPS) + " fps / " + projBaseAngle + "° / ISO " + projBaseISO + "\n";
+      
+      const storage = projGetStorageEstimate(cam);
+      if (storage) text += "Est. Data: " + storage.toFixed(2) + " GB/min\n";
+      
+      if (navigator.share) {
+        navigator.share({ title: 'Crank Camera Setup', text: text }).catch(() => {});
+      } else {
+        const tempInp = document.createElement('textarea');
+        tempInp.value = text;
+        document.body.appendChild(tempInp);
+        tempInp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInp);
+        showToast('Setup card copied to clipboard');
+      }
+    }
+
+    function drawShutterViz() {
+      const canvas = document.getElementById('shutter-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      // Get the current active angle from the UI
+      const selVal = document.getElementById('exp-aim-angle-select').value;
+      const angle = parseFloat(selVal === 'custom' ? 
+                               document.getElementById('exp-aim-angle-custom').value : 
+                               selVal) || 180;
+      
+      const cx = canvas.width / 2, cy = canvas.height / 2, r = (canvas.width / 2) - 10;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Outer border track
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1; ctx.stroke();
+      
+      // Shutter opening (Pizza slice)
+      const start = -Math.PI / 2; // top center
+      const end = start + (angle * Math.PI / 180);
+      
+      // Shadow glow
+      ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(232, 160, 32, 0.4)';
+      
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, end);
+      ctx.lineTo(cx, cy);
+      ctx.fillStyle = 'rgba(232, 160, 32, 0.15)'; ctx.fill();
+      ctx.strokeStyle = '#E8A020'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.stroke();
+      
+      ctx.shadowBlur = 0; // reset
+      
+      // Center spindle dot
+      ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFFFFF'; ctx.fill();
+    }
+    const DATA_RATE_MAP = {
+      "ProRes 4444 XQ": 3.4, "ProRes 4444": 2.2, "ProRes 422 HQ": 1.5, "ProRes 422": 1.0, "ProRes 422 LT": 0.7, "ARRIRAW": 6.0
+    };
+
+    function projGetStorageEstimate(cam) {
+      if (!cam.codec || !DATA_RATE_MAP[cam.codec]) return null;
+      const dbCam = projGetDBCam(cam.model);
+      if (!dbCam) return null;
+      const mode = dbCam.modes[cam.sensorModeIdx || 0];
+      if (!mode) return null;
+
+      // Base multiplier: 1080p 24fps target
+      const res = mode.resolution.toLowerCase();
+      let resMult = 1.0;
+      if (res.includes("4k") || res.includes("3.8k") || res.includes("uhd")) resMult = 4.0;
+      else if (res.includes("3.2k")) resMult = 2.8;
+      else if (res.includes("2.8k")) resMult = 2.1;
+      else if (res.includes("2k")) resMult = 1.1;
+
+      const rateMbps = DATA_RATE_MAP[cam.codec] * resMult * (projBaseFPS / 24);
+      return (rateMbps * 60) / 1024; // GB per min
+    }
+
     function projRenderResults(cam, container) {
       const mfps = projGetCamMaxFPS(cam), exc = mfps != null && mfps < projBaseFPS;
+      const gbMin = projGetStorageEstimate(cam);
+      
       let h = '<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">';
       h += '<div class="proj-result-item"><div class="proj-result-label">Max Frame Rate</div>';
-      if (mfps != null && (cam.codec || cam.model === '__custom__')) {
+      if (mfps != null && (cam.codec || cam.model === "__custom__")) {
         h += '<div class="proj-result-value' + (exc ? ' warn' : '') + '">' + mfps + '<span style="font-size:14px;font-weight:400;margin-left:6px">fps max</span></div>';
         if (exc) h += '<div class="proj-result-warn">\u26a0 Exceeds base FPS</div>';
         const ms = projAchievableMultiples(mfps); if (ms) h += '<div class="proj-result-sub">' + ms + '</div>';
-        h += '<div style="font-size:11px;color:var(--text-dim);margin-top:8px;line-height:1.4">Note: Max FPS may be constrained by specific media write speeds. Data rates vary by codec \u2014 check manufacturer calculators.</div>';
+        
+        if (gbMin) {
+          h += '<div class="data-rate-wrap">';
+          h += '<div style="flex:1"><p class="spec-label">Est. Data Rate</p><span class="data-rate-val">' + gbMin.toFixed(2) + '</span><span class="data-rate-unit"> GB/min</span></div>';
+          h += '</div>';
+        }
+
+        h += '<button class="chip" style="margin-top:16px; width:100%; justify-content:center; border:1px solid var(--accent); color:var(--accent)" onclick="projExportSetup(' + projActiveCamIdx + ')">📤 Export Setup Card</button>';
+        h += '<div style="font-size:11px;color:var(--text-dim);margin-top:12px;line-height:1.4">Note: Technical reference only. Data rates are averages for production planning. Check official ARRI tools for final safety.</div>';
       } else {
         h += '<div class="proj-result-value" style="font-size:15px;color:var(--text-dim)">Select codec &amp; sensor mode</div>';
       }
@@ -4761,6 +4950,29 @@
       const tbb = document.createElement('button'); tbb.className = 'proj-unit-btn' + (cam.mediaTB ? ' active' : ''); tbb.textContent = 'TB';
       gbb.onclick = () => projOnMediaUnit(idx, false, gbb, tbb); tbb.onclick = () => projOnMediaUnit(idx, true, gbb, tbb);
       ut.appendChild(gbb); ut.appendChild(tbb); mer.appendChild(mei); mer.appendChild(ut); mew.appendChild(mer); inner.appendChild(mew);
+
+      // Technical Specs Panel
+      if (dbCam) {
+        const sw = document.createElement('div'); sw.style.marginTop = '18px';
+        const sla = document.createElement('label'); sla.className = 'proj-field-label'; sla.textContent = 'Technical Reference'; sw.appendChild(sla);
+        const sc = document.createElement('div'); sc.className = 'specs-card';
+        
+        const items = [
+          { l: 'Sensor Size', v: dbCam.sensor_size || 'ALEV 3 S35' },
+          { l: 'Dynamic Range', v: dbCam.dynamic_range || '14+ Stops' },
+          { l: 'Base ISO', v: dbCam.base_iso || '800' },
+          { l: 'Mount', v: dbCam.mount || 'PL' }
+        ];
+        
+        items.forEach(it => {
+          const id = document.createElement('div'); id.className = 'spec-item';
+          const il = document.createElement('span'); il.className = 'spec-label'; il.textContent = it.l;
+          const iv = document.createElement('span'); iv.className = 'spec-val'; iv.textContent = it.v;
+          id.appendChild(il); id.appendChild(iv); sc.appendChild(id);
+        });
+        sw.appendChild(sc); inner.appendChild(sw);
+      }
+
       block.appendChild(inner);
 
       // Results (always visible at bottom)
@@ -5077,6 +5289,10 @@
     "cameras": [
       {
         "name": "ALEXA Classic",
+        "sensor_size": "28.25 x 18.17 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "PL",
         "sensor": "ALEV 3",
         "codecs": [
           "ProRes 422",
@@ -5115,6 +5331,10 @@
       },
       {
         "name": "ALEXA XT",
+        "sensor_size": "28.17 x 18.13 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "PL",
         "sensor": "ALEV 3",
         "codecs": [
           "ARRIRAW",
@@ -5196,6 +5416,10 @@
       },
       {
         "name": "ALEXA SXT",
+        "sensor_size": "28.25 x 18.17 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "PL",
         "sensor": "ALEV 3",
         "codecs": [
           "ARRIRAW",
@@ -5334,6 +5558,10 @@
       },
       {
         "name": "ALEXA LF",
+        "sensor_size": "36.70 x 25.54 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "LPL (PL via Adapter)",
         "sensor": "ALEV 3 A2X",
         "codecs": [
           "ARRIRAW",
@@ -5418,6 +5646,10 @@
       },
       {
         "name": "ARRI ALEXA Mini",
+        "sensor_size": "28.25 x 18.17 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "PL",
         "sensor": "ALEV 3",
         "codecs": [
           "ARRIRAW",
@@ -5546,6 +5778,10 @@
       },
       {
         "name": "ALEXA Mini LF",
+        "sensor_size": "36.70 x 25.54 mm",
+        "dynamic_range": "14+ Stops",
+        "base_iso": "800",
+        "mount": "LPL (PL via Adapter)",
         "sensor": "ALEV 3 A2X",
         "codecs": [
           "ARRIRAW",
@@ -5692,6 +5928,10 @@
       },
       {
         "name": "ALEXA 35",
+        "sensor_size": "27.99 x 19.22 mm",
+        "dynamic_range": "17 Stops",
+        "base_iso": "800",
+        "mount": "LPL (PL via Adapter)",
         "sensor": "ALEV 4",
         "codecs": [
           "ARRIRAW",
